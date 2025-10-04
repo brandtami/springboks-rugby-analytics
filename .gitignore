@@ -1,0 +1,12 @@
+# notebooks caches
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# data & artifacts (keep folders but not files)
+data/*
+!data/.gitkeep
+figures/*
+!figures/.gitkeep
+reports/*
+!reports/.gitkeep
