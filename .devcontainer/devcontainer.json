@@ -1,0 +1,16 @@
+{
+  "name": "springboks",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "jupyter.notebookFileRoot": "/workspaces/${localWorkspaceFolderBasename}"
+      }
+    }
+  },
+  "postCreateCommand": "python -m pip install -U pip && pip install -r requirements.txt && mkdir -p data/bronze data/silver data/gold figures reports"
+}
