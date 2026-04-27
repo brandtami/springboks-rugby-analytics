@@ -13,7 +13,7 @@ import numpy as np
 
 # ## Silver cleaning
 
-# In[ ]:
+# In[2]:
 
 
 BRONZE_PATH = Path("../data/bronze/bronze_results.parquet")
