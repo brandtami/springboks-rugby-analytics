@@ -13,7 +13,7 @@ import kagglehub
 
 # ## Bronze ingestion
 
-# In[ ]:
+# In[2]:
 
 
 DATASET_ID = "lylebegbie/international-rugby-union-results-from-18712022"

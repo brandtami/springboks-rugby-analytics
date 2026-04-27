@@ -3,7 +3,7 @@
 
 # ## Setup
 
-# In[21]:
+# In[43]:
 
 
 from pathlib import Path
@@ -56,7 +56,7 @@ mpl.rcParams.update({
 
 # ## Load data
 
-# In[22]:
+# In[44]:
 
 
 train = pd.read_parquet(GOLD_DIR / "train.parquet")
@@ -68,7 +68,7 @@ print(f"test: {test.shape}")
 
 # ## Define features
 
-# In[23]:
+# In[45]:
 
 
 features_num = [
@@ -96,13 +96,13 @@ y_test = test[target].astype(int).copy()
 
 # ## Model pipeline
 
-# In[24]:
+# In[46]:
 
 
 preprocessor = ColumnTransformer(
     transformers=[
         ("num", StandardScaler(), features_num),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), features_cat),
+        ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), features_cat),
     ]
 )
 
@@ -116,7 +116,7 @@ model = Pipeline(
 
 # ## Training
 
-# In[25]:
+# In[47]:
 
 
 model.fit(X_train, y_train)
@@ -124,7 +124,7 @@ model.fit(X_train, y_train)
 
 # ## Evaluation
 
-# In[26]:
+# In[48]:
 
 
 prob_test = model.predict_proba(X_test)[:, 1]
@@ -155,7 +155,7 @@ print(classification_report(y_test, pred_test, digits=3))
 
 # ### Calibration Curve
 
-# In[27]:
+# In[49]:
 
 
 frac_pos, mean_pred = calibration_curve(
@@ -199,7 +199,7 @@ plt.show()
 
 # ### ROC Curve
 
-# In[28]:
+# In[50]:
 
 
 from sklearn.metrics import roc_curve, auc
@@ -240,7 +240,7 @@ plt.show()
 
 # ## Model interpretation
 
-# In[29]:
+# In[51]:
 
 
 feature_names = model.named_steps["preprocessor"].get_feature_names_out()
@@ -261,7 +261,7 @@ coef_df.head(15)
 
 # ## Save outputs
 
-# In[30]:
+# In[52]:
 
 
 with open(REPORT_DIR / "model_metrics.txt", "w", encoding="utf-8") as file:

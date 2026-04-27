@@ -3,14 +3,15 @@
 
 # ## Setup
 
-# In[63]:
+# In[77]:
 
 
+from pathlib import Path
+import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.colors import LinearSegmentedColormap
-
 PRIMARY = "#075020"
 SECONDARY = "#8A7A2F"
 
@@ -34,7 +35,7 @@ bok_cmap = LinearSegmentedColormap.from_list("bok_cmap", [SECONDARY, PRIMARY])
 
 # ## Load Gold
 
-# In[64]:
+# In[78]:
 
 
 GOLD_PATH = Path("../data/gold/gold_results.parquet")
@@ -48,7 +49,7 @@ df_gold = pd.read_parquet(GOLD_PATH)
 # 
 # We analyse the evolution of the Springboks' win rate over time to identify long-term performance trends.
 
-# In[ ]:
+# In[79]:
 
 
 annual = df_gold.groupby(df_gold["date"].dt.year)["win"].mean().reset_index()
@@ -88,7 +89,7 @@ plt.show()
 # 
 # We examine the distribution of score margins to understand typical match outcomes and variability.
 
-# In[ ]:
+# In[80]:
 
 
 fig, ax = plt.subplots(figsize=FIGSIZE)
@@ -115,7 +116,7 @@ plt.show()
 # 
 # We analyse recent team performance (last three matches) and its relationship with match outcomes.
 
-# In[67]:
+# In[81]:
 
 
 fig, ax = plt.subplots(figsize=FIGSIZE)
@@ -146,7 +147,7 @@ plt.show()
 # 
 # We analyse whether playing at home is associated with a higher win probability.
 
-# In[68]:
+# In[82]:
 
 
 home_summary = (
@@ -178,7 +179,7 @@ plt.show()
 # 
 # We analyse how the win probability varies across different opponents.
 
-# In[ ]:
+# In[83]:
 
 
 opponent_summary = (

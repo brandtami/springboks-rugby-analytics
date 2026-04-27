@@ -13,7 +13,7 @@ import numpy as np
 
 # ## Silver cleaning
 
-# In[2]:
+# In[ ]:
 
 
 BRONZE_PATH = Path("../data/bronze/bronze_results.parquet")
@@ -67,7 +67,7 @@ df_sa["tournament"] = df_sa["tournament"].fillna("Unknown")
 
 # ## Save Silver
 
-# In[ ]:
+# In[4]:
 
 
 columns = [

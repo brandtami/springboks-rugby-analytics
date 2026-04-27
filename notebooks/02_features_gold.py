@@ -3,7 +3,7 @@
 
 # ## Setup
 
-# In[11]:
+# In[16]:
 
 
 from pathlib import Path
@@ -13,7 +13,7 @@ import numpy as np
 
 # ## Load Silver
 
-# In[12]:
+# In[17]:
 
 
 SILVER_PATH = Path("../data/silver/springboks_matches.parquet")
@@ -25,7 +25,7 @@ df = pd.read_parquet(SILVER_PATH).sort_values("date").reset_index(drop=True)
 
 # ## Lagged features
 
-# In[13]:
+# In[18]:
 
 
 df["rolling_form_3"] = df["win"].shift(1).rolling(3, min_periods=1).mean()
@@ -37,7 +37,7 @@ df["days_since_prev"] = df["date"].diff().dt.days
 
 # ## Head-to-head feature
 
-# In[14]:
+# In[19]:
 
 
 prev_wins = {}
@@ -60,7 +60,7 @@ df["h2h_winrate"] = h2h_values
 
 # ## Save Gold and split
 
-# In[ ]:
+# In[20]:
 
 
 # handle missing values from lagged features explicitly
