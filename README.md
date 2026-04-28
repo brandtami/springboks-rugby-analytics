@@ -1,7 +1,7 @@
 # Predicting Rugby Match Outcomes: Springboks (1992–2022)
 _Reproducible data pipeline and machine learning analysis for international rugby match prediction._
 
-## Overview
+# Overview
 
 This project investigates the prediction of international rugby match outcomes for the South African national team (Springboks) over the period 1992–2022. The objective is to develop a reproducible data pipeline and a baseline statistical model to estimate the probability of winning a match.
 
@@ -9,7 +9,7 @@ The analysis follows a structured data science workflow, including data ingestio
 
 ---
 
-### Quick Start
+## Quick Start
 
 ```bash
 git clone https://github.com/brandtami/springboks-rugby-analytics.git
@@ -22,7 +22,7 @@ python run_pipeline.py
 
 
 
-### Data
+## Data
 
 The dataset is sourced from Kaggle:
 
@@ -37,7 +37,7 @@ The full pipeline is deterministic and reproducible once the raw dataset is prov
 
 
 
-### Project Structure
+## Project Structure
 
 ```text
 springboks-rugby-analytics/
@@ -72,7 +72,7 @@ springboks-rugby-analytics/
 ```
 
 
-### Pipeline
+## Pipeline
 The project follows a Bronze–Silver–Gold architecture.
 
 Bronze:
@@ -93,7 +93,7 @@ Gold:
 
 
 
-### Reproducibility
+## Reproducibility
 
 Install dependencies:
 ```bash
@@ -115,7 +115,7 @@ Pipeline steps:
 
 
 
-### Notes
+## Notes
 
 - Data excluded via `.gitignore`  
 - Results stored in `figures/` and `reports/`  
