@@ -123,7 +123,7 @@ Pipeline steps:
 
 ---
 
-## Key Findings
+# Key Findings
 
 - Logistic regression provides a strong baseline (ROC–AUC ~0.77)
 - Elo rating improves predictive performance, especially recall
