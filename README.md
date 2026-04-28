@@ -23,36 +23,37 @@ The raw data is not included in this repository. To reproduce the analysis:
 
 ## Project Structure
 
+```text
 springboks-rugby-analytics/
 │
 ├── data/
-│ ├── bronze/
-│ ├── silver/
-│ └── gold/
+│   ├── bronze/        # raw data (not tracked)
+│   ├── silver/        # cleaned data (not tracked)
+│   └── gold/          # modelling dataset (not tracked)
 │
-├── notebooks/
-│ ├── 00_data_ingestion.ipynb
-│ ├── 01_data_cleaning.ipynb
-│ ├── 02_features_gold.ipynb
-│ ├── 03_analysis_eda.ipynb
-│ ├── 04_model_logistic_regression.ipynb
-│ └── 05_model_xgboost_comparison.ipynb
+├── notebooks/         # interactive analysis
+│   ├── 00_data_ingestion.ipynb
+│   ├── 01_data_cleaning.ipynb
+│   ├── 02_features_gold.ipynb
+│   ├── 03_analysis_eda.ipynb
+│   ├── 04_model_logistic_regression.ipynb
+│   └── 05_model_xgboost_comparison.ipynb
 │
-├── scripts/
-│ ├── 00_data_ingestion.py
-│ ├── 01_data_cleaning.py
-│ ├── 02_features_gold.py
-│ ├── 03_analysis_eda.py
-│ ├── 04_model_logistic_regression.py
-│ └── 05_model_xgboost_comparison.py
+├── scripts/           # executable pipeline scripts
+│   ├── 00_data_ingestion.py
+│   ├── 01_data_cleaning.py
+│   ├── 02_features_gold.py
+│   ├── 03_analysis_eda.py
+│   ├── 04_model_logistic_regression.py
+│   └── 05_model_xgboost_comparison.py
 │
-├── figures/
-├── reports/
+├── figures/           # generated plots
+├── reports/           # model outputs
 │
 ├── run_pipeline.py
 ├── README.md
 └── requirements.txt
-
+```
 ---
 
 ## Pipeline
