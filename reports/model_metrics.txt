@@ -1,22 +1,31 @@
-Logistic regression baseline
-============================
+Logistic regression model comparison
+====================================
 
 Train period: 1992-08-15 00:00:00 to 2016-11-26 00:00:00
 Test period: 2017-06-10 00:00:00 to 2022-11-26 00:00:00
 
 baseline_accuracy: 0.5789
+
+Logistic regression:
 accuracy: 0.6842
 precision: 0.7027
 recall: 0.7879
 roc_auc: 0.7702
 brier_score: 0.1957
 
-Classification report:
+Logistic regression + Elo:
+accuracy: 0.7018
+precision: 0.7000
+recall: 0.8485
+roc_auc: 0.7677
+brier_score: 0.1975
+
+Classification report: Logistic regression + Elo
               precision    recall  f1-score   support
 
-           0      0.650     0.542     0.591        24
-           1      0.703     0.788     0.743        33
+           0      0.706     0.500     0.585        24
+           1      0.700     0.848     0.767        33
 
-    accuracy                          0.684        57
-   macro avg      0.676     0.665     0.667        57
-weighted avg      0.681     0.684     0.679        57
+    accuracy                          0.702        57
+   macro avg      0.703     0.674     0.676        57
+weighted avg      0.702     0.702     0.691        57

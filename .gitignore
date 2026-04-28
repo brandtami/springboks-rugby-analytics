@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 
 # data & artifacts (keep folders but not files)
-data/*
-!data/.gitkeep
 .DS_Store
+
+data/
+.venv/

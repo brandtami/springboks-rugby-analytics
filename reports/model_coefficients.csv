@@ -1,133 +1,134 @@
 feature,coefficient,odds_ratio
-cat__tournament_2009 Tri Nations Series,1.291978781975189,3.6399821652322966
-cat__tournament_1998 Tri Nations Series,1.239094355597519,3.4524853244763514
-cat__tournament_1997 South Africa rugby union tour of Europe,0.9387521035882489,2.556788819134034
-cat__opponent_Italy,0.9193930822669548,2.507767919155276
-num__home,0.8492390197171764,2.3378671040653063
-cat__opponent_Wales,0.8448130070046485,2.3275425397235185
-cat__opponent_Scotland,0.833824250683883,2.3021057571936545
-cat__tournament_1999 Rugby World Cup,0.8230446424530709,2.2774232320095864
-cat__tournament_2005 Tri Nations Series,0.8229558734949648,2.277221076494814
-cat__tournament_1996 South Africa rugby union tour of Argentina and Europe,0.7687942896023,2.1571637703920454
-cat__opponent_Argentina,0.7162784439973688,2.046801731692944
-cat__tournament_2013 end-of-year test,0.6178127348889083,1.854866516831601
-cat__tournament_2012 Autumn International,0.5254467817037731,1.6912142832081922
-cat__tournament_1995 Rugby World Cup Final,0.5127927382707635,1.6699484175729538
-cat__tournament_2010 end-of-year test,0.49020719397495904,1.6326544610809333
-cat__tournament_1996 South Africa tour of Argentina and Europe,0.4588055099521603,1.5821829540180494
-cat__tournament_2010 mid-year test,0.4502506009952115,1.568705255334445
-cat__tournament_2008 Autumn International,0.44099561838461965,1.5542538921846272
-cat__tournament_1993 South Africa tour of Argentina,0.42396504276691893,1.528008177912402
-cat__tournament_2005 end-of-year test,0.4212597571848273,1.5238800657981255
-cat__tournament_2007 Rugby World Cup Pool Stage,0.4197838562995133,1.5216326287650181
-num__rolling_margin_3,0.3951880754483569,1.4846633933978979
-cat__tournament_1999 Rugby World Cup Quarter-final,0.39401795638270426,1.4829271764435858
-cat__tournament_2012 end-of-year test,0.3728363085823388,1.4518466655417759
-"cat__tournament_2000 South Africa tour of Argentina, Great Britain and Ireland",0.3716785344667619,1.4501667277345343
-cat__tournament_2014 Rugby Championship,0.3329708168063926,1.3951065842101704
-cat__tournament_2007 England rugby union tour of South Africa,0.328837868494466,1.3893525795004966
-cat__tournament_2000 end-of-year test,0.31887200744545324,1.3755752502479066
-cat__tournament_2007 Rugby World Cup Final,0.2886453987329383,1.334618387238599
-cat__tournament_2004 Ireland rugby union tour of South Africa,0.27668005501904763,1.3187443778863999
-num__h2h_winrate,0.2743653247938834,1.3156953705916872
-cat__tournament_1995 Rugby World Cup semi-final,0.25999097799425563,1.2969183858078626
-cat__tournament_1998 South Africa tour of Great Britain and Ireland,0.2584212493826728,1.2948841729095661
-cat__tournament_2013 Rugby Championship,0.24635131217298797,1.2793489454602434
-cat__tournament_2007 Rugby World Cup warm-up test,0.244091915307087,1.2764616514622544
-cat__tournament_2004 Autumn Internationals,0.2306669236841045,1.259439680051737
-cat__tournament_2011 Rugby World Cup Pool match,0.21351377729591478,1.238020554726121
-cat__tournament_2003 Scotland rugby union tour of South Africa,0.21265916516433542,1.2369629793136638
-cat__tournament_1998 Ireland rugby union tour of South Africa,0.21183077085598348,1.235938710529748
-cat__tournament_1994 South Africa rugby union tour of Britain and Ireland,0.20413781225431046,1.2264671640147906
-cat__tournament_2015 Rugby World Cup Bronze final,0.19694799896752435,1.2176807184049274
-cat__tournament_2015 Rugby World Cup warm-up match,0.1953206267031731,1.2157007101192217
-cat__tournament_2015 Rugby World Cup,0.19239206195072883,1.2121456600080904
-cat__tournament_2013 Autumn International,0.1899272492599383,1.2091616270541046
-cat__tournament_2008 end-of-year test,0.18918780135553004,1.2082678455160567
-cat__tournament_1994 South Africa tour of Great Britain and Ireland,0.18476453075986946,1.2029351525499516
-cat__tournament_2015 Rugby World Cup Quarter-final,0.1653402618644605,1.1797944894946082
-cat__tournament_2007 Rugby World Cup Semi-finals,0.16360931571116058,1.1777540951771288
-cat__tournament_2007 end-of-year test,0.16078763936045867,1.1744355384481682
-cat__tournament_2001 autumn internationals,0.15577530848130103,1.1685636072578347
-cat__tournament_2004 Tri Nations Series,0.14079074477240627,1.1511837315653624
-cat__tournament_2008 Wales tour of South Africa,0.12277358899220855,1.1306284052495268
-cat__tournament_2006 mid-year rugby test series,0.12266139574728085,1.1305015634954614
-cat__tournament_2014 Wales tour of South Africa,0.11384529284751527,1.1205787499257898
-cat__tournament_2002 Wales tour of South Africa,0.11263382481900483,1.1192220265762407
-cat__tournament_1999 Italy rugby union tour of South Africa,0.09601957816980393,1.1007806150528114
-cat__tournament_2013 South African quadrangular tournament,0.09389007406754928,1.0984389923498468
-cat__tournament_2008 mid-year test,0.09217591583376439,1.0965577069778596
-cat__tournament_1998 South Africa rugby union tour of Britain and Ireland,0.08959561490932799,1.0937319053899093
-cat__tournament_1994 Argentina tour of South Africa,0.08444366888529213,1.0881115479691532
-cat__tournament_Wales tour of South Africa,0.06931622996988057,1.0717750829666988
-cat__tournament_2003 Argentina tour of South Africa,0.0673403707969596,1.0696594970758793
-cat__tournament_1998 England rugby union tour of Australasia and South Africa,0.06024155207430748,1.062093066345951
-cat__tournament_2014 Mid-year Test,0.0561878351556945,1.057796356420471
-cat__tournament_2002 Argentina tour of South Africa and Europe,0.052357797850658576,1.053752705524228
-cat__tournament_1993 South Africa tour of Australia,0.0510662222179492,1.0523925827466658
-cat__tournament_2006 South Africa rugby union tour of Ireland and England,0.04932540706496513,1.0505621554717504
-cat__tournament_2001 Italy rugby union tour,0.04659595343617452,1.0476986045267547
-cat__tournament_Wales tour of Argentina and South Africa,0.045291152253174496,1.0463324576170154
-cat__tournament_South African Quadrangular tournament,0.04451947573272008,1.045525338884223
-cat__tournament_1998 Wales tour of Zimbabwe and South Africa,0.02355963104925724,1.023839351541153
-cat__tournament_2005 Summer International,-0.011602122936414288,0.9884649221529479
-cat__opponent_England,-0.0438254414295886,0.9571210165681869
-cat__tournament_2004 end-of-year test,-0.058506415007861086,0.943172189923247
-cat__tournament_Unknown,-0.067745070440955,0.93449867454872
-num__rolling_form_3,-0.07946227263592404,0.9236128647901158
-cat__tournament_2006 Tri Nations Series,-0.08397198861507915,0.919457010998661
-cat__tournament_2003 Rugby World Cup,-0.10608895341864208,0.8993446447370047
-cat__tournament_1997 Tri Nations Series,-0.12775505049194658,0.8800689251948962
-cat__tournament_2015 Rugby World Cup Semi-final,-0.14477602972182965,0.8652160540918933
-cat__tournament_1992 South Africa rugby union tour of France and England,-0.14701875104545054,0.8632777899034786
-cat__opponent_Ireland,-0.16869122848337958,0.844769703942752
-cat__tournament_2010 Autumn International,-0.1703424603324234,0.8433759443293077
-num__rolling_form_5,-0.17587727384883453,0.8387209100102352
-cat__tournament_2011 Tri Nations Series,-0.18439913340307654,0.8316038167161292
-cat__tournament_2014 end-of-year test,-0.18791016257672916,0.8286891511867391
-cat__tournament_1996 Tri Nations Series,-0.19165106302057675,0.8255948988267662
-cat__tournament_2014 Autumn International,-0.1978237127348703,0.8205144866437836
-cat__tournament_2009 end of year rugby union tests,-0.20416544650478025,0.8153274669482251
-cat__tournament_2009 end-of-year test,-0.21205903686122551,0.8089169402396484
-cat__tournament_2003 Tri Nations Series,-0.21541646663035913,0.8062056125168523
-cat__tournament_2000 Summer International,-0.227574777135107,0.7964628620596337
-cat__tournament_1996 New Zealand tour,-0.23520785555895915,0.7904065421595912
-cat__tournament_2016 Ireland rugby union tour of South Africa,-0.23557535435839003,0.7901161220720705
-num__days_since_prev,-0.24160208811406622,0.7853686228947384
-cat__tournament_2002 end-of-year rugby union internationals,-0.2440921424831723,0.7834154450926025
-cat__tournament_2011 Rugby World Cup Quarter-final,-0.24674504124761173,0.7813398775788181
-cat__tournament_2001 France rugby union tour,-0.26021530435962276,0.7708855929057873
-cat__tournament_2003 Rugby World Cup Pool C,-0.2655928401791982,0.766751254257253
-cat__tournament_2012 England rugby union tour of South Africa,-0.2670222644634002,0.7656560243550709
-cat__tournament_2000 Tri Nations Series,-0.2741378071902427,0.7602273032532727
-cat__tournament_1994 South Africa tour,-0.27594886744084735,0.7588517318002991
-cat__tournament_2002 Tri Nations Series,-0.27957021506855406,0.756108635731566
-cat__tournament_1999 Rugby World Cup Semi-final,-0.2824929292512049,0.7539019725919394
-cat__tournament_2005 Autumn International,-0.293255158099365,0.7458318113887819
-cat__tournament_1994 England rugby union tour of South Africa,-0.3104279453165425,0.7331331481855701
-cat__tournament_2016 Autumn International,-0.32724501572979864,0.7209070878096007
-cat__tournament_2008 Tri Nations Series,-0.33177419349993537,0.7176493544488629
-cat__tournament_2004 Autumn International,-0.36471617054622996,0.6943937122988013
-cat__tournament_2006 end-of-year test,-0.3797419061191171,0.6840379324362476
-cat__tournament_2002 Autumn International,-0.38285431725630925,0.6819122348954086
-cat__tournament_2000 England rugby union tour of South Africa,-0.3914626169803048,0.6760673234603749
-cat__tournament_2005 France rugby union tour,-0.39396852676997257,0.6743752806747751
-cat__tournament_2000 Autumn International,-0.3968821381211418,0.6724132728541601
-cat__tournament_1995 Rugby World Cup Pool match,-0.4245919640570305,0.6540366011321653
-cat__tournament_1992 New Zealand tour,-0.4258585912548116,0.6532087050133834
-cat__tournament_1999 Tri Nations Series,-0.4407272377597417,0.6435682237451072
-cat__tournament_2001 Tri Nations Series,-0.44842405949317693,0.6386338078732797
-cat__tournament_2007 Tri Nations Series,-0.49608386449552644,0.6089105729535043
-cat__tournament_2016 Rugby Championship,-0.5712397456243493,0.5648247654295042
-cat__tournament_2001 Autumn International,-0.6100674426904271,0.5433142252657359
-cat__opponent_France,-0.6207252696557249,0.5375544242671331
-cat__tournament_2006 mid-year test,-0.6249599314049988,0.5352828761220741
-cat__tournament_1992 Australia tour of South Africa,-0.6452897811110816,0.5245105268388387
-cat__tournament_2002 South Africa rugby union tour of Europe,-0.6605940335030324,0.5165443986570346
-cat__tournament_2010 Tri Nations Series,-0.7135657937883222,0.4898942175236217
-cat__tournament_2012 Rugby Championship,-0.7246406155409882,0.48449865895930977
-cat__opponent_Australia,-0.8499951151505053,0.4274170198114405
-cat__tournament_1993 France rugby union tour of South Africa,-0.87480307248948,0.41694411936185183
-cat__tournament_2016 end-of-year test,-1.0288138199728372,0.3574306863531809
-cat__tournament_2015 Rugby Championship,-1.1552283146809736,0.3149856128533576
-cat__opponent_New Zealand,-1.612868395782939,0.19931507880729726
+cat__tournament_1998 Tri Nations Series,1.2966159102048398,3.656900425040155
+cat__tournament_2009 Tri Nations Series,1.2955792847586627,3.6531115531652123
+cat__opponent_Italy,0.9158614959615378,2.4989271404898443
+cat__tournament_1997 South Africa rugby union tour of Europe,0.9134550544905466,2.492920848379711
+cat__opponent_Wales,0.8860237420227113,2.425466172562525
+cat__tournament_1999 Rugby World Cup,0.8490413757586996,2.337405084415667
+num__home,0.8420263362451461,2.3210654739030265
+cat__opponent_Scotland,0.828333408845267,2.2894998986444186
+cat__tournament_2005 Tri Nations Series,0.794898552883424,2.214216359544715
+cat__opponent_Argentina,0.766938973600083,2.1531652603262614
+cat__tournament_1996 South Africa rugby union tour of Argentina and Europe,0.7542025327668896,2.1259154992323492
+cat__tournament_2013 end-of-year test,0.6579656980222879,1.9308603832736673
+cat__tournament_2012 Autumn International,0.5429269688651279,1.721036918661065
+cat__tournament_1995 Rugby World Cup Final,0.532999234671437,1.7040354542432232
+cat__tournament_2010 end-of-year test,0.5211396324261179,1.683945635642013
+cat__tournament_2010 mid-year test,0.4922050919022345,1.6359195986643966
+cat__tournament_2008 Autumn International,0.45114278521907664,1.5701054539398227
+cat__tournament_1999 Rugby World Cup Quarter-final,0.41957844657524895,1.5213201027253545
+num__h2h_winrate,0.4129966286553283,1.5113399306775823
+cat__tournament_2007 Rugby World Cup Pool Stage,0.4102886534730816,1.5072527960805204
+cat__tournament_2005 end-of-year test,0.40603324660025447,1.5008524498699973
+num__rolling_margin_3,0.40100794466533546,1.4933291324530253
+cat__tournament_1996 South Africa tour of Argentina and Europe,0.3891248752419503,1.475688816825761
+cat__tournament_2012 end-of-year test,0.38409385984500455,1.4682832480527308
+"cat__tournament_2000 South Africa tour of Argentina, Great Britain and Ireland",0.36264824764922793,1.4371302563768784
+cat__tournament_1993 South Africa tour of Argentina,0.35109135810347536,1.4206171048683907
+cat__tournament_2014 Rugby Championship,0.3422076889562016,1.4080527041446382
+cat__tournament_2007 England rugby union tour of South Africa,0.30914318995557594,1.3622574181178424
+cat__tournament_2000 end-of-year test,0.30228552654457774,1.352947473982175
+cat__tournament_2007 Rugby World Cup Final,0.27935165186464533,1.322272241623003
+cat__tournament_2004 Ireland rugby union tour of South Africa,0.251761895614015,1.2862897295934217
+cat__tournament_1998 South Africa tour of Great Britain and Ireland,0.2488053515763141,1.2824923736537728
+cat__tournament_1995 Rugby World Cup semi-final,0.2464495693002678,1.2794746567883286
+cat__tournament_2007 Rugby World Cup warm-up test,0.24196659864383485,1.2737516470732262
+cat__tournament_2011 Rugby World Cup Pool match,0.2297050166736796,1.2582287986653005
+cat__tournament_2015 Rugby World Cup warm-up match,0.22299801891883597,1.2498180977424393
+cat__tournament_2015 Rugby World Cup,0.2209648591557264,1.2472795993357704
+cat__tournament_2015 Rugby World Cup Bronze final,0.2166783584270401,1.2419445768820052
+cat__tournament_2013 Autumn International,0.212054410284004,1.2362151460658297
+cat__tournament_2013 Rugby Championship,0.21032455974218162,1.2340785271740708
+cat__tournament_2004 Autumn Internationals,0.21017390861151056,1.233892625852089
+cat__tournament_2003 Scotland rugby union tour of South Africa,0.20131996768346266,1.2230160348317325
+cat__tournament_2008 end-of-year test,0.20102597395994432,1.2226565286426008
+cat__tournament_1998 Ireland rugby union tour of South Africa,0.20095020951450468,1.2225638982578342
+cat__tournament_2015 Rugby World Cup Quarter-final,0.18727120213614865,1.205954298086342
+cat__tournament_1994 South Africa rugby union tour of Britain and Ireland,0.18429668585583717,1.2023724970969558
+cat__tournament_2007 Rugby World Cup Semi-finals,0.16300405865943446,1.1770414668892268
+cat__tournament_1994 South Africa tour of Great Britain and Ireland,0.1587841794732782,1.1720849593884763
+cat__tournament_2007 end-of-year test,0.1540281813034583,1.1665237604753107
+cat__tournament_2001 autumn internationals,0.14885789774356295,1.160508066676543
+cat__tournament_2014 Wales tour of South Africa,0.13417047886805272,1.143587760574462
+cat__tournament_2006 mid-year rugby test series,0.1230624299983179,1.1309550242638464
+cat__tournament_2008 Wales tour of South Africa,0.11922676198223059,1.1266253651254698
+cat__tournament_2002 Wales tour of South Africa,0.10828062903297209,1.1143604233991522
+cat__tournament_1999 Italy rugby union tour of South Africa,0.09666614307249558,1.101492571302227
+cat__tournament_2013 South African quadrangular tournament,0.09519698276181071,1.0998754903004322
+cat__tournament_1998 South Africa rugby union tour of Britain and Ireland,0.09353540238904928,1.0980494762279518
+cat__tournament_2008 mid-year test,0.09309975761101467,1.0975712208898936
+cat__tournament_2004 Tri Nations Series,0.06806666257998502,1.0704366641701148
+cat__tournament_2014 Mid-year Test,0.06443101015373878,1.0665519944482842
+cat__tournament_2003 Argentina tour of South Africa,0.061886614877898746,1.0638417140666558
+cat__tournament_1994 Argentina tour of South Africa,0.06146180678368795,1.0633898814734275
+cat__tournament_1998 England rugby union tour of Australasia and South Africa,0.05939827929649683,1.0611978097014307
+cat__tournament_Wales tour of South Africa,0.05001955886945538,1.051291658251243
+cat__tournament_2002 Argentina tour of South Africa and Europe,0.048687652964403666,1.049892368751519
+cat__tournament_South African Quadrangular tournament,0.04737136535968969,1.0485113175699257
+cat__tournament_2001 Italy rugby union tour,0.0427574594952795,1.0436847283295076
+cat__tournament_Wales tour of Argentina and South Africa,0.040320715106254165,1.0411446314640973
+cat__tournament_1993 South Africa tour of Australia,0.03276435489623447,1.0333070168108
+cat__tournament_1998 Wales tour of Zimbabwe and South Africa,0.019455722493776414,1.0196462184693527
+cat__tournament_2006 South Africa rugby union tour of Ireland and England,0.01211705899466692,1.0121907679651294
+cat__opponent_England,-0.027294873120233105,0.9730742657707319
+cat__tournament_2005 Summer International,-0.041121460682039986,0.9597125555267813
+num__rolling_form_3,-0.07637126719553344,0.9264721739735564
+cat__tournament_Unknown,-0.09490040207528437,0.9094635106358213
+cat__tournament_2006 Tri Nations Series,-0.10074250093929107,0.9041658247633346
+cat__tournament_2004 end-of-year test,-0.11012728933470854,0.895720112422539
+cat__tournament_1997 Tri Nations Series,-0.11466308089705131,0.8916665127856005
+cat__tournament_2003 Rugby World Cup,-0.1156791809062136,0.8907609505825838
+cat__tournament_2014 Autumn International,-0.12593397617882493,0.8816730562859911
+num__rolling_form_5,-0.13113075392569074,0.8771030822217454
+cat__tournament_2014 end-of-year test,-0.1347835463329701,0.8739050511702905
+cat__tournament_2010 Autumn International,-0.14924790623532322,0.8613555530159679
+cat__tournament_2015 Rugby World Cup Semi-final,-0.16149199772256204,0.8508733403626642
+cat__tournament_1996 Tri Nations Series,-0.1659528825289021,0.8470861458061175
+cat__opponent_Ireland,-0.1661942757734287,0.8468816896111527
+cat__tournament_2009 end-of-year test,-0.18163900827109322,0.8339023179267585
+cat__tournament_2009 end of year rugby union tests,-0.18332680872979965,0.8324960443005153
+cat__tournament_1996 New Zealand tour,-0.18842910247029623,0.8282592228899427
+cat__tournament_2011 Tri Nations Series,-0.20381307250922906,0.8156148177699415
+cat__tournament_2000 Summer International,-0.2118251335141783,0.8091061707494158
+num__elo_diff_pre,-0.21541814531253567,0.8062042591549958
+cat__tournament_2016 Ireland rugby union tour of South Africa,-0.2185304355768337,0.803699018029195
+cat__tournament_2000 Tri Nations Series,-0.2245490510923446,0.7988763899792772
+cat__tournament_1992 South Africa rugby union tour of France and England,-0.22479280363934562,0.7986816855552945
+cat__tournament_2001 France rugby union tour,-0.23766971985491897,0.7884630617882066
+cat__tournament_2002 end-of-year rugby union internationals,-0.23782610195917647,0.7883397699160474
+num__days_since_prev,-0.24548573015768294,0.7823244473613635
+cat__tournament_2012 England rugby union tour of South Africa,-0.24623748323796227,0.7817365535514594
+cat__tournament_2003 Tri Nations Series,-0.252915543350001,0.7765334624691903
+cat__tournament_2011 Rugby World Cup Quarter-final,-0.2558484364622306,0.7742593093798269
+cat__tournament_1999 Rugby World Cup Semi-final,-0.25875243565369843,0.7720141225596011
+cat__tournament_1994 South Africa tour,-0.2632807294899947,0.7685261190794641
+cat__tournament_2003 Rugby World Cup Pool C,-0.2820754648813576,0.7542167655066953
+cat__tournament_2005 Autumn International,-0.28625390947954277,0.7510718874619808
+cat__tournament_2002 Tri Nations Series,-0.29510537108218704,0.7444531394999617
+cat__tournament_2016 Autumn International,-0.30129478907463236,0.7398596380583647
+cat__tournament_1994 England rugby union tour of South Africa,-0.308400362217282,0.7346211445747297
+cat__tournament_1999 Tri Nations Series,-0.33752841536277856,0.7135316991563497
+cat__tournament_2008 Tri Nations Series,-0.3444459654010283,0.7086128407630481
+cat__tournament_2000 England rugby union tour of South Africa,-0.36655744667609036,0.6931163181102298
+cat__tournament_2006 end-of-year test,-0.38847143196598716,0.6780925933754505
+cat__tournament_2004 Autumn International,-0.3911911519813913,0.6762508769886555
+cat__tournament_2002 Autumn International,-0.3945871459082596,0.6739582282313737
+cat__tournament_2005 France rugby union tour,-0.3973829623539994,0.6720765963075435
+cat__tournament_2000 Autumn International,-0.3991378851534852,0.670898188075853
+cat__tournament_1992 New Zealand tour,-0.431899422694381,0.6492746756987814
+cat__tournament_2001 Tri Nations Series,-0.4340139663108226,0.6479032066045946
+cat__tournament_1995 Rugby World Cup Pool match,-0.4352378495293781,0.6471107337887929
+cat__tournament_2007 Tri Nations Series,-0.5283048534255492,0.5896035875391039
+cat__tournament_2016 Rugby Championship,-0.5875135300996563,0.5557073178373162
+cat__tournament_2001 Autumn International,-0.6023736422834283,0.5475104984175623
+cat__opponent_France,-0.6173359582035501,0.5393794546846404
+cat__tournament_2006 mid-year test,-0.6174310997690268,0.5393281397200675
+cat__tournament_1992 Australia tour of South Africa,-0.649180155335098,0.522473948699185
+cat__tournament_2010 Tri Nations Series,-0.6807646885646634,0.5062297362289038
+cat__tournament_2002 South Africa rugby union tour of Europe,-0.6810848611708491,0.5060676812790889
+cat__tournament_2012 Rugby Championship,-0.7426355133907026,0.475858130953193
+cat__opponent_Australia,-0.8731037197907668,0.41765325684299426
+cat__tournament_1993 France rugby union tour of South Africa,-0.9001127217276416,0.4065238330890247
+cat__tournament_2016 end-of-year test,-0.9991258712242845,0.3682011557664717
+cat__tournament_2015 Rugby Championship,-1.1368711764298816,0.3208212461839377
+cat__opponent_New Zealand,-1.6948739190361384,0.18362237885482355
