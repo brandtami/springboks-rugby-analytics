@@ -20,6 +20,8 @@ pip install -r requirements.txt
 python run_pipeline.py
 ```
 
+
+
 ### Data
 
 The dataset is sourced from Kaggle:
@@ -32,6 +34,7 @@ The raw data is not included in this repository. To reproduce the analysis:
 2. Place the CSV file in `data/bronze/`
 
 The full pipeline is deterministic and reproducible once the raw dataset is provided.
+
 
 
 ### Project Structure
@@ -68,6 +71,7 @@ springboks-rugby-analytics/
 └── requirements.txt
 ```
 
+
 ### Pipeline
 The project follows a Bronze–Silver–Gold architecture.
 
@@ -86,6 +90,8 @@ Gold:
 - Elo rating difference
 - Chronological split (no leakage)
 - All features are computed using strictly past information (e.g. lagged rolling statistics) to prevent data leakage
+
+
 
 ### Reproducibility
 
@@ -106,6 +112,8 @@ Pipeline steps:
 4. Exploratory analysis  
 5. Logistic regression  
 6. XGBoost comparison
+
+
 
 ### Notes
 
