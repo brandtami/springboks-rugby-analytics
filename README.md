@@ -9,7 +9,7 @@ The analysis follows a structured data science workflow, including data ingestio
 
 ---
 
-## Quick Start
+### Quick Start
 
 ```bash
 git clone https://github.com/brandtami/springboks-rugby-analytics.git
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 python run_pipeline.py
 ```
 
-## Data
+### Data
 
 The dataset is sourced from Kaggle:
 
@@ -34,7 +34,7 @@ The raw data is not included in this repository. To reproduce the analysis:
 The full pipeline is deterministic and reproducible once the raw dataset is provided.
 
 
-## Project Structure
+### Project Structure
 
 ```text
 springboks-rugby-analytics/
@@ -68,7 +68,7 @@ springboks-rugby-analytics/
 └── requirements.txt
 ```
 
-## Pipeline
+### Pipeline
 The project follows a Bronze–Silver–Gold architecture.
 
 Bronze:
@@ -87,7 +87,7 @@ Gold:
 - Chronological split (no leakage)
 - All features are computed using strictly past information (e.g. lagged rolling statistics) to prevent data leakage
 
-## Reproducibility
+### Reproducibility
 
 Install dependencies:
 ```bash
@@ -107,7 +107,7 @@ Pipeline steps:
 5. Logistic regression  
 6. XGBoost comparison
 
-## Notes
+### Notes
 
 - Data excluded via `.gitignore`  
 - Results stored in `figures/` and `reports/`  
