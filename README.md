@@ -16,126 +16,86 @@ The dataset is sourced from Kaggle:
 
 The raw data is not included in this repository. To reproduce the analysis:
 
-1. Download the dataset from Kaggle
+1. Download the dataset from Kaggle  
 2. Place the CSV file in `data/bronze/`
-3. Execute the notebooks in the order described below
 
 ---
 
 ## Project Structure
 
-```
 springboks-rugby-analytics/
 │
 ├── data/
-│   ├── bronze/        # raw data (not tracked)
-│   ├── silver/        # cleaned data (not tracked)
-│   └── gold/          # modelling dataset (not tracked)
+│   ├── bronze/
+│   ├── silver/
+│   └── gold/
 │
 ├── notebooks/
 │   ├── 00_data_ingestion.ipynb
 │   ├── 01_data_cleaning.ipynb
 │   ├── 02_features_gold.ipynb
 │   ├── 03_analysis_eda.ipynb
-│   └── 04_model_logistic_regression.ipynb
+│   ├── 04_model_logistic_regression.ipynb
+│   └── 05_model_xgboost_comparison.ipynb
 │
-├── figures/           # generated plots (EDA & model evaluation)
-├── reports/           # model outputs (metrics, coefficients)
+├── scripts/
+│   ├── 00_data_ingestion.py
+│   ├── 01_data_cleaning.py
+│   ├── 02_features_gold.py
+│   ├── 03_analysis_eda.py
+│   ├── 04_model_logistic_regression.py
+│   └── 05_model_xgboost_comparison.py
 │
+├── figures/
+├── reports/
+│
+├── run_pipeline.py
 ├── README.md
 └── requirements.txt
-```
 
 ---
 
 ## Pipeline
 
-The project follows a Bronze–Silver–Gold architecture:
+Bronze:
+- Raw ingestion
+- Parquet conversion
 
-### Bronze
+Silver:
+- Filtering Springboks matches
+- Cleaning
+- Target creation
 
-* Raw dataset ingestion
-* Conversion to Parquet format
-* Basic type standardisation
-
-### Silver
-
-* Filtering to Springboks matches (1992–2022)
-* Data cleaning and consistency checks
-* Creation of target variables (`win`, `draw`)
-
-### Gold
-
-* Feature engineering:
-
-  * Rolling form (last matches)
-  * Score margin trends
-  * Home vs. away indicator
-  * Opponent-specific statistics
-* Strict chronological ordering to prevent data leakage
-* Time-based train/test split
-
----
-
-## Exploratory Data Analysis (EDA)
-
-The EDA investigates key patterns in the data:
-
-* Annual win rate trends
-* Score margin distribution
-* Rolling performance indicators
-* Home advantage
-* Opponent-specific win rates
-
-All figures are stored in the `figures/` directory.
-
----
-
-## Modelling
-
-A logistic regression model is used as a baseline classifier.
-
-### Features
-
-* Rolling performance metrics
-* Match context (home/away)
-* Opponent-related variables
-
-### Evaluation
-
-The model is evaluated using:
-
-* Accuracy
-* ROC–AUC
-* Calibration curve
-* Brier score
-
-Results are stored in the `reports/` directory.
+Gold:
+- Rolling features
+- Opponent features
+- Elo rating difference
+- Chronological split (no leakage)
 
 ---
 
 ## Reproducibility
 
-To reproduce the full analysis:
+Install dependencies:
 
-```bash
 pip install -r requirements.txt
-```
 
-Run the notebooks in order:
+Run full pipeline:
 
-1. `00_data_ingestion`
-2. `01_data_cleaning`
-3. `02_features_gold`
-4. `03_analysis_eda`
-5. `04_model_logistic_regression`
+python run_pipeline.py
 
-All intermediate datasets are generated automatically.
+Pipeline steps:
+1. Data ingestion  
+2. Data cleaning  
+3. Feature engineering  
+4. Exploratory analysis  
+5. Logistic regression  
+6. XGBoost comparison  
 
 ---
 
 ## Notes
 
-* Data files are excluded from the repository via `.gitignore`
-* Figures and reports are included to ensure transparency of results
-* The pipeline is designed to be fully reproducible from raw data
+- Data excluded via `.gitignore`  
+- Results stored in `figures/` and `reports/`  
+- Elo is implemented South Africa-centred
