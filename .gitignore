@@ -6,8 +6,4 @@ __pycache__/
 # data & artifacts (keep folders but not files)
 data/*
 !data/.gitkeep
-figures/*
-!figures/.gitkeep
-reports/*
-!reports/.gitkeep
 .DS_Store
