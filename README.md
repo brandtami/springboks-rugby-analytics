@@ -1,4 +1,5 @@
 # Predicting Rugby Match Outcomes: Springboks (1992–2022)
+A reproducible data pipeline and machine learning analysis for international rugby match prediction.
 
 ## Overview
 
@@ -7,6 +8,17 @@ This project investigates the prediction of international rugby match outcomes f
 The analysis follows a structured data science workflow, including data ingestion, cleaning, feature engineering, exploratory data analysis (EDA), and predictive modelling.
 
 ---
+
+## Quick Start
+
+```bash
+git clone https://github.com/brandtami/springboks-rugby-analytics.git
+cd springboks-rugby-analytics
+
+pip install -r requirements.txt
+
+python run_pipeline.py
+```
 
 ## Data
 
@@ -18,6 +30,8 @@ The raw data is not included in this repository. To reproduce the analysis:
 
 1. Download the dataset from Kaggle  
 2. Place the CSV file in `data/bronze/`
+
+The full pipeline is deterministic and reproducible once the raw dataset is provided.
 
 ---
 
@@ -54,9 +68,11 @@ springboks-rugby-analytics/
 ├── README.md
 └── requirements.txt
 ```
+
 ---
 
 ## Pipeline
+The project follows a Bronze–Silver–Gold architecture.
 
 Bronze:
 - Raw ingestion
@@ -72,18 +88,21 @@ Gold:
 - Opponent features
 - Elo rating difference
 - Chronological split (no leakage)
+- All features are computed using strictly past information (e.g. lagged rolling statistics) to prevent data leakage
 
 ---
 
 ## Reproducibility
 
 Install dependencies:
-
+```bash
 pip install -r requirements.txt
+```
 
 Run full pipeline:
-
+```bash
 python run_pipeline.py
+```
 
 Pipeline steps:
 1. Data ingestion  
@@ -100,3 +119,11 @@ Pipeline steps:
 - Data excluded via `.gitignore`  
 - Results stored in `figures/` and `reports/`  
 - Elo is implemented South Africa-centred
+
+## Key Findings
+
+- Logistic regression provides a strong baseline (ROC–AUC ~0.77)
+- Elo rating improves predictive performance, especially recall
+- XGBoost with Elo achieves the best overall accuracy (~0.74)
+
+Overall, simple models combined with domain-specific features (Elo rating) outperform more complex models without such information.
