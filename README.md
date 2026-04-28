@@ -1,5 +1,5 @@
 # Predicting Rugby Match Outcomes: Springboks (1992–2022)
-A reproducible data pipeline and machine learning analysis for international rugby match prediction.
+_Reproducible data pipeline and machine learning analysis for international rugby match prediction._
 
 ## Overview
 
@@ -33,7 +33,6 @@ The raw data is not included in this repository. To reproduce the analysis:
 
 The full pipeline is deterministic and reproducible once the raw dataset is provided.
 
----
 
 ## Project Structure
 
@@ -69,8 +68,6 @@ springboks-rugby-analytics/
 └── requirements.txt
 ```
 
----
-
 ## Pipeline
 The project follows a Bronze–Silver–Gold architecture.
 
@@ -90,8 +87,6 @@ Gold:
 - Chronological split (no leakage)
 - All features are computed using strictly past information (e.g. lagged rolling statistics) to prevent data leakage
 
----
-
 ## Reproducibility
 
 Install dependencies:
@@ -110,15 +105,15 @@ Pipeline steps:
 3. Feature engineering  
 4. Exploratory analysis  
 5. Logistic regression  
-6. XGBoost comparison  
-
----
+6. XGBoost comparison
 
 ## Notes
 
 - Data excluded via `.gitignore`  
 - Results stored in `figures/` and `reports/`  
 - Elo is implemented South Africa-centred
+
+---
 
 ## Key Findings
 
