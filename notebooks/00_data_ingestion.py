@@ -3,7 +3,7 @@
 
 # ## Setup
 
-# In[1]:
+# In[ ]:
 
 
 from pathlib import Path
@@ -13,7 +13,7 @@ import kagglehub
 
 # ## Bronze ingestion
 
-# In[2]:
+# In[ ]:
 
 
 DATASET_ID = "lylebegbie/international-rugby-union-results-from-18712022"

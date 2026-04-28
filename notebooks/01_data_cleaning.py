@@ -3,7 +3,7 @@
 
 # ## Setup
 
-# In[1]:
+# In[ ]:
 
 
 from pathlib import Path
@@ -13,7 +13,7 @@ import numpy as np
 
 # ## Silver cleaning
 
-# In[2]:
+# In[ ]:
 
 
 BRONZE_PATH = Path("../data/bronze/bronze_results.parquet")
@@ -35,7 +35,7 @@ df = df.rename(columns={"competition": "tournament"})
 
 # ## South Africa perspective
 
-# In[3]:
+# In[ ]:
 
 
 df_sa = df[
@@ -67,7 +67,7 @@ df_sa["tournament"] = df_sa["tournament"].fillna("Unknown")
 
 # ## Save Silver
 
-# In[4]:
+# In[ ]:
 
 
 columns = [

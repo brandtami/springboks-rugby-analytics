@@ -3,7 +3,7 @@
 
 # ## Setup
 
-# In[1]:
+# In[ ]:
 
 
 from pathlib import Path
@@ -13,7 +13,7 @@ import numpy as np
 
 # ## Load Silver
 
-# In[2]:
+# In[ ]:
 
 
 SILVER_PATH = Path("../data/silver/springboks_matches.parquet")
@@ -23,9 +23,10 @@ GOLD_DIR.mkdir(parents=True, exist_ok=True)
 df = pd.read_parquet(SILVER_PATH).sort_values("date").reset_index(drop=True)
 
 
-# ## Lagged features
+# ## Temporal feature construction and leakage prevention
+# All rolling and historical features are strictly lagged using `shift(1)`, ensuring that only information available prior to each match is used. This prevents information leakage and guarantees temporal validity of the predictive modelling setup.
 
-# In[3]:
+# In[ ]:
 
 
 df["rolling_form_3"] = df["win"].shift(1).rolling(3, min_periods=1).mean()
@@ -37,7 +38,7 @@ df["days_since_prev"] = df["date"].diff().dt.days
 
 # ## Head-to-head feature
 
-# In[4]:
+# In[ ]:
 
 
 prev_wins = {}
@@ -58,9 +59,58 @@ for _, row in df.iterrows():
 df["h2h_winrate"] = h2h_values
 
 
+# ## Elo rating feature
+# 
+# To capture opponent strength, a pre-match Elo rating difference is computed. Elo ratings are updated sequentially over time and stored before each match to ensure no future information is used.
+# 
+# The implementation is South Africa-centred, meaning that ratings are tracked relative to the Springboks and their opponents rather than as a fully global rating system.
+
+# In[ ]:
+
+
+def add_elo_features(df, k=20, initial_rating=1500):
+    """
+    Add pre-match Elo rating difference for South Africa vs. the opponent.
+    Elo values are stored before the match update to avoid temporal leakage.
+    """
+    df = df.sort_values("date").copy()
+
+    ratings = {}
+    elo_diff_pre = []
+
+    for _, row in df.iterrows():
+        team = "South Africa"
+        opponent = row["opponent"]
+
+        team_rating = ratings.get(team, initial_rating)
+        opponent_rating = ratings.get(opponent, initial_rating)
+
+        # Store pre-match Elo difference before updating ratings
+        elo_diff_pre.append(team_rating - opponent_rating)
+
+        expected_team = 1 / (1 + 10 ** ((opponent_rating - team_rating) / 400))
+
+        if row["springboks_score"] > row["opponent_score"]:
+            actual_team = 1
+        elif row["springboks_score"] == row["opponent_score"]:
+            actual_team = 0.5
+        else:
+            actual_team = 0
+
+        ratings[team] = team_rating + k * (actual_team - expected_team)
+        ratings[opponent] = opponent_rating + k * ((1 - actual_team) - (1 - expected_team))
+
+    df["elo_diff_pre"] = elo_diff_pre
+
+    return df
+
+
+df = add_elo_features(df)
+
+
 # ## Save Gold and split
 
-# In[5]:
+# In[ ]:
 
 
 # handle missing values from lagged features explicitly
@@ -88,6 +138,7 @@ model_columns = [
     "rolling_margin_3",
     "h2h_winrate",
     "days_since_prev",
+    "elo_diff_pre",
     "opponent",
     "tournament",
     "win"
@@ -102,5 +153,5 @@ print(f"[GOLD] Split: train={len(train)}, test={len(test)}")
 print(f"[GOLD] Train period: {train['date'].min().date()}–{train['date'].max().date()}")
 print(f"[GOLD] Test period: {test['date'].min().date()}–{test['date'].max().date()}")
 
-df_gold.head()
+df_gold[["date", "opponent", "elo_diff_pre"]].head(10)
 

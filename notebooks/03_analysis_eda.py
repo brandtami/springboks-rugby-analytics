@@ -3,7 +3,7 @@
 
 # ## Setup
 
-# In[1]:
+# In[ ]:
 
 
 from pathlib import Path
@@ -35,7 +35,7 @@ bok_cmap = LinearSegmentedColormap.from_list("bok_cmap", [SECONDARY, PRIMARY])
 
 # ## Load Gold
 
-# In[2]:
+# In[ ]:
 
 
 GOLD_PATH = Path("../data/gold/gold_results.parquet")
@@ -45,11 +45,13 @@ FIG_DIR.mkdir(parents=True, exist_ok=True)
 df_gold = pd.read_parquet(GOLD_PATH)
 
 
+# ## Exploratory Data Analysis
+
 # ### Annual Win Rate
 # 
 # We analyse the evolution of the Springboks' win rate over time to identify long-term performance trends.
 
-# In[3]:
+# In[ ]:
 
 
 annual = df_gold.groupby(df_gold["date"].dt.year)["win"].mean().reset_index()
@@ -89,7 +91,7 @@ plt.show()
 # 
 # We examine the distribution of score margins to understand typical match outcomes and variability.
 
-# In[4]:
+# In[ ]:
 
 
 fig, ax = plt.subplots(figsize=FIGSIZE)
@@ -116,7 +118,7 @@ plt.show()
 # 
 # We analyse recent team performance (last three matches) and its relationship with match outcomes.
 
-# In[5]:
+# In[ ]:
 
 
 fig, ax = plt.subplots(figsize=FIGSIZE)
@@ -143,11 +145,41 @@ fig.savefig(FIG_DIR / "eda_rolling_form.pdf", bbox_inches="tight")
 plt.show()
 
 
+# ### Elo Difference
+# 
+# We analyse whether the pre-match Elo rating difference is associated with match outcomes.
+
+# In[ ]:
+
+
+fig, ax = plt.subplots(figsize=FIGSIZE)
+
+sns.boxplot(
+    data=df_gold,
+    x="win",
+    y="elo_diff_pre",
+    hue="win",
+    palette={0: SECONDARY, 1: PRIMARY},
+    legend=False,
+    ax=ax
+)
+
+ax.set_xlabel("Match outcome")
+ax.set_ylabel("Pre-match Elo difference")
+ax.set_title("Pre-match Elo difference by match outcome")
+ax.set_xticks([0, 1])
+ax.set_xticklabels(["Loss/draw", "Win"])
+
+fig.tight_layout()
+fig.savefig(FIG_DIR / "eda_elo_difference.pdf", bbox_inches="tight")
+plt.show()
+
+
 # ### Home Advantage
 # 
 # We analyse whether playing at home is associated with a higher win probability.
 
-# In[6]:
+# In[ ]:
 
 
 home_summary = (
@@ -179,7 +211,7 @@ plt.show()
 # 
 # We analyse how the win probability varies across different opponents.
 
-# In[7]:
+# In[ ]:
 
 
 opponent_summary = (
