@@ -1,10 +1,13 @@
-# notebooks caches
-.ipynb_checkpoints/
+.venv/
 __pycache__/
 *.pyc
-
-# data & artifacts (keep folders but not files)
+.ipynb_checkpoints/
+data/bronze/
+data/silver/
+data/gold/
+models/
+figures/
+reports/
 .DS_Store
-
-data/
-.venv/
+*.pkl
+*.parquet
