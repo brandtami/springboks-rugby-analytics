@@ -1,0 +1,16 @@
+match,team1,team2,winner_goes_to,source,collected_date
+R16-1,1A,best3rd(C/E/F),QF2,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+R16-2,1B,best3rd(D/E/F),QF1,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+R16-3,1E,2D,QF2,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+R16-4,1F,2B,QF1,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+R16-5,1C,best3rd(A/E/F),QF3,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+R16-6,1D,best3rd(B/E/F),QF3,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+R16-7,2A,2E,QF4,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+R16-8,2C,2F,QF4,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+QF1,W(R16-2),W(R16-4),SF1,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+QF2,W(R16-1),W(R16-3),SF1,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+QF3,W(R16-5),W(R16-6),SF2,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+QF4,W(R16-7),W(R16-8),SF2,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+SF1,W(QF1),W(QF2),Final,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+SF2,W(QF3),W(QF4),Final,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
+Final,W(SF1),W(SF2),-,World Rugby (2025). RWC 2027 Knockouts. https://www.rugbyworldcup.com/2027/en/knockouts,2025-06-01
