@@ -34,12 +34,12 @@ PYTHON = ROOT / ".venv" / "bin" / "python3"
 KERNEL = "springboks-venv"
 
 NOTEBOOKS = [
-    ("00", "notebooks/00_data_ingestion.ipynb",       7200),  # Selenium ~30-60 min
-    ("01", "notebooks/01_data_cleaning.ipynb",         600),
-    ("02", "notebooks/02_feature_engineering.ipynb",   600),
-    ("03", "notebooks/03_exploratory_analysis.ipynb",  300),
-    ("04", "notebooks/04_model_training.ipynb",        900),
-    ("05", "notebooks/05_model_application.ipynb",    3600),  # 100k simulations
+    ("00", "notebooks/00_data_ingestion.ipynb"),
+    ("01", "notebooks/01_data_cleaning.ipynb"),
+    ("02", "notebooks/02_feature_engineering.ipynb"),
+    ("03", "notebooks/03_exploratory_analysis.ipynb"),
+    ("04", "notebooks/04_model_training.ipynb"),
+    ("05", "notebooks/05_model_application.ipynb"),
 ]
 
 
@@ -50,8 +50,7 @@ def fmt_time(seconds: float) -> str:
     return f"{seconds / 3600:.1f}h"
 
 
-def run_notebook(nb_id: str, path: str, timeout: int,
-                 idx: int, total: int) -> bool:
+def run_notebook(nb_id: str, path: str, idx: int, total: int) -> bool:
     nb_path = ROOT / path
     if not nb_path.exists():
         print(f"  ❌  NOT FOUND: {nb_path}")
@@ -65,7 +64,6 @@ def run_notebook(nb_id: str, path: str, timeout: int,
         str(PYTHON), "-m", "jupyter", "nbconvert",
         "--to",      "notebook",
         "--execute",
-        f"--ExecutePreprocessor.timeout={timeout}",
         f"--ExecutePreprocessor.kernel_name={KERNEL}",
         "--inplace",
         str(nb_path),
@@ -135,8 +133,8 @@ def main() -> None:
 
     # run
     t0 = datetime.now()
-    for idx, (nb_id, nb_path, timeout) in enumerate(to_run, 1):
-        if not run_notebook(nb_id, nb_path, timeout, idx, len(to_run)):
+    for idx, (nb_id, nb_path) in enumerate(to_run, 1):
+        if not run_notebook(nb_id, nb_path, idx, len(to_run)):
             print(f"\n{'=' * 60}")
             print(f"  PIPELINE STOPPED at NB{nb_id}")
             print(f"  Fix the error, then restart with:")

@@ -11,9 +11,11 @@
 
 ## Overview
 
-This project develops a reproducible machine learning pipeline to predict international rugby match outcomes and simulate the Rugby World Cup 2027 tournament. The analysis covers all 28 participating nations across 10 RWC tournaments (1987–2023) and over 1,700 international test matches.
+This project develops a reproducible machine learning pipeline to predict international rugby match outcomes and simulate the Rugby World Cup 2027 tournament. The analysis covers all 24 participating nations across 10 RWC tournaments (1987–2023) and over 1,700 international test matches.
 
 The pipeline follows a structured Medallion Architecture (Bronze → Silver → Gold) and produces probabilistic championship forecasts via 10,000 Monte Carlo simulations using an ensemble of Gradient Boosting and Elo-based predictions.
+
+**Case Study Focus:** South Africa's pursuit of a historic **three-peat championship** (2019, 2023, 2027)—unprecedented in rugby union history. Our analysis estimates the Springboks' RWC 2027 championship probability at **23.2%**.
 
 ---
 
@@ -148,21 +150,11 @@ Bronze  →  Silver  →  Gold  →  EDA  →  Training  →  Application
 
 ## Key Results
 
-| Metric | LR | LR+Elo | GBT | GBT+Elo |
-|--------|-----|--------|-----|---------|
-| AUC    | ~0.72 | ~0.76 | ~0.74 | ~0.78 |
-| Acc    | ~0.67 | ~0.70 | ~0.69 | ~0.72 |
+The analysis produces **probabilistic tournament forecasts** for all 24 RWC 2027 teams via 10,000 Monte Carlo simulations. South Africa (the case study focus) achieves a 23.2% estimated championship probability, positioning them as title contenders alongside New Zealand (16.1%) and Ireland (15.4%).
 
-> Elo rating consistently improves model performance (+0.04 AUC).  
-> GBT+Elo achieves the best overall accuracy.
+Model performance on the held-out test set (2020–2024) demonstrates the value of domain-specific features: the Gradient Boosting classifier with Elo ratings achieves 73.4% accuracy and ROC-AUC of 0.796, with mean walk-forward cross-validation AUC of 0.860 across four annual folds (2016–2019).
 
-**RWC 2027 Top 3 (simulation):**
-
-| Rank | Nation | P(Champion) |
-|------|--------|-------------|
-| 1 | New Zealand | ~27% |
-| 2 | Ireland | ~20% |
-| 3 | South Africa | ~18% |
+**For detailed results tables and feature importance rankings, see the full thesis report.**
 
 ---
 
