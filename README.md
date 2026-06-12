@@ -6,7 +6,7 @@
 **Author:** Tamara Brand  
 **Programme:** CAS Applied Data Science — University of Bern  
 **Data period:** 1987–2024  
-**📖 [Full Thesis PDF →](thesis/Final_Project_CAS_ADS_Tamara_Brand.pdf)** | **🌐 [Live Demo](https://brandtami.github.io/springboks-rugby-analytics/)**
+**📖 [Full Paper PDF →](paper/Final_Project_CAS_ADS_Tamara_Brand.pdf)**
 
 ---
 
@@ -66,10 +66,10 @@ The full interactive analysis is published at:
 
 | # | Source | Content | Method |
 |---|--------|---------|--------|
-| A | [Kaggle — lylebegbie](https://doi.org/10.34740/KAGGLE/DSN/2510185) | Tier 1 matches 1995–2024 | `kagglehub` (automatic) |
+| A | [Kaggle — lylebegbie](https://www.kaggle.com/datasets/lylebegbie/international-rugby-union-results-from-18712022) | Tier 1 matches 1995–2024 | `kagglehub` (automatic) |
 | B | [Flashscore](https://www.flashscore.com/rugby-union/world/) | All RWC matches 1987–2023 | Selenium browser scrape |
-| C | [World Rugby Rankings](https://www.world.rugby/rankings/mru) | Monthly ratings 2003–2024 | Selenium browser scrape |
-| D | [World Rugby RWC History](https://www.world.rugby/tournaments/rugbyworldcup/history) | Stage reached per team | Static CSV (`data/sources/`) |
+| C | [World Rugby Rankings](https://www.world.rugby/rankings) | Monthly ratings 2003–2024 | Selenium browser scrape |
+| D | [World Rugby RWC History](https://www.world.rugby/tournaments/fixtures-results) | Stage reached per team | Static CSV (`data/sources/`) |
 
 > **Note:** Raw data is not tracked in this repository.  
 > Parts A, B, C are collected automatically when running `00_data_ingestion.ipynb`.  
