@@ -3,11 +3,16 @@ pandas>=2.0.0
 numpy>=1.24.0
 pyarrow>=12.0.0
 scikit-learn>=1.3.0
+scipy>=1.10.0
 joblib>=1.3.0
 
 # ── visualisation ──────────────────────────────────────────────────────────
 matplotlib>=3.7.0
 seaborn>=0.12.0
+plotly>=5.0.0
+
+# ── explainability ────────────────────────────────────────────────────────
+shap>=0.42.0
 
 # ── data ingestion ─────────────────────────────────────────────────────────
 kagglehub>=0.2.0
@@ -19,6 +24,7 @@ jupyterlab>=4.0.0
 ipykernel>=6.0.0
 ipywidgets>=8.0.0
 nbconvert>=7.0.0
+jupyter-book>=0.13.0
 
 # ── install
 # pip install -r requirements.txt

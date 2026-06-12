@@ -6,6 +6,7 @@
 **Author:** Tamara Brand  
 **Programme:** CAS Applied Data Science — University of Bern  
 **Data period:** 1987–2024  
+**📖 [Full Thesis PDF →](thesis/Final_Project_CAS_ADS_Tamara_Brand.pdf)** | **🌐 [Live Demo](https://brandtami.github.io/springboks-rugby-analytics/)**
 
 ---
 
@@ -47,6 +48,17 @@ python3 run_pipeline.py --from 02   # restart from feature engineering
 python3 run_pipeline.py --only 05   # run simulation only
 python3 run_pipeline.py --from 02 --to 04  # run NB02, 03, 04
 ```
+
+---
+
+## View Online
+
+The full interactive analysis is published at:  
+👉 **https://brandtami.github.io/springboks-rugby-analytics/**
+
+- Explore EDA plots (Plotly interactive)
+- Review model training & evaluation
+- See RWC 2027 championship probabilities
 
 ---
 
