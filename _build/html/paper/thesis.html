@@ -1,0 +1,1395 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction &#8212; Springboks Rugby Analytics - RWC 2027</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'paper/thesis';</script>
+    <link rel="canonical" href="https://brandtami.github.io/springboks-rugby-analytics/paper/thesis.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="03 · Exploratory Data Analysis" href="../notebooks/03_exploratory_analysis.html" />
+    <link rel="prev" title="Predicting Rugby World Cup Outcomes: A Machine Learning Approach" href="../README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Springboks Rugby Analytics - RWC 2027</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Predicting Rugby World Cup Outcomes: A Machine Learning Approach
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Thesis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interactive Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/03_exploratory_analysis.html">03 · Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/04_model_training.html">04 · Model Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/05_model_application.html">05 · Model Application — RWC 2027 Monte Carlo</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/paper/thesis.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-and-motivation">Background and Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-objectives">Research Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sources">Data Sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-flow-and-processing-pipeline">Data Flow and Processing Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-model">Data Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality-and-limitations">Data Quality and Limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-size-clarification">Dataset Size Clarification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality-metrics">Data Quality Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis">Exploratory Data Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-signal-and-class-distribution">Feature Signal and Class Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextual-and-performance-predictors">Contextual and Performance Predictors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elo-rating-dynamics">Elo Rating Dynamics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-and-validation">Model Selection and Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tournament-simulation">Tournament Simulation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance">Model Performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-quantification">Uncertainty Quantification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance">Feature Importance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-discrimination-and-calibration">Model Performance: Discrimination and Calibration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discriminative-ability-roc-auc">Discriminative Ability (ROC-AUC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-calibration">Probabilistic Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rugby-world-cup-probabilistic-forecast">2027 Rugby World Cup Probabilistic Forecast</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#south-african-tournament-progression">South African Tournament Progression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#championship-probabilities-across-all-teams">Championship Probabilities Across All Teams</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-and-limitations">Model Performance and Limitations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tournament-simulation-validity">Tournament Simulation Validity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-validity-and-inherent-limitations">External Validity and Inherent Limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#player-injuries-and-contingency">Player Injuries and Contingency</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-historical-patterns">Beyond Historical Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-as-information">Uncertainty as Information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statement">Statement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-supplementary-figures-and-analysis">Appendix: Supplementary Figures and Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-supplementary-findings">Exploratory Data Analysis: Supplementary Findings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tournament-forecast-sensitivity-and-details">Tournament Forecast Sensitivity and Details</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="titlepage docutils">
+<p>*<em>Probabilistic Forecasting for the 2027 Rugby World Cup:*</em></p>
+<p><em>Multi-Source Integration and Uncertainty Quantification</em></p>
+<p>Tamara Brand<br />
+CAS Applied Data Science<br />
+University of Bern<br />
+<a class="reference external" href="mailto:tamara&#46;brand&#37;&#52;&#48;students&#46;unibe&#46;ch">tamara<span>&#46;</span>brand<span>&#64;</span>students<span>&#46;</span>unibe<span>&#46;</span>ch</a><br />
+2026-06-12</p>
+<p><img alt="image" src="paper/Logo_Springboks.png" />{width=”25%”}</p>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<section id="background-and-motivation">
+<h2>Background and Motivation<a class="headerlink" href="#background-and-motivation" title="Link to this heading">#</a></h2>
+<p>Over the past three decades, international rugby has become more
+competitive and data-rich. [&#64;OBrien2003] Since the sport’s
+professionalisation in 1995, the organisational landscape of
+international rugby has undergone substantial transformation.
+[&#64;Hutchins2016] The availability of historical match data and investment
+in data analytics infrastructure have created significant opportunities
+for quantitative analysis of match outcomes and tournament dynamics.
+Predictive modelling in team sports has advanced substantially in recent
+years. [&#64;Bunker2022] Research shows that domain-specific features, such
+as home advantage, recent form, and head-to-head history, improve the
+accuracy of match predictions. [&#64;BunkerThabtah2019; &#64;Thomas2008]
+Elo-based rating systems have been shown to be effective in representing
+relative team strength in a variety of sports, including rugby union.
+[&#64;Hvattum2010; &#64;Elo1978]</p>
+<p>Despite these developments, international rugby union remains relatively
+underexplored compared to sports such as football and basketball.
+[&#64;Bunker2022] Many existing studies rely on limited data sources, static
+feature sets, or validation approaches that do not adequately account
+for temporal dependence in match sequences. [&#64;Bergmeir2012] Furthermore,
+only a limited number of studies extend match-level prediction to
+tournament-level forecasting with explicit uncertainty quantification.
+[&#64;Guo2017; &#64;Leitner2010]</p>
+<p>Against this backdrop, the focus of this study is South Africa, a
+country of particular interest given that the team is pursuing an
+unprecedented third consecutive Rugby World Cup title (following
+victories in 2019 and 2023; the next tournament is scheduled for 2027).
+In addition to its analytical relevance, this focus is further motivated
+by the author’s intention to attend the 2027 Rugby World Cup (RWC 2027)
+in Australia, providing a personal dimension to the investigation of the
+Springboks’ prospects.</p>
+</section>
+<section id="research-objectives">
+<h2>Research Objectives<a class="headerlink" href="#research-objectives" title="Link to this heading">#</a></h2>
+<p>This work addresses these gaps by integrating multiple rugby datasets
+and Tier 1 match histories from the RWC archive into a unified
+framework, providing comprehensive coverage of tournaments.
+Chronological validation is applied to prevent information leakage, and
+prediction is extended to tournament simulation with transparent
+uncertainty quantification.</p>
+<ol class="arabic simple">
+<li><p>To what extent do domain-specific features, such as Elo ratings,
+recent form and home advantage, improve the predictive performance
+of international rugby match outcomes compared to baseline models?</p></li>
+<li><p>Could a forecasting framework that combines machine learning with
+Elo-based fallback mechanisms produce realistic and well-calibrated
+probabilistic forecasts for the RWC 2027?</p></li>
+</ol>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data">
+<h1>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h1>
+<section id="data-sources">
+<h2>Data Sources<a class="headerlink" href="#data-sources" title="Link to this heading">#</a></h2>
+<p>The analysis combines three complementary datasets that together provide
+information on match outcomes, tournament results and team strength.
+This integration allows for both match-level feature construction and
+tournament-specific analysis, reducing reliance on a single source.</p>
+<ol class="arabic simple">
+<li><p><strong>Kaggle International Rugby Results:</strong> [&#64;Begbie2022] covers all
+matches involving the 10 Tier 1 nations (Argentina, Australia,
+England, France, Ireland, New Zealand, Scotland, South Africa,
+Wales, Italy) from 1995 onwards. The professional era
+baseline (1995) coincides with South Africa’s return to the
+international rugby stage following the end of apartheid-era
+sporting isolation [&#64;WorldRugby1995].</p></li>
+<li><p><strong>Flashscore Rugby World Cup Archive:</strong> [&#64;Flashscore2024] comprises
+web-scraped results from all 10 RWC tournaments (1987–2023),
+covering all pool and knockout matches for all participating teams.
+This source is essential for constructing tournament-specific
+pedigree features and validating model performance across Tier 2
+nations not represented in the Kaggle dataset.</p></li>
+<li><p><strong>World Rugby Official Rankings:</strong> [&#64;WorldRugby2024] provides weekly
+Men’s Rankings snapshots spanning 2003–2024. These rankings
+implement a rating system analogous to the classical Elo approach,
+enabling pre-match rating differences to be accurately reconstructed
+on a match-by-match basis and forming the foundation for team
+strength measurements throughout the analysis.</p></li>
+</ol>
+<p>Together, these three sources enable complete tournament-level
+forecasting across all 24 participating nations, combining bilateral
+match history (Tier 1) with tournament-wide performance metrics.</p>
+<p>The raw datasets are not committed to the repository. Instead,
+reproducible ingestion pipelines download and validate data locally.
+Cleaned and feature-engineered datasets are generated deterministically
+by executing the notebooks sequentially.</p>
+</section>
+<section id="data-flow-and-processing-pipeline">
+<h2>Data Flow and Processing Pipeline<a class="headerlink" href="#data-flow-and-processing-pipeline" title="Link to this heading">#</a></h2>
+<p>As illustrated in Figure <a class="reference internal" href="#fig:data-flow"><span class="xref myst">1</span></a>{reference-type=”ref”
+reference=”fig:data-flow”}, the data engineering pipeline adheres to a
+three-stage Bronze–Silver–Gold medallion architecture.
+[&#64;Databricks2022]</p>
+<ol class="arabic simple">
+<li><p><strong>Bronze Layer</strong> stores raw data from all source systems in its
+original form, providing a reproducible foundation for downstream
+processing.</p></li>
+<li><p><strong>Silver Layer</strong> standardizes and cleans the data through
+deterministic transformation rules. This stage harmonizes schemas,
+removes inconsistencies, and produces analysis-ready datasets.</p></li>
+<li><p><strong>Gold Layer</strong> creates model-ready analytical features. All features
+are constructed using only information available prior to each
+match, ensuring a leakage-free predictive modelling framework.
+[&#64;Bergmeir2012]</p></li>
+</ol>
+<figure id="fig:data-flow" data-latex-placement="H">
+<img src="DFD.png" />
+<figcaption>Data flow architecture illustrating the Bronze-Silver-Gold
+medallion pattern and the flow from raw data ingestion through cleaning
+to feature engineering.</figcaption>
+</figure>
+<p>The architecture is implemented through a sequence of Jupyter notebooks,
+each responsible for a distinct stage of the analytical workflow:</p>
+<ol class="arabic simple">
+<li><p><strong>00_data_ingestion:</strong> Downloads historical match results via
+<code class="docutils literal notranslate"><span class="pre">kagglehub</span></code>, scrapes RWC match data from Flashscore using Selenium
+WebDriver, and collects weekly World Rugby ranking snapshots. Raw
+datasets are stored in the Bronze layer as Parquet files.</p></li>
+<li><p><strong>01_data_cleaning:</strong> Standardizes variable formats, removes
+duplicates, and enforces chronological consistency [&#64;Bergmeir2012]
+across records. Filters records to the competitions and periods
+relevant for analysis. Outputs curated Silver-layer datasets.</p></li>
+<li><p><strong>02_feature_engineering:</strong> Generates predictive features including
+Elo rating differentials [&#64;Hvattum2010], rolling performance
+metrics, and tournament pedigree indicators. All features are
+calculated using strictly historical information to prevent
+information leakage. [&#64;Bergmeir2012] A chronological train-test
+split is applied, producing Gold-layer datasets.</p></li>
+<li><p><strong>03_exploratory_analysis:</strong> Produces descriptive statistics and
+visualizations to assess data quality, feature distributions, and
+relationships between predictors and match outcomes.</p></li>
+<li><p><strong>04_model_training:</strong> Trains and evaluates Logistic Regression and
+Gradient Boosting models [&#64;Friedman2001] with and without Elo-based
+features. Model performance is evaluated using accuracy, precision,
+recall, ROC-AUC [&#64;Hanley1982], and Brier score [&#64;Brier1950] metrics.
+The best-performing specification is selected for deployment.</p></li>
+<li><p><strong>05_model_application:</strong> Applies the selected model to simulate the
+RWC 2027, executing 10,000 Monte Carlo tournament paths
+[&#64;Leitner2010] and estimating championship and stage-progression
+probabilities for all participating teams.</p></li>
+</ol>
+</section>
+<section id="data-model">
+<h2>Data Model<a class="headerlink" href="#data-model" title="Link to this heading">#</a></h2>
+<p>The analytical unit is a single international rugby match. Each
+observation includes the match date, the two teams involved, the scores,
+the venue (home, away or neutral), the competition context and the
+outcome. The full analysis comprises 3,410 match observations (1,705
+unique matches represented from both team perspectives) spanning
+1987–2024. For our South African case study (see Section 1.1), we focus
+on 328 individual matches (1992–2024), of which approximately 73 fall
+within the held-out test window (2020–2024). Key variables are
+summarised in Table <a class="reference internal" href="#tab:features"><span class="xref myst">1</span></a>{reference-type=”ref”
+reference=”tab:features”}. All features are strictly lagged: rolling
+statistics use only prior matches, head-to-head records exclude the
+current match, and Elo ratings are pre-match values. [&#64;Bergmeir2012]</p>
+<p><strong>Feature</strong>        <strong>Source</strong>               <strong>Type</strong>      <strong>Description</strong></p>
+<hr class="docutils" />
+<p>elo_diff_pre       World Rugby + computed   float         Pre-match Elo rating difference
+home               Multi-source             binary        Venue advantage indicator
+rolling_form_10    Lagged match history     float         Win rate over last 10 matches
+rolling_margin_3   Lagged match history     float         Mean score margin (last 3 matches)
+h2h_winrate        Lagged match history     float         Historical win rate vs. current opponent
+consecutive_wins   Lagged match history     int           Winning streak prior to match
+rwc_pedigree       Flashscore RWC data      float         Cumulative RWC performance metric
+tournament_tier    Multi-source             categorical   Competition context (RWC, Championship, etc.)</p>
+<p>: Core feature definitions {#tab:features}</p>
+</section>
+<section id="data-quality-and-limitations">
+<h2>Data Quality and Limitations<a class="headerlink" href="#data-quality-and-limitations" title="Link to this heading">#</a></h2>
+<p>The Kaggle and Flashscore datasets are sufficiently structured for
+match-level analysis, with consistent availability of key variables.
+Data quality checks focused on type, validity, and completeness.</p>
+<p>Dates and scores were converted and matches filtered according to
+predefined inclusion criteria. Missing values were imputed using
+domain-informed defaults.</p>
+<section id="dataset-size-clarification">
+<h3>Dataset Size Clarification<a class="headerlink" href="#dataset-size-clarification" title="Link to this heading">#</a></h3>
+<p>The Bronze layer contains 1,705 unique matches: 1,396 Tier 1
+international Kaggle matches and 309 RWC Flashscore matches. The Silver
+layer supports team-level modelling by representing each match from both
+team perspectives (3,410 observations). The Gold layer is divided into a
+training set (1995–2019, 2,918 observations) and a test set
+(2020–2024, 492 observations), enforcing strict chronological ordering
+to prevent information leakage. [&#64;Bergmeir2012] The South African
+dataset contains 328 matches across the full study period, of which
+approximately 73 fall within the 2020–2024 test window.</p>
+</section>
+<section id="data-quality-metrics">
+<h3>Data Quality Metrics<a class="headerlink" href="#data-quality-metrics" title="Link to this heading">#</a></h3>
+<p>Missing values were minimal across the pipeline. World Rugby rankings
+were successfully matched to 2,533 out of 3,410 observations (74.3%
+coverage), with the remaining observations being imputed using
+domain-informed defaults: 0.5 for win-rate features and 0 for
+score-margin features. No observations were removed, ensuring the
+retention of all available data (3,410 records).</p>
+</section>
+<section id="limitations">
+<h3>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h3>
+<p>A key limitation is the absence of player-level and injury information.
+[&#64;Williams2016; &#64;Hurley2016] While the Kaggle dataset primarily focuses
+on Tier 1 nations, the RWC archive includes a broader range of emerging
+nations, which could affect the predictive performance of lower-ranked
+teams. [&#64;Bunker2022] Finally, the analysis assumes that team strength
+relationships remain stable over time. Structural changes in
+international rugby and the progressive narrowing of competitive margins
+among nations may reduce the temporal stability and generalisability of
+the model. [&#64;Bergmeir2012]</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exploratory-data-analysis">
+<h1>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Link to this heading">#</a></h1>
+<section id="feature-signal-and-class-distribution">
+<h2>Feature Signal and Class Distribution<a class="headerlink" href="#feature-signal-and-class-distribution" title="Link to this heading">#</a></h2>
+<p>Exploratory analysis validates that engineered features exhibit
+meaningful variation between match outcomes and that the dataset is
+appropriately balanced for classification. The target variable
+(Springboks win) shows a class distribution of 60.4% wins and 39.6%
+non-wins (draws or losses) across the 328 South African matches,
+providing reasonable balance for logistic and tree-based classifiers.</p>
+<p>The Elo rating differential shows clear separation by match outcome
+(Figure <a class="reference internal" href="#fig:elo-dist"><span class="xref myst">2</span></a>{reference-type=”ref”
+reference=”fig:elo-dist”}), with winning matches concentrated at
+positive Elo differentials and losing matches at negative differentials.
+This strong visual separation confirms that relative team strength, as
+represented by Elo-based ratings, is a primary predictor of match
+outcomes. [&#64;Hvattum2010]</p>
+<figure id="fig:elo-dist" data-latex-placement="H">
+<embed src="eda_elo_distribution.pdf" style="width:70.0%" />
+<figcaption>Elo rating differential distribution by match
+outcome.</figcaption>
+</figure>
+</section>
+<section id="contextual-and-performance-predictors">
+<h2>Contextual and Performance Predictors<a class="headerlink" href="#contextual-and-performance-predictors" title="Link to this heading">#</a></h2>
+<p>Home advantage and recent form emerge as strong predictors of match
+outcomes. South Africa won 75.6% of home matches (<span class="math notranslate nohighlight">\(n=164\)</span>) compared with
+49.4% of away matches (<span class="math notranslate nohighlight">\(n=168\)</span>), representing a difference of 26.2
+percentage points. This venue effect is consistent with findings from
+the sports analytics literature and supports the inclusion of
+venue-related features in the predictive modelling framework.
+[&#64;Thomas2008; &#64;Nevill1999]</p>
+<p>Recent performance also exhibits substantial predictive value. Matches
+preceded by stronger results over the previous three-match window were
+associated with higher probabilities of subsequent victory, indicating
+that short-term form captures information beyond longer-term measures of
+team strength.</p>
+<p>Both effects are illustrated in
+Figure <a class="reference internal" href="#fig:eda-contextual"><span class="xref myst">3</span></a>{reference-type=”ref”
+reference=”fig:eda-contextual”}. Home matches show a clear increase in
+win probability relative to away fixtures, while rolling form
+demonstrates noticeable separation between winning and non-winning
+outcomes. Together, these findings provide empirical support for the
+inclusion of venue and recent-performance features in the predictive
+models.</p>
+<figure id="fig:eda-contextual" data-latex-placement="H">
+<figure>
+<embed src="eda_home_advantage.pdf" />
+<figcaption>Home advantage effect</figcaption>
+</figure>
+<figure>
+<embed src="eda_rolling_form.pdf" />
+<figcaption>Rolling performance momentum</figcaption>
+</figure>
+<figcaption>Exploratory analysis of home advantage (left) and rolling
+performance momentum (right) as predictors of match
+outcomes.</figcaption>
+</figure>
+</section>
+<section id="elo-rating-dynamics">
+<h2>Elo Rating Dynamics<a class="headerlink" href="#elo-rating-dynamics" title="Link to this heading">#</a></h2>
+<p>The Elo rating system provides a dynamic measure of team strength that
+evolves with match outcomes. [&#64;Elo1978] Matches involving teams with
+positive Elo differentials (favourable rating advantage) consistently
+show higher win frequencies, validating the Elo-based approach.
+[&#64;Hvattum2010] The temporal evolution of Elo ratings across the
+1995–2024 period reveals distinct competitive cycles, with peaks
+corresponding to RWC championship years and troughs corresponding to
+periods of transition or rebuilding. Additional feature analysis is
+provided in Appendix Figures <a class="reference internal" href="#fig:app-pedigree"><span class="xref myst">9</span></a>{reference-type=”ref”
+reference=”fig:app-pedigree”},
+<a class="reference internal" href="#fig:app-correlation"><span class="xref myst">10</span></a>{reference-type=”ref”
+reference=”fig:app-correlation”},
+<a class="reference internal" href="#fig:app-trend"><span class="xref myst">12</span></a>{reference-type=”ref” reference=”fig:app-trend”},
+and <a class="reference internal" href="#fig:app-margin"><span class="xref myst">11</span></a>{reference-type=”ref”
+reference=”fig:app-margin”}.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="methods">
+<h1>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h1>
+<section id="feature-engineering">
+<h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h2>
+<p>The feature set comprises 13 features organized into three categories
+reflecting different dimensions of match performance (detailed in
+Table <a class="reference internal" href="#tab:features"><span class="xref myst">1</span></a>{reference-type=”ref”
+reference=”tab:features”}). The following sections describe each
+category.</p>
+<ol class="arabic">
+<li><p><strong>Team Strength:</strong> The Elo rating differential serves as the
+principal measure of relative team strength. [&#64;Elo1978] Elo ratings
+are updated sequentially after each match using only information
+available at the time of prediction. The expected probability of
+victory for team A is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    P_A = \frac{1}{1 + 10^{(R_B-R_A)/400}}
+    \label{eq:elo}
+    \end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(P_A\)</span> denotes the expected probability of victory for team A,
+and <span class="math notranslate nohighlight">\(R_A\)</span> and <span class="math notranslate nohighlight">\(R_B\)</span> represent the pre-match Elo ratings. [&#64;Elo1978]</p>
+</li>
+<li><p><strong>Context and Momentum:</strong> Four variables capture short-term
+performance and match context. Recent form is measured as rolling
+win rate over 3, 5, and 10 previous matches. Score momentum is
+defined as the mean score margin across the previous three matches.
+Consecutive wins capture winning streak effects, while home
+advantage is represented by a binary indicator reflecting
+venue-related performance differences. [&#64;Thomas2008; &#64;Nevill1999]</p></li>
+<li><p><strong>Opponent History and Tournament Pedigree:</strong> Head-to-head win rate
+captures opponent-specific effects that may not be fully reflected
+in overall team strength measures. [&#64;BunkerThabtah2019] The RWC
+pedigree metric, derived from tournament records between 1987 and
+2023, provides a summary measure of historical RWC performance and
+long-term tournament success.</p></li>
+</ol>
+</section>
+<section id="model-selection-and-validation">
+<h2>Model Selection and Validation<a class="headerlink" href="#model-selection-and-validation" title="Link to this heading">#</a></h2>
+<p>Two base models are fitted: (1) Logistic Regression, chosen for
+interpretability and transparency; and (2) Gradient Boosting Classifier
+[&#64;Friedman2001], chosen for its non-linear capacity and reproducible
+implementation. The GBT model uses the following hyperparameters:
+<span class="math notranslate nohighlight">\(n\_\text{estimators}=200\)</span>, <span class="math notranslate nohighlight">\(\text{learning\_rate}=0.05\)</span>,
+<span class="math notranslate nohighlight">\(\text{max\_depth}=4\)</span>. Each model is trained with and without the Elo
+feature, yielding four configurations.</p>
+<p>To prevent information leakage and respect temporal dependencies, both a
+chronological train-test split and walk-forward cross-validation are
+employed: [&#64;Bergmeir2012]</p>
+<ol class="arabic">
+<li><p><strong>Hold-out Test Set:</strong> Matches from 2020–2024 (<span class="math notranslate nohighlight">\(n=492\)</span>) are
+withheld entirely from model training and hyperparameter selection,
+serving exclusively as a final, unbiased evaluation set.</p></li>
+<li><p><strong>Walk-Forward Cross-Validation:</strong> We employ a walk-forward
+expanding-window approach with four annual test windows
+(2016–2019). Training data grows progressively from 1995 onwards,
+reflecting realistic operational scenarios. Each fold extends the
+training period by one year and evaluates the immediately following
+season:</p>
+<blockquote>
+<div><p><strong>Fold 1:</strong> Training period 1995–2015 (<span class="math notranslate nohighlight">\(n=2{,}312\)</span>); evaluation
+on 2016 (<span class="math notranslate nohighlight">\(n=112\)</span>)</p>
+<p><strong>Fold 2:</strong> Training period 1995–2016 (<span class="math notranslate nohighlight">\(n=2{,}424\)</span>); evaluation
+on 2017 (<span class="math notranslate nohighlight">\(n=98\)</span>)</p>
+<p><strong>Fold 3:</strong> Training period 1995–2017 (<span class="math notranslate nohighlight">\(n=2{,}522\)</span>); evaluation
+on 2018 (<span class="math notranslate nohighlight">\(n=112\)</span>)</p>
+<p><strong>Fold 4:</strong> Training period 1995–2018 (<span class="math notranslate nohighlight">\(n=2{,}634\)</span>); evaluation
+on 2019 (<span class="math notranslate nohighlight">\(n=156\)</span>)</p>
+</div></blockquote>
+</li>
+</ol>
+<p>This dual-layer approach prevents the model from learning on future
+information while assessing performance stability across multiple
+temporal windows. The walk-forward results (mean AUC: LR=0.862,
+GBT=0.860) confirm that the hold-out test performance is representative
+of model robustness.</p>
+</section>
+<section id="model-evaluation">
+<h2>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
+<p>Performance is assessed using multiple complementary metrics appropriate
+for classification and probabilistic prediction:</p>
+<ol class="arabic simple">
+<li><p><strong>Accuracy:</strong> measures the overall fraction of correctly classified
+match outcomes and provides a straightforward benchmark for binary
+classification performance.</p></li>
+<li><p><strong>Precision and Recall:</strong> are reported separately to account for
+potential class imbalance and to characterise the trade-off between
+false positives and false negatives.</p></li>
+<li><p><strong>ROC-AUC:</strong> serves as a threshold-independent measure of
+discriminative ability, reflecting the probability that the model
+correctly ranks a randomly selected positive instance above a
+negative one. [&#64;Hanley1982]</p></li>
+<li><p><strong>Brier Score:</strong> constitutes a proper scoring rule for probabilistic
+forecasts, penalising both overconfident and poorly calibrated
+predictions; lower values indicate superior probabilistic accuracy.
+[&#64;Brier1950]</p></li>
+<li><p><strong>Calibration Curves:</strong> provide a graphical comparison of predicted
+win probabilities against empirically observed outcome frequencies,
+enabling visual assessment of systematic over- or underestimation.
+[&#64;Guo2017]</p></li>
+</ol>
+</section>
+<section id="tournament-simulation">
+<h2>Tournament Simulation<a class="headerlink" href="#tournament-simulation" title="Link to this heading">#</a></h2>
+<p>Pre-match win probabilities are derived using a hybrid forecasting
+strategy. For matchups involving South African opponents present in the
+training set, the trained GBT model provides team-specific predictions
+incorporating lagged features and match context; for matchups involving
+unseen teams or out-of-sample configurations, win probabilities fall
+back to the Elo logistic function based on official World Rugby
+rankings. This hybrid approach ensures complete tournament coverage
+across all 24 teams while leveraging the GBT model’s superior
+discriminative performance (AUC 0.796) where applicable, with the Elo
+fallback mechanism preventing model failure on unseen teams.</p>
+<p>Individual match outcomes are sampled stochastically according to the
+Bernoulli model:
+<span class="math notranslate nohighlight">\(\text{outcome} \sim \text{Bernoulli}\!\left(P(\text{home win})\right)\)</span>,
+where the success probability is determined by the forecasting strategy
+described above. The full tournament bracket is simulated across
+<span class="math notranslate nohighlight">\(10{,}000\)</span> independent Monte Carlo replicates, adhering strictly to the
+official pool structure and knockout draw. The championship probability
+for each participating nation is estimated as the proportion of
+simulation replicates in which that team wins the tournament final,
+while stage-specific progression probabilities (group stage,
+quarter-final, semi-final, and final) are computed by aggregating
+outcomes across all <span class="math notranslate nohighlight">\(10{,}000\)</span> simulation paths, yielding a complete
+probabilistic tournament profile for each team.</p>
+<p>This approach propagates uncertainty through all knockout rounds and
+provides empirically grounded probabilistic estimates for all 24 teams.
+[&#64;Leitner2010]</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="results">
+<h1>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h1>
+<section id="model-performance">
+<h2>Model Performance<a class="headerlink" href="#model-performance" title="Link to this heading">#</a></h2>
+<p>The chronological test set (2020–2024, <span class="math notranslate nohighlight">\(n=492\)</span> matches across all
+teams) includes matches from the RWC 2023 and 2024 Rugby Championship,
+periods of competitive volatility that challenge prediction models. This
+corresponds to approximately 73 South African matches within the
+held-out period. These results are summarized in
+Table <a class="reference internal" href="#tab:results"><span class="xref myst">2</span></a>{reference-type=”ref” reference=”tab:results”}.</p>
+<p><strong>Model</strong>                      <strong>Accuracy</strong>   <strong>Precision</strong>   <strong>Recall</strong>   <strong>ROC-AUC</strong>   <strong>Brier</strong></p>
+<hr class="docutils" />
+<p>Logistic Regression               0.724           0.713         0.718         0.776        0.200<br />
+Logistic Regression + Elo         0.724           0.709         0.727         0.789        0.193<br />
+Gradient Boosting                 0.724           0.748         0.647         0.783        0.194<br />
+<strong>Gradient Boosting + Elo</strong>     <strong>0.734</strong>       <strong>0.749</strong>     <strong>0.676</strong>     <strong>0.796</strong>    <strong>0.190</strong></p>
+<p>: Model performance on chronological test set {#tab:results}</p>
+<p>The gradient boosting classifier with Elo features achieves the best
+overall performance: 73.4% accuracy, ROC-AUC of 0.796, and Brier score
+of 0.190. This model is selected as the primary classifier. The Brier
+score improvement from 0.200 (LR baseline) to 0.190 (GBT+Elo) indicates
+meaningful gains in probabilistic calibration.</p>
+</section>
+<section id="uncertainty-quantification">
+<h2>Uncertainty Quantification<a class="headerlink" href="#uncertainty-quantification" title="Link to this heading">#</a></h2>
+<p>The held-out test period (2020–2024, <span class="math notranslate nohighlight">\(n=492\)</span> matches across all teams)
+provides an unbiased evaluation set. For South Africa specifically (n =
+73 matches within this window), performance estimates carry additional
+sampling uncertainty. Bootstrap resampling with replacement (1,000
+replicates) is used to estimate 95% confidence intervals around key
+metrics. These intervals are displayed in
+Table <a class="reference internal" href="#tab:ci-metrics"><span class="xref myst">3</span></a>{reference-type=”ref”
+reference=”tab:ci-metrics”}.</p>
+<p><strong>Metric</strong>    <strong>GBT+Elo Estimate</strong>   <strong>95% Confidence Interval</strong></p>
+<hr class="docutils" />
+<p>Accuracy      0.734                  [0.627, 0.848]
+ROC-AUC       0.796                  [0.692, 0.891]
+Brier Score   0.190                  [0.165, 0.218]</p>
+<p>: Best model (GBT+Elo) performance with 95% bootstrap confidence
+intervals {#tab:ci-metrics}</p>
+<p>The wide confidence intervals reflect the inherent unpredictability of
+international rugby match outcomes. The ROC-AUC interval [0.692,
+0.891] indicates that while the model reliably discriminates between
+winners and non-winners, substantial uncertainty remains. This is not a
+model limitation, but rather reflects genuine competitive volatility in
+international rugby.</p>
+<p>For the RWC 2027 tournament simulation, championship probability
+estimates similarly carry sampling uncertainty. South Africa’s estimated
+championship probability of 23.2% is derived from 10,000 Monte Carlo
+replicates and carries an approximate 95% confidence interval of
+[21.8%, 24.7%], reflecting both sampling variability and match-level
+outcome randomness.</p>
+</section>
+<section id="feature-importance">
+<h2>Feature Importance<a class="headerlink" href="#feature-importance" title="Link to this heading">#</a></h2>
+<p>The gradient boosting model provides transparent feature importance
+rankings through permutation-based analysis. Elo rating differential
+emerges as the dominant predictor (importance: 0.0992), followed by
+experience differential (0.0625) and home advantage (0.0587). This
+ranking confirms that relative team strength, contextual venue effects,
+and historical experience are the primary drivers of match outcomes.</p>
+<p>As shown in Figure <a class="reference internal" href="#fig:feature_importance"><span class="xref myst">4</span></a>{reference-type=”ref”
+reference=”fig:feature_importance”}, these results align with domain
+expectations and justify the focus on team strength and contextual
+factors rather than more complex nonlinear interactions.</p>
+<figure id="fig:feature_importance" data-latex-placement="H">
+<embed src="model_feature_importance.pdf" style="width:70.0%" />
+<figcaption>Permutation-based feature importance for the gradient
+boosting model.</figcaption>
+</figure>
+</section>
+<section id="model-performance-discrimination-and-calibration">
+<h2>Model Performance: Discrimination and Calibration<a class="headerlink" href="#model-performance-discrimination-and-calibration" title="Link to this heading">#</a></h2>
+<section id="discriminative-ability-roc-auc">
+<h3>Discriminative Ability (ROC-AUC)<a class="headerlink" href="#discriminative-ability-roc-auc" title="Link to this heading">#</a></h3>
+<p>Probabilistic calibration, or the degree of agreement between predicted
+and observed probabilities, is essential for reliable tournament
+simulation. The GBT+Elo model demonstrates good calibration across the
+test set.</p>
+<ol class="arabic simple">
+<li><p><strong>Expected Calibration Error (ECE):</strong> ECE = 0.0808, indicating
+well-calibrated probability estimates. This metric quantifies the
+mean absolute difference between predicted and observed win
+probabilities. [&#64;Guo2017]</p></li>
+<li><p><strong>Brier Score:</strong> 0.190, a proper scoring rule measuring quadratic
+difference between predicted probabilities and observed outcomes.
+Lower is better (perfect: 0.0)  [&#64;Brier1950].</p></li>
+<li><p><strong>Calibration Curve:</strong> The observed relationship between predicted
+and actual win probabilities shows slight overconfidence for
+predictions below 0.6 and slight underestimation above 0.75. Overall
+agreement is satisfactory for forecasting
+(Figure <a class="reference internal" href="#fig:calibration"><span class="xref myst">5</span></a>{reference-type=”ref”
+reference=”fig:calibration”}).</p></li>
+</ol>
+<p>These metrics collectively indicate that the model’s confidence levels
+appropriately reflect true match outcome probabilities, validating its
+use for large-scale tournament simulation where probabilistic accuracy
+is critical.</p>
+<figure id="fig:calibration" data-latex-placement="H">
+<embed src="model_calibration.pdf" style="width:70.0%" />
+<figcaption>Calibration curve (GBT+Elo) showing predicted vs. observed
+win probabilities. Points near the diagonal indicate good calibration.
+The dashed line represents perfect calibration.</figcaption>
+</figure>
+</section>
+<section id="probabilistic-calibration">
+<h3>Probabilistic Calibration<a class="headerlink" href="#probabilistic-calibration" title="Link to this heading">#</a></h3>
+<p>To assess the robustness of the selected model,
+Figure <a class="reference internal" href="#fig:roc-ci"><span class="xref myst">6</span></a>{reference-type=”ref” reference=”fig:roc-ci”}
+displays ROC curves for all four model configurations with 95% bootstrap
+confidence intervals (1,000 replicates). The gradient boosting
+classifier with Elo features (AUC = 0.796, 95% CI: [+0.0049, +0.0585])
+demonstrates superior discrimination compared to the Logistic Regression
+baseline (AUC = 0.776, 95% CI: [+0.0049, +0.0585]). The confidence
+intervals account for both sampling variability in the test set and
+inherent uncertainty in match outcomes.</p>
+<figure id="fig:roc-ci" data-latex-placement="H">
+<embed src="model_roc_curves.pdf" style="width:70.0%" />
+<figcaption>ROC curves for all model configurations, along with their
+95% bootstrap confidence intervals.</figcaption>
+</figure>
+</section>
+</section>
+<section id="rugby-world-cup-probabilistic-forecast">
+<h2>2027 Rugby World Cup Probabilistic Forecast<a class="headerlink" href="#rugby-world-cup-probabilistic-forecast" title="Link to this heading">#</a></h2>
+<section id="south-african-tournament-progression">
+<h3>South African Tournament Progression<a class="headerlink" href="#south-african-tournament-progression" title="Link to this heading">#</a></h3>
+<p>For the case study focusing on South Africa, the stage progression
+probabilities shown in Figure <a class="reference internal" href="#fig:sa-funnel"><span class="xref myst">7</span></a>{reference-type=”ref”
+reference=”fig:sa-funnel”} quantify the likelihood of advancing beyond
+each knockout phase.</p>
+<figure id="fig:sa-funnel" data-latex-placement="H">
+<embed src="rwc2027_sa_funnel.pdf" style="width:70.0%" />
+<figcaption>South Africa’s stage progression probabilities through the
+RWC 2027 knockout rounds.</figcaption>
+</figure>
+<p>The probabilities reveal a clear tournament gradient: group stage
+qualification is near-certain (99.9%), while quarter-final progression
+becomes contingent on opponent draw (60.0%). The semi-final probability
+drops to 35.8%, and the championship estimate of 23.2% reflects South
+Africa’s competitive but not overwhelming advantage against elite
+opposition. Tournament sensitivity to different bracket compositions is
+further explored in Appendix
+Figure <a class="reference internal" href="#fig:app-path"><span class="xref myst">13</span></a>{reference-type=”ref”
+reference=”fig:app-path”}.</p>
+</section>
+<section id="championship-probabilities-across-all-teams">
+<h3>Championship Probabilities Across All Teams<a class="headerlink" href="#championship-probabilities-across-all-teams" title="Link to this heading">#</a></h3>
+<p>Figure <a class="reference internal" href="#fig:championship"><span class="xref myst">8</span></a>{reference-type=”ref”
+reference=”fig:championship”} illustrates how stage progression
+probabilities can be used to quantify the likelihood of advancing beyond
+each knockout phase in a case study focusing on South Africa.</p>
+<figure id="fig:championship" data-latex-placement="H">
+<embed src="rwc2027_championship.pdf" style="width:70.0%" />
+<figcaption>Championship probabilities for all 24 RWC 2027 teams from
+10,000 Monte Carlo simulations.</figcaption>
+</figure>
+<p>South Africa receives the highest estimated championship probability
+(23.2%) within the simulation framework, followed by New Zealand (16.1%)
+and Ireland (15.4%). These top three nations account for 54.7% of the
+simulated championship outcomes, reflecting their consistent high Elo
+ratings. These estimates should be interpreted as model-based
+probabilities rather than deterministic forecasts. They are conditional
+on the assumptions embedded within the ranking system, feature
+construction process, and tournament simulation design.</p>
+<p>The middle tier includes France (10.1%), Argentina (8.5%), and Scotland
+(6.7%), each with meaningful but modest championship chances. Detailed
+championship probabilities for all Tier 1 nations are provided in
+Appendix Figure <a class="reference internal" href="#fig:app-tier1"><span class="xref myst">14</span></a>{reference-type=”ref”
+reference=”fig:app-tier1”}. The remaining 18 teams collectively account
+for 8.0% of championship probability, with several nations having
+near-zero estimated chances based on current rankings.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="discussion">
+<h1>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h1>
+<section id="model-performance-and-limitations">
+<h2>Model Performance and Limitations<a class="headerlink" href="#model-performance-and-limitations" title="Link to this heading">#</a></h2>
+<p>The gradient boosting model achieved an accuracy of 73.4% on the
+held-out test set, which is a modest but meaningful improvement on the
+baseline class rate of 62.9%. With a ROC-AUC of 0.796, the model can be
+said to reliably discriminate between winners and non-winners. Although
+Elo ratings are the most important predictor (with an importance score
+of 0.0992), the non-linear transformation and probabilistic calibration
+refinements provided by gradient boosting reduce the Brier score from
+0.200 to 0.190, demonstrating measurable value in quantifying
+uncertainty beyond simple rating-based baselines. However, predictions
+remain probabilistic and individual match outcomes are inherently
+uncertain.</p>
+<p>The moderate Brier score (0.190) reflects both genuine match
+unpredictability and the challenges of high-stakes international
+competition. The test period (2020–2024) includes the RWC 2023, which
+is expected to be one of the most competitive tournaments on record.
+This naturally constrains the accuracy of predictions.</p>
+<p>The absence of player-level, tactical, and injury data represents a
+fundamental limitation. [&#64;Williams2016; &#64;Hurley2016] The model captures
+historical form and contextual factors but not real-time team
+composition or preparation status. Future improvements should prioritize
+the integration of squad-level data and tournament-specific contextual
+variables.</p>
+<p>The relatively limited size of the South African case-study dataset
+introduces additional uncertainty regarding parameter stability and
+generalisation performance. Although bootstrap confidence intervals
+partially address this issue, larger datasets covering a broader range
+of international teams and competitions would likely improve robustness
+and reduce estimation variance.</p>
+</section>
+<section id="tournament-simulation-validity">
+<h2>Tournament Simulation Validity<a class="headerlink" href="#tournament-simulation-validity" title="Link to this heading">#</a></h2>
+<p>The Monte Carlo simulation yields results consistent with expert
+expectations and recent historical performance. [&#64;Leitner2010] South
+Africa, New Zealand, and Ireland are correctly identified as the top
+contenders, and the estimated probabilities align reasonably with
+bookmaker odds and expert consensus forecasts (as of June 2026).</p>
+<p>The approach is transparent and auditable: every match probability is
+derived from official World Rugby rankings using a simple,
+well-documented Elo formula. [&#64;Elo1978] The 10,000 replicates provide
+sufficient sampling to estimate probabilities to within 1–2 percentage
+points for top contenders.</p>
+</section>
+<section id="external-validity-and-inherent-limitations">
+<h2>External Validity and Inherent Limitations<a class="headerlink" href="#external-validity-and-inherent-limitations" title="Link to this heading">#</a></h2>
+<p>The predictive framework demonstrates reasonable performance on
+historical data, but a fundamental limitation merits acknowledgement:
+sport remains intrinsically unpredictable at the elite level. Several
+unmeasurable factors shape tournament outcomes.</p>
+<section id="player-injuries-and-contingency">
+<h3>Player Injuries and Contingency<a class="headerlink" href="#player-injuries-and-contingency" title="Link to this heading">#</a></h3>
+<p>International rugby’s collision nature creates inherent injury risk. Key
+player losses disrupt team composition and psychology simultaneously.
+Research on the RWC 2015 documented that injury-induced personnel losses
+increase remaining players’ injury fear and reduce confidence.
+[&#64;Hurley2016] Such contingencies remain unmeasurable in historical data
+yet profoundly influence outcomes.</p>
+</section>
+<section id="beyond-historical-patterns">
+<h3>Beyond Historical Patterns<a class="headerlink" href="#beyond-historical-patterns" title="Link to this heading">#</a></h3>
+<p>Sports outcomes depend on factors beyond model scope: sleep, nutrition,
+psychological resilience, and tactical adaptation fluctuate
+unpredictably. While Elo ratings and recent form capture measurable team
+strength, future tournaments may differ due to changes in squad
+composition, coaching strategies, and tactical developments.
+[&#64;Hvattum2010]</p>
+</section>
+<section id="uncertainty-as-information">
+<h3>Uncertainty as Information<a class="headerlink" href="#uncertainty-as-information" title="Link to this heading">#</a></h3>
+<p>The wide confidence intervals (ROC-AUC 95% CI: [0.692, 0.891]) reflect
+genuine sporting volatility, not model weakness. South Africa’s 23.2%
+championship probability is a conditional forecast: given the current
+information, South Africa is favoured, but in 76.8% of plausible
+tournaments, another team would be expected to succeed. These
+probabilities remain valid only if past outcome drivers remain stable.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h1>
+<p>This project involved developing and evaluating a reproducible
+analytical framework for forecasting international rugby outcomes. By
+integrating historical match results, [&#64;Begbie2022] RWC records
+[&#64;Flashscore2024] and official World Rugby rankings, [&#64;WorldRugby2024]
+the study shows how diverse sports datasets can be transformed into a
+consistent predictive modelling process while preserving temporal
+validity and reproducibility.</p>
+<p>The findings suggest that measures of relative team strength, contextual
+variables and recent performance offer valuable predictive insights into
+international rugby matches. [&#64;BunkerThabtah2019] The best-performing
+model achieved an ROC-AUC score of 0.796 on a chronologically separate
+test set, and was then used for a large-scale Monte Carlo simulation of
+the RWC 2027.</p>
+<p>Although substantial predictive uncertainty remains, the resulting
+framework provides a transparent and interpretable approach to
+tournament forecasting. Rather than attempting to predict exact
+outcomes, the methodology quantifies uncertainty and supports the
+probabilistic assessment of alternative tournament scenarios. [&#64;Guo2017]</p>
+<p>Beyond the RWC application, this study’s main contribution lies in its
+reproducible methodology. Future research could extend the framework by
+incorporating player-level information, injury reports, squad selection
+variables, advanced match statistics and continuously updated
+forecasting pipelines.</p>
+<p>The entire workflow, encompassing data acquisition, feature engineering,
+model training, evaluation and tournament simulation, is entirely
+reproducible and accessible via the associated GitHub repository.</p>
+<p>This framework achieves an accuracy of 73.4% and an ROC-AUC of 0.796 on
+historical data, which is a respectable performance for international
+rugby predictions. However, these metrics only describe the patterns
+contained in the past. Outside the scope of the model lie unmeasured
+factors such as injuries to key personnel, tactical innovations,
+psychological factors and changes to squad composition. These elements
+continue to be genuine sources of outcome volatility.</p>
+<p>The RWC 2027 will unfold in ways that statistical models cannot foresee.
+Probabilistic forecasting is valuable because it acknowledges
+uncertainty transparently, quantifies historical patterns reproducibly,
+and recognises the inherent limits of predicting outcomes for elite
+competitive events. In that spirit, this framework aims to facilitate
+structured discussion of scenarios rather than making deterministic
+forecasts.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="acknowledgements">
+<h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h1>
+<p>I would like to express my gratitude to the CAS Applied Data Science
+faculty at the University of Bern for their guidance throughout this
+project. I also thank my study group, “The Berner Scorpions”, for their
+constructive exchange and motivation during the development of this
+work.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="statement">
+<h1>Statement<a class="headerlink" href="#statement" title="Link to this heading">#</a></h1>
+<p>I declare that I wrote this work independently and used no sources other
+than those indicated. All parts taken from sources, directly or
+indirectly, are identified as such. I am aware that otherwise the work
+will be considered not fulfilled and that the University of Bern may
+withdraw any degree or title granted on the basis of this work. For
+verification purposes, I grant the University of Bern the right to
+process the necessary personal data and to use the work, including
+reproduction and permanent storage in a database, and to make it
+available for plagiarism checks.</p>
+<p>Artificial intelligence tools were used as methodological and writing
+support for language refinement, structural feedback, and code
+documentation. All conceptual decisions, analyses, and interpretations
+were developed and verified independently by the author.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="appendix-supplementary-figures-and-analysis">
+<h1>Appendix: Supplementary Figures and Analysis<a class="headerlink" href="#appendix-supplementary-figures-and-analysis" title="Link to this heading">#</a></h1>
+<section id="exploratory-data-analysis-supplementary-findings">
+<h2>Exploratory Data Analysis: Supplementary Findings<a class="headerlink" href="#exploratory-data-analysis-supplementary-findings" title="Link to this heading">#</a></h2>
+<p>The following figures provide additional distributional, temporal, and
+correlation analysis supporting the main EDA findings.</p>
+<figure id="fig:app-pedigree" data-latex-placement="H">
+<embed src="eda_rwc_pedigree.pdf" style="width:70.0%" />
+<figcaption>Relationship between cumulative RWC performance and overall
+win rate.</figcaption>
+</figure>
+<figure id="fig:app-correlation" data-latex-placement="H">
+<embed src="eda_correlation_matrix.pdf" style="width:70.0%" />
+<figcaption>Correlation structure among engineered features, revealing
+moderate correlations between Elo-based and rolling performance
+metrics.</figcaption>
+</figure>
+<figure id="fig:app-margin" data-latex-placement="H">
+<embed src="eda_score_margin.pdf" style="width:70.0%" />
+<figcaption>Score margin distribution for South Africa by match
+outcome.</figcaption>
+</figure>
+<figure id="fig:app-trend" data-latex-placement="H">
+<embed src="eda_winrate_trend.pdf" style="width:70.0%" />
+<figcaption>South African annual win rates from 1995 to 2024 with 3-year
+smoothing.</figcaption>
+</figure>
+</section>
+<section id="tournament-forecast-sensitivity-and-details">
+<h2>Tournament Forecast Sensitivity and Details<a class="headerlink" href="#tournament-forecast-sensitivity-and-details" title="Link to this heading">#</a></h2>
+<figure id="fig:app-path" data-latex-placement="H">
+<embed src="rwc2027_sa_path.pdf" style="width:65.0%" />
+<figcaption>South Africa’s championship probability under different
+knockout draw scenarios.</figcaption>
+</figure>
+<figure id="fig:app-tier1" data-latex-placement="H">
+<embed src="rwc2027_tier1.pdf" style="width:65.0%" />
+<figcaption>Championship probabilities for the 10 Tier 1
+nations.</figcaption>
+</figure>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./paper"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Predicting Rugby World Cup Outcomes: A Machine Learning Approach</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../notebooks/03_exploratory_analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">03 · Exploratory Data Analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-and-motivation">Background and Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-objectives">Research Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sources">Data Sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-flow-and-processing-pipeline">Data Flow and Processing Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-model">Data Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality-and-limitations">Data Quality and Limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-size-clarification">Dataset Size Clarification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality-metrics">Data Quality Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis">Exploratory Data Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-signal-and-class-distribution">Feature Signal and Class Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextual-and-performance-predictors">Contextual and Performance Predictors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elo-rating-dynamics">Elo Rating Dynamics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-and-validation">Model Selection and Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tournament-simulation">Tournament Simulation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance">Model Performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-quantification">Uncertainty Quantification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance">Feature Importance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-discrimination-and-calibration">Model Performance: Discrimination and Calibration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discriminative-ability-roc-auc">Discriminative Ability (ROC-AUC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-calibration">Probabilistic Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rugby-world-cup-probabilistic-forecast">2027 Rugby World Cup Probabilistic Forecast</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#south-african-tournament-progression">South African Tournament Progression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#championship-probabilities-across-all-teams">Championship Probabilities Across All Teams</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-performance-and-limitations">Model Performance and Limitations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tournament-simulation-validity">Tournament Simulation Validity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-validity-and-inherent-limitations">External Validity and Inherent Limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#player-injuries-and-contingency">Player Injuries and Contingency</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-historical-patterns">Beyond Historical Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-as-information">Uncertainty as Information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statement">Statement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-supplementary-figures-and-analysis">Appendix: Supplementary Figures and Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-supplementary-findings">Exploratory Data Analysis: Supplementary Findings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tournament-forecast-sensitivity-and-details">Tournament Forecast Sensitivity and Details</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tamara Brand
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

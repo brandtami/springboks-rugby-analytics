@@ -1,0 +1,841 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>01 · Data Cleaning &#8212; Springboks Rugby Analytics - RWC 2027</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/01_data_cleaning';</script>
+    <link rel="canonical" href="https://brandtami.github.io/springboks-rugby-analytics/notebooks/01_data_cleaning.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Springboks Rugby Analytics - RWC 2027</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Predicting Rugby World Cup Outcomes: A Machine Learning Approach
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Thesis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../paper/thesis.html">Introduction</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interactive Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_exploratory_analysis.html">03 · Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_model_training.html">04 · Model Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_model_application.html">05 · Model Application — RWC 2027 Monte Carlo</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/01_data_cleaning.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>01 · Data Cleaning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality-report-missing-values-imputation-strategy">Data Quality Report — Missing Values &amp; Imputation Strategy</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-cleaning">
+<h1>01 · Data Cleaning<a class="headerlink" href="#data-cleaning" title="Link to this heading">#</a></h1>
+<p>Merges all Bronze sources into a unified Silver layer.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input</p></th>
+<th class="head"><p>Join</p></th>
+<th class="head"><p>Features added</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bronze_kaggle</span></code></p></td>
+<td><p>base — 2 rows per match</p></td>
+<td><p>Tier 1 match results</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bronze_rwc_matches</span></code></p></td>
+<td><p>date + teams (new rows only)</p></td>
+<td><p>Tier 2 RWC matches</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bronze_rankings</span></code></p></td>
+<td><p>asof backward — no leakage</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wr_rank</span></code>, <code class="docutils literal notranslate"><span class="pre">wr_rating_pre</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bronze_rwc_history</span></code></p></td>
+<td><p>asof backward — no leakage</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rwc_appearances</span></code>, <code class="docutils literal notranslate"><span class="pre">rwc_best_stage</span></code>, <code class="docutils literal notranslate"><span class="pre">rwc_cumul_score</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Guarantee:</strong> every match → exactly 2 rows (home + away perspective)<br />
+<strong>Output:</strong> <code class="docutils literal notranslate"><span class="pre">data/silver/silver_results.parquet</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">BRONZE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../data/bronze&#39;</span><span class="p">)</span>
+<span class="n">SILVER_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../data/silver&#39;</span><span class="p">)</span>
+<span class="n">SILVER_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">MIN_YEAR</span>   <span class="o">=</span> <span class="mi">1995</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># step 1: Kaggle base</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">BRONZE_DIR</span> <span class="o">/</span> <span class="s1">&#39;bronze_kaggle.parquet&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">&gt;=</span> <span class="n">MIN_YEAR</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Kaggle: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> matches | &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1"> – </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kaggle: 1,396 matches | 1995-01-21 – 2024-08-17
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># step 2: append Flashscore RWC matches (Tier 2 only)</span>
+<span class="c1"># Kaggle covers Tier 1 only → Flashscore adds Georgia, Romania, Fiji etc.</span>
+<span class="c1"># Deduplication: drop Flashscore rows where the same match (either direction)</span>
+<span class="c1"># already exists in Kaggle — avoids the integrity check failure.</span>
+<span class="n">df_rwc_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">BRONZE_DIR</span> <span class="o">/</span> <span class="s1">&#39;bronze_rwc_matches.parquet&#39;</span><span class="p">)</span>
+<span class="n">df_rwc_m</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>       <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_rwc_m</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">df_rwc_m</span><span class="p">[</span><span class="s1">&#39;home_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_rwc_m</span><span class="p">[</span><span class="s1">&#39;home_score&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df_rwc_m</span><span class="p">[</span><span class="s1">&#39;away_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_rwc_m</span><span class="p">[</span><span class="s1">&#39;away_score&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df_rwc_m</span> <span class="o">=</span> <span class="n">df_rwc_m</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;home_score&#39;</span><span class="p">,</span> <span class="s1">&#39;away_score&#39;</span><span class="p">])</span>
+
+<span class="c1"># build key set: both directions (home/away may be swapped across sources)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">match_key</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">t1</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">t2</span><span class="p">)])))</span>
+
+<span class="n">kaggle_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+    <span class="n">match_key</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">home_team</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">away_team</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">new_only</span> <span class="o">=</span> <span class="n">df_rwc_m</span><span class="p">[</span>
+    <span class="o">~</span><span class="n">df_rwc_m</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">match_key</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">home_team</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">away_team</span><span class="p">)</span> <span class="ow">in</span> <span class="n">kaggle_keys</span><span class="p">,</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">new_only</span><span class="p">[</span><span class="s1">&#39;neutral&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">shared</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">new_only</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">new_only</span><span class="p">[</span><span class="n">shared</span><span class="p">]],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="n">all_teams</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">home_team</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">away_team</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After merge: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> matches | </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_teams</span><span class="p">)</span><span class="si">}</span><span class="s1"> unique teams&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;New from Flashscore: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">new_only</span><span class="p">)</span><span class="si">}</span><span class="s1"> RWC matches&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Tier 2 spot-check:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Georgia&#39;</span><span class="p">,</span><span class="s1">&#39;Romania&#39;</span><span class="p">,</span><span class="s1">&#39;Fiji&#39;</span><span class="p">,</span><span class="s1">&#39;Uruguay&#39;</span><span class="p">,</span><span class="s1">&#39;Chile&#39;</span><span class="p">,</span><span class="s1">&#39;Zimbabwe&#39;</span><span class="p">]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">home_team</span><span class="o">==</span><span class="n">t</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">away_team</span><span class="o">==</span><span class="n">t</span><span class="p">)])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="s2">&quot;passed&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="o">&gt;</span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;failed&quot;</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> matches&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>After merge: 1,705 matches | 28 unique teams
+New from Flashscore: 309 RWC matches
+Tier 2 spot-check:
+  passed Georgia: 24 matches
+  passed Romania: 32 matches
+  passed Fiji: 37 matches
+  passed Uruguay: 19 matches
+  passed Chile: 4 matches
+  passed Zimbabwe: 6 matches
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># step 3: expand to team-perspective (2 rows per match)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">date</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+        <span class="n">tournament</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tournament&#39;</span><span class="p">,</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">),</span>
+        <span class="n">neutral</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;neutral&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="n">city</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">),</span>
+        <span class="n">country</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rows</span> <span class="o">+=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="o">**</span><span class="n">base</span><span class="p">,</span> <span class="s1">&#39;team&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">home_team</span><span class="p">,</span> <span class="s1">&#39;opponent&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">away_team</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="s1">&#39;team_score&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">home_score</span><span class="p">,</span> <span class="s1">&#39;opponent_score&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">away_score</span><span class="p">},</span>
+        <span class="p">{</span><span class="o">**</span><span class="n">base</span><span class="p">,</span> <span class="s1">&#39;team&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">away_team</span><span class="p">,</span> <span class="s1">&#39;opponent&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">home_team</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+         <span class="s1">&#39;team_score&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">away_score</span><span class="p">,</span> <span class="s1">&#39;opponent_score&#39;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">home_score</span><span class="p">},</span>
+    <span class="p">]</span>
+
+<span class="n">silver</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">silver</span><span class="p">[</span><span class="s1">&#39;score_margin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">silver</span><span class="o">.</span><span class="n">team_score</span> <span class="o">-</span> <span class="n">silver</span><span class="o">.</span><span class="n">opponent_score</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">silver</span><span class="p">[</span><span class="s1">&#39;win&#39;</span><span class="p">]</span>          <span class="o">=</span> <span class="p">(</span><span class="n">silver</span><span class="o">.</span><span class="n">score_margin</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int8&#39;</span><span class="p">)</span>
+<span class="n">silver</span><span class="p">[</span><span class="s1">&#39;draw&#39;</span><span class="p">]</span>         <span class="o">=</span> <span class="p">(</span><span class="n">silver</span><span class="o">.</span><span class="n">score_margin</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int8&#39;</span><span class="p">)</span>
+<span class="n">silver</span><span class="p">[[</span><span class="s1">&#39;home&#39;</span><span class="p">,</span><span class="s1">&#39;neutral&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">silver</span><span class="p">[[</span><span class="s1">&#39;home&#39;</span><span class="p">,</span><span class="s1">&#39;neutral&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int8&#39;</span><span class="p">)</span>
+<span class="n">silver</span> <span class="o">=</span> <span class="n">silver</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;team&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">silver</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">team</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">opponent</span><span class="p">]))</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">date</span><span class="p">,),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="s1">&#39;Match integrity check failed!&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Silver base: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> records | &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s1"> teams | win rate: </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Silver base: 3,410 records | 28 teams | win rate: 49.0%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># step 4: merge WR ratings (asof backward — no leakage)</span>
+<span class="n">df_wr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">BRONZE_DIR</span> <span class="o">/</span> <span class="s1">&#39;bronze_rankings.parquet&#39;</span><span class="p">)</span>
+<span class="n">df_wr</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_wr</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_ratings</span><span class="p">(</span><span class="n">silver</span><span class="p">,</span> <span class="n">df_wr</span><span class="p">,</span> <span class="n">team_col</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+    <span class="n">wr</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_wr</span><span class="p">[[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;team&#39;</span><span class="p">,</span><span class="s1">&#39;rank&#39;</span><span class="p">,</span><span class="s1">&#39;rating_pts&#39;</span><span class="p">]]</span>
+          <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_rank&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;rating_pts&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_rating&#39;</span><span class="p">})</span>
+          <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;team&#39;</span><span class="p">)</span>          <span class="c1"># avoid duplicate &#39;team&#39; column</span>
+          <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">))</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">team</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">silver</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">team_col</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">twr</span> <span class="o">=</span> <span class="n">df_wr</span><span class="p">[</span><span class="n">df_wr</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="n">team</span><span class="p">][[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;rank&#39;</span><span class="p">,</span><span class="s1">&#39;rating_pts&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">twr</span> <span class="o">=</span> <span class="n">twr</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_rank&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;rating_pts&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_rating&#39;</span><span class="p">})</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">twr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">grp</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_rank&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">grp</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">_rating&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grp</span><span class="p">);</span> <span class="k">continue</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span>
+            <span class="n">grp</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">),</span>
+            <span class="n">twr</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">),</span>
+            <span class="n">on</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">team_col</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">silver</span> <span class="o">=</span> <span class="n">merge_ratings</span><span class="p">(</span><span class="n">silver</span><span class="p">,</span> <span class="n">df_wr</span><span class="p">,</span> <span class="s1">&#39;team&#39;</span><span class="p">,</span>     <span class="s1">&#39;wr&#39;</span><span class="p">)</span>
+<span class="n">silver</span> <span class="o">=</span> <span class="n">merge_ratings</span><span class="p">(</span><span class="n">silver</span><span class="p">,</span> <span class="n">df_wr</span><span class="p">,</span> <span class="s1">&#39;opponent&#39;</span><span class="p">,</span> <span class="s1">&#39;opp&#39;</span><span class="p">)</span>
+<span class="n">silver</span><span class="p">[</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silver</span><span class="o">.</span><span class="n">opp_rank</span> <span class="o">-</span> <span class="n">silver</span><span class="o">.</span><span class="n">wr_rank</span>
+
+<span class="n">matched</span> <span class="o">=</span> <span class="n">silver</span><span class="o">.</span><span class="n">wr_rating</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;WR Rankings: </span><span class="si">{</span><span class="n">matched</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> rows matched &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">matched</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SA sample:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">silver</span><span class="p">[</span><span class="n">silver</span><span class="o">.</span><span class="n">team</span><span class="o">==</span><span class="s1">&#39;South Africa&#39;</span><span class="p">][[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;wr_rank&#39;</span><span class="p">,</span><span class="s1">&#39;wr_rating&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WR Rankings: 2,533/3,410 rows matched (74.3%)
+SA sample:
+           date  wr_rank  wr_rating
+3385 2024-06-22      1.0      94.54
+3390 2024-07-06      1.0      94.54
+3398 2024-07-13      1.0      94.54
+3403 2024-08-10      1.0      93.11
+3407 2024-08-17      1.0      93.11
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── step 5: merge RWC pedigree (asof backward — no leakage) ─────────────</span>
+<span class="n">df_rwc_h</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">BRONZE_DIR</span> <span class="o">/</span> <span class="s1">&#39;bronze_rwc_history.parquet&#39;</span><span class="p">)</span>
+<span class="n">df_rwc_h</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_rwc_h</span><span class="p">[</span><span class="s1">&#39;rwc_year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-10-01&#39;</span><span class="p">)</span>
+<span class="n">RWC_COLS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rwc_appearances&#39;</span><span class="p">,</span><span class="s1">&#39;rwc_best_stage&#39;</span><span class="p">,</span><span class="s1">&#39;rwc_cumul_score&#39;</span><span class="p">]</span>
+
+<span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">team</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">silver</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;team&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">trwc</span> <span class="o">=</span> <span class="n">df_rwc_h</span><span class="p">[</span><span class="n">df_rwc_h</span><span class="o">.</span><span class="n">team</span><span class="o">==</span><span class="n">team</span><span class="p">][[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">RWC_COLS</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trwc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">RWC_COLS</span><span class="p">:</span> <span class="n">grp</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grp</span><span class="p">);</span> <span class="k">continue</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">grp</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">),</span> <span class="n">trwc</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">)</span>
+    <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">silver</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;team&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">silver</span><span class="p">[</span><span class="n">RWC_COLS</span><span class="p">]</span> <span class="o">=</span> <span class="n">silver</span><span class="p">[</span><span class="n">RWC_COLS</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RWC pedigree merged | SA sample:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">silver</span><span class="p">[</span><span class="n">silver</span><span class="o">.</span><span class="n">team</span><span class="o">==</span><span class="s1">&#39;South Africa&#39;</span><span class="p">][[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">RWC_COLS</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RWC pedigree merged | SA sample:
+           date  rwc_appearances  rwc_best_stage  rwc_cumul_score
+3384 2024-06-22                7               5               25
+3392 2024-07-06                7               5               25
+3400 2024-07-13                7               5               25
+3405 2024-08-10                7               5               25
+3409 2024-08-17                7               5               25
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-quality-report-missing-values-imputation-strategy">
+<h2>Data Quality Report — Missing Values &amp; Imputation Strategy<a class="headerlink" href="#data-quality-report-missing-values-imputation-strategy" title="Link to this heading">#</a></h2>
+<p>Quantify missing values by feature and document imputation approach for reproducibility.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data Quality: Missing Values Analysis</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SILVER LAYER — DATA QUALITY REPORT&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># Count missing by feature</span>
+<span class="n">null_counts</span> <span class="o">=</span> <span class="n">silver</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">null_pct</span> <span class="o">=</span> <span class="p">(</span><span class="n">null_counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">missing_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Feature&#39;</span><span class="p">:</span> <span class="n">null_counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="s1">&#39;Missing_Count&#39;</span><span class="p">:</span> <span class="n">null_counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;Missing_Pct&#39;</span><span class="p">:</span> <span class="n">null_pct</span><span class="o">.</span><span class="n">values</span>
+<span class="p">})</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;Missing_Count &gt; 0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Missing_Pct&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Dataset: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> rows × </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s1"> columns&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Teams: </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s1"> (Tier 1+2)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Date Range: </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1"> – </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Features with missing values: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_df</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Missing Values Breakdown:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">missing_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">✓ No missing values in key features (imputation completed)&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;IMPUTATION RATIONALE&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+
+<span class="n">imputation_strategy</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;WR Rankings (wr_rank, wr_rating)&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;Asof-backward merge on match date&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;match_rate&#39;</span><span class="p">:</span> <span class="s1">&#39;74.3% (2,533 / 3,410 rows)&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rationale&#39;</span><span class="p">:</span> <span class="s1">&#39;Most recent prior ranking snapshot attached to each match&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;RWC Pedigree (rwc_**)&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;Asof-backward merge on RWC year&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;match_rate&#39;</span><span class="p">:</span> <span class="s1">&#39;100</span><span class="si">% f</span><span class="s1">or eligible teams&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rationale&#39;</span><span class="p">:</span> <span class="s1">&#39;Historical RWC performance attached via asof&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">details</span> <span class="ow">in</span> <span class="n">imputation_strategy</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="n">feature</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">details</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">key</span><span class="si">:</span><span class="s1">20s</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">✓ Data quality sufficient for modeling.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  No records dropped. Matches with missing WR data retain other features.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+SILVER LAYER — DATA QUALITY REPORT
+======================================================================
+
+Dataset: 3,410 rows × 22 columns
+Teams: 28 (Tier 1+2)
+Date Range: 1987-05-22 – 2024-08-17
+
+Features with missing values: 8
+
+Missing Values Breakdown:
+     Feature  Missing_Count  Missing_Pct
+wr_rank_diff            880        25.81
+     wr_rank            877        25.72
+   wr_rating            877        25.72
+    opp_rank            877        25.72
+  opp_rating            877        25.72
+        city            618        18.12
+     country            618        18.12
+  tournament             32         0.94
+
+======================================================================
+IMPUTATION RATIONALE
+======================================================================
+
+WR Rankings (wr_rank, wr_rating):
+  method              : Asof-backward merge on match date
+  match_rate          : 74.3% (2,533 / 3,410 rows)
+  rationale           : Most recent prior ranking snapshot attached to each match
+
+RWC Pedigree (rwc_**):
+  method              : Asof-backward merge on RWC year
+  match_rate          : 100% for eligible teams
+  rationale           : Historical RWC performance attached via asof
+
+✓ Data quality sufficient for modeling.
+  No records dropped. Matches with missing WR data retain other features.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># step 6: final column order + save</span>
+<span class="n">BASE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;team&#39;</span><span class="p">,</span><span class="s1">&#39;opponent&#39;</span><span class="p">,</span><span class="s1">&#39;home&#39;</span><span class="p">,</span><span class="s1">&#39;neutral&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;team_score&#39;</span><span class="p">,</span><span class="s1">&#39;opponent_score&#39;</span><span class="p">,</span><span class="s1">&#39;score_margin&#39;</span><span class="p">,</span><span class="s1">&#39;win&#39;</span><span class="p">,</span><span class="s1">&#39;draw&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tournament&#39;</span><span class="p">,</span><span class="s1">&#39;city&#39;</span><span class="p">,</span><span class="s1">&#39;country&#39;</span><span class="p">]</span>
+<span class="n">WR</span>   <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;wr_rank&#39;</span><span class="p">,</span><span class="s1">&#39;wr_rating&#39;</span><span class="p">,</span><span class="s1">&#39;opp_rank&#39;</span><span class="p">,</span><span class="s1">&#39;opp_rating&#39;</span><span class="p">,</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span>
+<span class="n">RWC2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rwc_appearances&#39;</span><span class="p">,</span><span class="s1">&#39;rwc_best_stage&#39;</span><span class="p">,</span><span class="s1">&#39;rwc_cumul_score&#39;</span><span class="p">]</span>
+
+<span class="n">cols</span>   <span class="o">=</span> <span class="n">BASE</span> <span class="o">+</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">WR</span> <span class="o">+</span> <span class="n">RWC2</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">silver</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="n">silver</span> <span class="o">=</span> <span class="n">silver</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">silver</span><span class="o">.</span><span class="n">columns</span><span class="p">]]</span>
+<span class="n">silver</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">SILVER_DIR</span> <span class="o">/</span> <span class="s1">&#39;silver_results.parquet&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SILVER LAYER SUMMARY&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Records:      </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Teams:        </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Period:       </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1"> – </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Columns:      </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">silver</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">silver</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;WR coverage:  </span><span class="si">{</span><span class="n">silver</span><span class="o">.</span><span class="n">wr_rating</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;RWC coverage: </span><span class="si">{</span><span class="p">(</span><span class="n">silver</span><span class="o">.</span><span class="n">rwc_cumul_score</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Next: run 02_feature_engineering.ipynb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=======================================================
+SILVER LAYER SUMMARY
+=======================================================
+Records:      3,410
+Teams:        28
+Period:       1987-05-22 – 2024-08-17
+Columns:      22: [&#39;date&#39;, &#39;year&#39;, &#39;team&#39;, &#39;opponent&#39;, &#39;home&#39;, &#39;neutral&#39;, &#39;team_score&#39;, &#39;opponent_score&#39;, &#39;score_margin&#39;, &#39;win&#39;, &#39;draw&#39;, &#39;tournament&#39;, &#39;city&#39;, &#39;country&#39;, &#39;wr_rank&#39;, &#39;wr_rating&#39;, &#39;opp_rank&#39;, &#39;opp_rating&#39;, &#39;wr_rank_diff&#39;, &#39;rwc_appearances&#39;, &#39;rwc_best_stage&#39;, &#39;rwc_cumul_score&#39;]
+WR coverage:  74.3%
+RWC coverage: 95.1%
+=======================================================
+Next: run 02_feature_engineering.ipynb
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "springboks-rugby-analytics"
+        },
+        kernelOptions: {
+            name: "springboks-rugby-analytics",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'springboks-rugby-analytics'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality-report-missing-values-imputation-strategy">Data Quality Report — Missing Values &amp; Imputation Strategy</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tamara Brand
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

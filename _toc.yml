@@ -1,0 +1,13 @@
+format: jb-book
+root: README.md
+
+parts:
+  - caption: Thesis
+    chapters:
+      - file: paper/thesis.md
+
+  - caption: Interactive Analysis
+    chapters:
+      - file: notebooks/03_exploratory_analysis.ipynb
+      - file: notebooks/04_model_training.ipynb
+      - file: notebooks/05_model_application.ipynb

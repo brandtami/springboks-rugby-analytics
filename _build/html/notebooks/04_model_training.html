@@ -1,0 +1,1448 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>04 · Model Training &#8212; Springboks Rugby Analytics - RWC 2027</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04_model_training';</script>
+    <link rel="canonical" href="https://brandtami.github.io/springboks-rugby-analytics/notebooks/04_model_training.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="05 · Model Application — RWC 2027 Monte Carlo" href="05_model_application.html" />
+    <link rel="prev" title="03 · Exploratory Data Analysis" href="03_exploratory_analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Springboks Rugby Analytics - RWC 2027</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Predicting Rugby World Cup Outcomes: A Machine Learning Approach
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Thesis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../paper/thesis.html">Introduction</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interactive Analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03_exploratory_analysis.html">03 · Exploratory Data Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">04 · Model Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_model_application.html">05 · Model Application — RWC 2027 Monte Carlo</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/04_model_training.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>04 · Model Training</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-feature-importance">Permutation Feature Importance</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="model-training">
+<h1>04 · Model Training<a class="headerlink" href="#model-training" title="Link to this heading">#</a></h1>
+<p><strong>Input:</strong> <code class="docutils literal notranslate"><span class="pre">gold_train.parquet</span></code>, <code class="docutils literal notranslate"><span class="pre">gold_test.parquet</span></code><br />
+<strong>Output:</strong> <code class="docutils literal notranslate"><span class="pre">models/best_model.pkl</span></code>, diagnostic PDFs, <code class="docutils literal notranslate"><span class="pre">reports/model_comparison.csv</span></code><br />
+<strong>Models:</strong> Logistic Regression, GradientBoostingClassifier (±Elo)<br />
+<strong>Split:</strong> chronological — no future data leaks into training</p>
+<hr class="docutils" />
+<p>PRIMARY MODELS (trained on matches 1995–2019):</p>
+<ul class="simple">
+<li><p>Gradient Boosting Tree (GBT) with 14 features</p>
+<ul>
+<li><p>Includes: Elo, rolling form, H2H, RWC pedigree, WR ranking, etc.</p></li>
+</ul>
+</li>
+<li><p>Logistic Regression baseline with same features</p></li>
+</ul>
+<p>FEATURE HANDLING:</p>
+<ul class="simple">
+<li><p>Numeric features (14): scaled via StandardScaler</p></li>
+<li><p>Categorical features (3): team, opponent, tournament → OneHotEncoded</p></li>
+<li><p>All features validated for no data leakage (shift(1), asof backward)</p></li>
+</ul>
+<p>INFERENCE ON 2027 RWC:</p>
+<ul class="simple">
+<li><p>Known Tier-1 teams (NZ, SA, AUS, etc.): Use GBT predictions</p></li>
+<li><p>Unseen/Tier-2 teams: Fall back to Elo-only formula</p></li>
+<li><p>Rationale: GBT extrapolates poorly beyond training distribution</p></li>
+</ul>
+<p>COMPARISON:</p>
+<ul class="simple">
+<li><p>GBT is main model (trained on all data 1995–2019)</p></li>
+<li><p>Elo is baseline for comparison + fallback for unseen teams</p></li>
+<li><p>Bootstrap significance test shows GBT is statistically better</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span>
+                              <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">brier_score_loss</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> 
+                              <span class="n">auc</span> <span class="k">as</span> <span class="n">sklearn_auc</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">calibration_curve</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span><span class="p">;</span> <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+
+
+<span class="n">GOLD_DIR</span>   <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../data/gold&#39;</span><span class="p">)</span>
+<span class="n">MODEL_DIR</span>  <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../models&#39;</span><span class="p">);</span>   <span class="n">MODEL_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">REPORT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../reports&#39;</span><span class="p">);</span> <span class="n">REPORT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">42</span>
+
+<span class="n">PRIMARY</span><span class="p">,</span> <span class="n">SECONDARY</span><span class="p">,</span> <span class="n">GREY</span> <span class="o">=</span> <span class="s1">&#39;#075020&#39;</span><span class="p">,</span> <span class="s1">&#39;#8A7A2F&#39;</span><span class="p">,</span> <span class="s2">&quot;#969490&quot;</span>
+
+<span class="n">PLOT_WIDTH</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">PLOT_HEIGHT</span> <span class="o">=</span> <span class="mi">650</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">GOLD_DIR</span> <span class="o">/</span> <span class="s1">&#39;gold_train.parquet&#39;</span><span class="p">)</span>
+<span class="n">test</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">GOLD_DIR</span> <span class="o">/</span> <span class="s1">&#39;gold_test.parquet&#39;</span><span class="p">)</span>
+<span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">test</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Train: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> (WR </span><span class="si">{</span><span class="n">y_tr</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">) | Test: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> (WR </span><span class="si">{</span><span class="n">y_te</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Teams — train: </span><span class="si">{</span><span class="n">train</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s1"> | test: </span><span class="si">{</span><span class="n">test</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train: 2,918 (WR 49.1%) | Test: 492 (WR 48.4%)
+Teams — train: 25 | test: 23
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FEAT_NUM</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rolling_form_3&#39;</span><span class="p">,</span> <span class="s1">&#39;rolling_form_5&#39;</span><span class="p">,</span> <span class="s1">&#39;rolling_form_10&#39;</span><span class="p">,</span> <span class="s1">&#39;rolling_margin_3&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;h2h_winrate&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;consecutive_wins&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;days_since_prev&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;experience&#39;</span><span class="p">,</span> <span class="s1">&#39;experience_diff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tournament_tier&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;rwc_appearances&#39;</span><span class="p">,</span> <span class="s1">&#39;rwc_best_stage&#39;</span><span class="p">,</span> <span class="s1">&#39;rwc_cumul_score&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;elo_diff_pre&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">FEAT_NUM_NO_ELO</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">FEAT_NUM</span> <span class="k">if</span> <span class="n">f</span> <span class="o">!=</span> <span class="s1">&#39;elo_diff_pre&#39;</span><span class="p">]</span>
+<span class="n">FEAT_CAT</span>        <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;team&#39;</span><span class="p">,</span> <span class="s1">&#39;opponent&#39;</span><span class="p">,</span> <span class="s1">&#39;tournament&#39;</span><span class="p">]</span>
+
+<span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">FEAT_NUM</span> <span class="o">+</span> <span class="n">FEAT_CAT</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">train</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">missing</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Missing features: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Features — numeric: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">FEAT_NUM</span><span class="p">)</span><span class="si">}</span><span class="s1"> | categorical: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">FEAT_CAT</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Features — numeric: 15 | categorical: 3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MODEL TRAINING</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_pipe</span><span class="p">(</span><span class="n">feat_num</span><span class="p">,</span> <span class="n">clf</span><span class="p">):</span>
+    <span class="n">pre</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([</span>
+        <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">feat_num</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">FEAT_CAT</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;pre&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">clf</span><span class="p">)])</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">feat_num_list</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;no_elo&#39;</span><span class="p">,</span> <span class="n">FEAT_NUM_NO_ELO</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;with_elo&#39;</span><span class="p">,</span> <span class="n">FEAT_NUM</span><span class="p">)]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- Training: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> ---&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Logistic Regression</span>
+    <span class="n">lr_pipe</span> <span class="o">=</span> <span class="n">make_pipe</span><span class="p">(</span><span class="n">feat_num_list</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span>
+    <span class="n">lr_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feat_num_list</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">],</span> <span class="n">y_tr</span><span class="p">)</span>
+    <span class="n">lr_prob</span> <span class="o">=</span> <span class="n">lr_pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">feat_num_list</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">])[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">lr_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">lr_prob</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    
+    <span class="n">lr_metrics</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">lr_pred</span><span class="p">),</span>
+        <span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">lr_prob</span><span class="p">),</span>
+        <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">lr_prob</span><span class="p">),</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># Gradient Boosting</span>
+    <span class="n">gbt_pipe</span> <span class="o">=</span> <span class="n">make_pipe</span><span class="p">(</span><span class="n">feat_num_list</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
+    <span class="n">gbt_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">feat_num_list</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">],</span> <span class="n">y_tr</span><span class="p">)</span>
+    <span class="n">gbt_prob</span> <span class="o">=</span> <span class="n">gbt_pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">feat_num_list</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">])[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">gbt_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">gbt_prob</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    
+    <span class="n">gbt_metrics</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">gbt_pred</span><span class="p">),</span>
+        <span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">gbt_prob</span><span class="p">),</span>
+        <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">gbt_prob</span><span class="p">),</span>
+    <span class="p">}</span>
+    
+    <span class="n">results</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">lr_pipe</span><span class="p">,</span> <span class="n">lr_prob</span><span class="p">,</span> <span class="n">lr_metrics</span><span class="p">),</span>
+        <span class="s1">&#39;xgb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">gbt_pipe</span><span class="p">,</span> <span class="n">gbt_prob</span><span class="p">,</span> <span class="n">gbt_metrics</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  LR — AUC: </span><span class="si">{</span><span class="n">lr_metrics</span><span class="p">[</span><span class="s2">&quot;auc&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  GBT — AUC: </span><span class="si">{</span><span class="n">gbt_metrics</span><span class="p">[</span><span class="s2">&quot;auc&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">✓ Models trained!&#39;</span><span class="p">)</span>
+
+<span class="c1"># Speichern für Notebook 05</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">MODEL_DIR</span> <span class="o">/</span> <span class="s1">&#39;results.pkl&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✓ Saved: results.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Training: no_elo ---
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  LR — AUC: 0.776
+  GBT — AUC: 0.783
+
+--- Training: with_elo ---
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  LR — AUC: 0.789
+  GBT — AUC: 0.796
+
+✓ Models trained!
+✓ Saved: results.pkl
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Baseline 1: Majority Class</span>
+<span class="n">majority_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">y_te</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">baseline_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">majority_pred</span><span class="p">)</span>
+
+<span class="c1"># Baseline 2: Pure Elo</span>
+<span class="n">y_elo_proba</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;elo_diff_pre&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">400</span><span class="p">))</span>
+<span class="n">elo_auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">y_elo_proba</span><span class="p">)</span>
+<span class="n">elo_acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">y_elo_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">elo_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">y_elo_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">elo_recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">y_elo_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">elo_brier</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">y_elo_proba</span><span class="p">)</span>
+
+<span class="c1"># Baseline 3: WR Ranking</span>
+<span class="n">lr_wr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">lr_wr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">wr_proba</span> <span class="o">=</span> <span class="n">lr_wr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">wr_auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">wr_proba</span><span class="p">)</span>
+<span class="n">wr_acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">wr_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">wr_recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">wr_brier</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">wr_proba</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✓ Baselines computed&#39;</span><span class="p">)</span>
+<span class="c1"># Baseline 3: WR Ranking</span>
+<span class="n">lr_wr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">lr_wr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">wr_proba</span> <span class="o">=</span> <span class="n">lr_wr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">wr_auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">wr_proba</span><span class="p">)</span>
+<span class="n">wr_acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+
+<span class="c1"># Comparison Table</span>
+<span class="n">comparison_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+    <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;Majority&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">majority_acc</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;Elo&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="n">elo_auc</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">elo_acc</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;WR Ranking&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="n">wr_auc</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">wr_acc</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;GBT&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;acc&#39;</span><span class="p">]},</span>
+<span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comparison_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Baselines computed
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">33</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">wr_acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> 
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="c1"># Comparison Table</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="n">comparison_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+<span class="ne">---&gt; </span><span class="mi">33</span>     <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;Majority&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">majority_acc</span><span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span>     <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;Elo&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="n">elo_auc</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">elo_acc</span><span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span>     <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;WR Ranking&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="n">wr_auc</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">wr_acc</span><span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="p">{</span><span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="s1">&#39;GBT&#39;</span><span class="p">,</span> <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;acc&#39;</span><span class="p">]},</span>
+
+<span class="ne">NameError</span>: name &#39;majority_acc&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_pipe</span><span class="p">(</span><span class="n">feat_num</span><span class="p">,</span> <span class="n">clf</span><span class="p">):</span>
+    <span class="n">pre</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([</span>
+        <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">feat_num</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">FEAT_CAT</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;pre&#39;</span><span class="p">,</span> <span class="n">pre</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">clf</span><span class="p">)])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">eval_pipe</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">):</span>
+    <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">prob</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pipe</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;acc&#39;</span><span class="p">:</span>   <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">pred</span><span class="p">),</span>
+        <span class="s1">&#39;prec&#39;</span><span class="p">:</span>  <span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;rec&#39;</span><span class="p">:</span>   <span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s1">&#39;auc&#39;</span><span class="p">:</span>   <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">prob</span><span class="p">),</span>
+        <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">prob</span><span class="p">),</span>
+    <span class="p">}</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">feat_num</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;no_elo&#39;</span><span class="p">,</span> <span class="n">FEAT_NUM_NO_ELO</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;with_elo&#39;</span><span class="p">,</span> <span class="n">FEAT_NUM</span><span class="p">)]:</span>
+    <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">feat_num</span><span class="o">+</span><span class="n">FEAT_CAT</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="n">feat_num</span><span class="o">+</span><span class="n">FEAT_CAT</span><span class="p">]</span>
+    <span class="n">lr_pipe</span><span class="p">,</span>  <span class="n">lr_prob</span><span class="p">,</span>  <span class="n">lr_m</span>  <span class="o">=</span> <span class="n">eval_pipe</span><span class="p">(</span>
+        <span class="n">make_pipe</span><span class="p">(</span><span class="n">feat_num</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">)),</span> <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">)</span>
+    <span class="n">xgb_pipe</span><span class="p">,</span> <span class="n">xgb_prob</span><span class="p">,</span> <span class="n">xgb_m</span> <span class="o">=</span> <span class="n">eval_pipe</span><span class="p">(</span>
+        <span class="n">make_pipe</span><span class="p">(</span><span class="n">feat_num</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span>
+            <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">)),</span> <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">lr_pipe</span><span class="p">,</span><span class="n">lr_prob</span><span class="p">,</span><span class="n">lr_m</span><span class="p">),</span> <span class="s1">&#39;xgb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">xgb_pipe</span><span class="p">,</span><span class="n">xgb_prob</span><span class="p">,</span><span class="n">xgb_m</span><span class="p">)}</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s1">10s</span><span class="si">}</span><span class="s1"> | LR  acc=</span><span class="si">{</span><span class="n">lr_m</span><span class="p">[</span><span class="s2">&quot;acc&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> auc=</span><span class="si">{</span><span class="n">lr_m</span><span class="p">[</span><span class="s2">&quot;auc&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span>
+          <span class="sa">f</span><span class="s1">&#39; | GBT acc=</span><span class="si">{</span><span class="n">xgb_m</span><span class="p">[</span><span class="s2">&quot;acc&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> auc=</span><span class="si">{</span><span class="n">xgb_m</span><span class="p">[</span><span class="s2">&quot;auc&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">best_model</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="n">MODEL_DIR</span> <span class="o">/</span> <span class="s1">&#39;best_model.pkl&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Saved: best_model.pkl  (GBT + Elo + all features)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>no_elo     | LR  acc=0.724 auc=0.776 | GBT acc=0.724 auc=0.783
+with_elo   | LR  acc=0.724 auc=0.789 | GBT acc=0.734 auc=0.796
+
+Saved: best_model.pkl  (GBT + Elo + all features)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">m</span><span class="p">)</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;config&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                     <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">items</span><span class="p">()}})</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">comparison</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">REPORT_DIR</span> <span class="o">/</span> <span class="s1">&#39;model_comparison.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      config    ACC   PREC    REC    AUC  BRIER
+   lr_no_elo 0.7236 0.7125 0.7185 0.7761 0.1996
+  xgb_no_elo 0.7236 0.7476 0.6471 0.7830 0.1935
+ lr_with_elo 0.7236 0.7090 0.7269 0.7893 0.1933
+xgb_with_elo 0.7337 0.7488 0.6765 0.7958 0.1897
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gbt_metrics</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">lr_metrics</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">gbt_proba</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">lr_proba</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+ 
+<span class="c1"># Comprehensive Comparison Table </span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MODEL COMPARISON TABLE&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+ 
+<span class="n">comparison_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;Baseline: Majority&quot;</span><span class="p">,</span> <span class="n">baseline_accuracy</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">baseline_accuracy</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;Baseline: Elo only&quot;</span><span class="p">,</span> <span class="n">elo_auc</span><span class="p">,</span> <span class="n">elo_acc</span><span class="p">,</span> <span class="n">elo_precision</span><span class="p">,</span> <span class="n">elo_recall</span><span class="p">,</span> <span class="n">elo_brier</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;Baseline: WR only&quot;</span><span class="p">,</span> <span class="n">wr_auc</span><span class="p">,</span> <span class="n">wr_acc</span><span class="p">,</span> <span class="n">wr_precision</span><span class="p">,</span> <span class="n">wr_recall</span><span class="p">,</span> <span class="n">wr_brier</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;LR (all features)&quot;</span><span class="p">,</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">],</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;prec&#39;</span><span class="p">],</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;rec&#39;</span><span class="p">],</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;brier&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">&quot;GBT (all features)&quot;</span><span class="p">,</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">],</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;prec&#39;</span><span class="p">],</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;rec&#39;</span><span class="p">],</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;brier&#39;</span><span class="p">]),</span>
+<span class="p">]</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Model&#39;</span><span class="si">:</span><span class="s2">&lt;25</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;AUC&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Accuracy&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Precision&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Recall&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Brier&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+ 
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">auc</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="n">prec</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">brier</span> <span class="ow">in</span> <span class="n">comparison_data</span><span class="p">:</span>
+    <span class="n">auc_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">auc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">auc</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;—&quot;</span>
+    <span class="n">acc_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;—&quot;</span>
+    <span class="n">prec_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prec</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">prec</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;—&quot;</span>
+    <span class="n">recall_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;—&quot;</span>
+    <span class="n">brier_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">brier</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">brier</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;—&quot;</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;25</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">auc_str</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">acc_str</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">prec_str</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">recall_str</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">brier_str</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ 
+
+<span class="c1"># Improvement Quantification</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MODEL IMPROVEMENT (vs Elo baseline)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+ 
+<span class="n">gbt_auc_improvement</span> <span class="o">=</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">elo_auc</span>
+<span class="n">gbt_auc_improvement_pct</span> <span class="o">=</span> <span class="p">(</span><span class="n">gbt_auc_improvement</span> <span class="o">/</span> <span class="n">elo_auc</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">gbt_acc_improvement</span> <span class="o">=</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">elo_acc</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GBT vs Elo:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AUC improvement:       </span><span class="si">{</span><span class="n">gbt_auc_improvement</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">gbt_auc_improvement_pct</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy improvement:  </span><span class="si">{</span><span class="n">gbt_acc_improvement</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Brier improvement:     </span><span class="si">{</span><span class="n">elo_brier</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;brier&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2"> (lower is better)&quot;</span><span class="p">)</span>
+ 
+<span class="c1"># STATISTICAL SIGNIFICANCE: Bootstrap Test</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BOOTSTRAP SIGNIFICANCE TEST&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+ 
+<span class="n">n_bootstrap</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">auc_diffs</span> <span class="o">=</span> <span class="p">[]</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running </span><span class="si">{</span><span class="n">n_bootstrap</span><span class="si">}</span><span class="s2"> bootstrap samples...&quot;</span><span class="p">)</span>
+ 
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_bootstrap</span><span class="p">):</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">y_te_b</span> <span class="o">=</span> <span class="n">y_te</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="s1">&#39;iloc&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">y_te</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">elo_b</span> <span class="o">=</span> <span class="n">y_elo_proba</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">gbt_b</span> <span class="o">=</span> <span class="n">gbt_proba</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">auc_elo_b</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te_b</span><span class="p">,</span> <span class="n">elo_b</span><span class="p">)</span>
+        <span class="n">auc_gbt_b</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te_b</span><span class="p">,</span> <span class="n">gbt_b</span><span class="p">)</span>
+        <span class="n">auc_diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">auc_gbt_b</span> <span class="o">-</span> <span class="n">auc_elo_b</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="c1"># Skip if bootstrap sample has only one class</span>
+        <span class="k">pass</span>
+ 
+<span class="n">auc_diff_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">auc_diffs</span><span class="p">)</span>
+<span class="n">auc_diff_ci_lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">auc_diffs</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
+<span class="n">auc_diff_ci_hi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">auc_diffs</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">)</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Bootstrap results (AUC difference: GBT - Elo):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mean difference:  </span><span class="si">{</span><span class="n">auc_diff_mean</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  95% CI:           [</span><span class="si">{</span><span class="n">auc_diff_ci_lo</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">auc_diff_ci_hi</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+ 
+<span class="k">if</span> <span class="n">auc_diff_ci_lo</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">significance</span> <span class="o">=</span> <span class="s2">&quot;✓ SIGNIFICANT (CI &gt; 0)&quot;</span>
+<span class="k">elif</span> <span class="n">auc_diff_ci_hi</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">significance</span> <span class="o">=</span> <span class="s2">&quot;✗ SIGNIFICANT negative (CI &lt; 0)&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">significance</span> <span class="o">=</span> <span class="s2">&quot;⚠️  NOT SIGNIFICANT (CI includes 0)&quot;</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Interpretation:   </span><span class="si">{</span><span class="n">significance</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+ 
+<span class="c1"># Store for later use (plotting, etc.)</span>
+ 
+<span class="n">baseline_results</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Majority&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">baseline_accuracy</span><span class="p">,</span> <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">},</span>
+    <span class="s1">&#39;Elo&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="n">elo_auc</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">elo_acc</span><span class="p">,</span> <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">elo_brier</span><span class="p">,</span> <span class="s1">&#39;proba&#39;</span><span class="p">:</span> <span class="n">y_elo_proba</span><span class="p">},</span>
+    <span class="s1">&#39;WR&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="n">wr_auc</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">wr_acc</span><span class="p">,</span> <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">wr_brier</span><span class="p">,</span> <span class="s1">&#39;proba&#39;</span><span class="p">:</span> <span class="n">wr_proba</span><span class="p">},</span>
+    <span class="s1">&#39;LR (all)&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">],</span> <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">lr_metrics</span><span class="p">[</span><span class="s1">&#39;brier&#39;</span><span class="p">],</span> <span class="s1">&#39;proba&#39;</span><span class="p">:</span> <span class="n">lr_proba</span><span class="p">},</span>
+    <span class="s1">&#39;GBT (all)&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;auc&#39;</span><span class="p">:</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">],</span> <span class="s1">&#39;acc&#39;</span><span class="p">:</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">],</span> <span class="s1">&#39;brier&#39;</span><span class="p">:</span> <span class="n">gbt_metrics</span><span class="p">[</span><span class="s1">&#39;brier&#39;</span><span class="p">],</span> <span class="s1">&#39;proba&#39;</span><span class="p">:</span> <span class="n">gbt_proba</span><span class="p">},</span>
+<span class="p">}</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ Baseline results stored in &#39;baseline_results&#39; dictionary&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Can be used for plotting, reporting, etc.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+MODEL COMPARISON TABLE
+======================================================================
+Model                          AUC   Accuracy  Precision   Recall    Brier
+----------------------------------------------------------------------
+Baseline: Majority          0.5163     0.5000     0.5163        —        —
+Baseline: Elo only          0.7647     0.6911     0.6748   0.6975   0.1986
+Baseline: WR only           0.7840     0.6972     0.6831   0.6975   0.1932
+LR (all features)           0.7893     0.7236     0.7090   0.7269   0.1933
+GBT (all features)          0.7958     0.7337     0.7488   0.6765   0.1897
+
+======================================================================
+MODEL IMPROVEMENT (vs Elo baseline)
+======================================================================
+GBT vs Elo:
+  AUC improvement:       +0.0311 (+4.1%)
+  Accuracy improvement:  +0.0427
+  Brier improvement:     +0.0089 (lower is better)
+
+======================================================================
+BOOTSTRAP SIGNIFICANCE TEST
+======================================================================
+Running 1000 bootstrap samples...
+
+Bootstrap results (AUC difference: GBT - Elo):
+  Mean difference:  +0.0318
+  95% CI:           [+0.0055, +0.0584]
+  Interpretation:   ✓ SIGNIFICANT (CI &gt; 0)
+
+======================================================================
+
+✓ Baseline results stored in &#39;baseline_results&#39; dictionary
+✓ Can be used for plotting, reporting, etc.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Walk-forward validation: train on past data, test on future (no look-ahead bias)</span>
+<span class="c1"># Machine Learning, 109, 1997–2028.</span>
+
+<span class="n">WF_FOLDS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;1995-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-12-31&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-12-31&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;1995-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-12-31&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-12-31&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;1995-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-12-31&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-12-31&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;1995-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-12-31&#39;</span><span class="p">,</span> <span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2019-12-31&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">full_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Walk-forward cross-validation (expanding window):&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;Fold&quot;</span><span class="si">:</span><span class="s1">&lt;8</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Train&quot;</span><span class="si">:</span><span class="s1">&gt;6</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Test&quot;</span><span class="si">:</span><span class="s1">&gt;5</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;AUC LR&quot;</span><span class="si">:</span><span class="s1">&gt;8</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;AUC GBT&quot;</span><span class="si">:</span><span class="s1">&gt;9</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;AUC Elo&quot;</span><span class="si">:</span><span class="s1">&gt;9</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">wf_rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">tr_start</span><span class="p">,</span> <span class="n">tr_end</span><span class="p">,</span> <span class="n">te_start</span><span class="p">,</span> <span class="n">te_end</span> <span class="ow">in</span> <span class="n">WF_FOLDS</span><span class="p">:</span>
+    <span class="n">tr</span> <span class="o">=</span> <span class="n">full_data</span><span class="p">[(</span><span class="n">full_data</span><span class="o">.</span><span class="n">date</span> <span class="o">&gt;=</span> <span class="n">tr_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">full_data</span><span class="o">.</span><span class="n">date</span> <span class="o">&lt;=</span> <span class="n">tr_end</span><span class="p">)]</span>
+    <span class="n">te</span> <span class="o">=</span> <span class="n">full_data</span><span class="p">[(</span><span class="n">full_data</span><span class="o">.</span><span class="n">date</span> <span class="o">&gt;=</span> <span class="n">te_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">full_data</span><span class="o">.</span><span class="n">date</span> <span class="o">&lt;=</span> <span class="n">te_end</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">te</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+    <span class="n">y_tr_f</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">y_te_f</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">X_tr_f</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="n">FEAT_NUM</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">]</span>
+    <span class="n">X_te_f</span> <span class="o">=</span> <span class="n">te</span><span class="p">[</span><span class="n">FEAT_NUM</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">]</span>
+
+    <span class="n">lr_f</span>  <span class="o">=</span> <span class="n">make_pipe</span><span class="p">(</span><span class="n">FEAT_NUM</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">))</span>
+    <span class="n">gbt_f</span> <span class="o">=</span> <span class="n">make_pipe</span><span class="p">(</span><span class="n">FEAT_NUM</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span>
+        <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">))</span>
+    <span class="n">lr_f</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr_f</span><span class="p">,</span> <span class="n">y_tr_f</span><span class="p">)</span>
+    <span class="n">gbt_f</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr_f</span><span class="p">,</span> <span class="n">y_tr_f</span><span class="p">)</span>
+
+    <span class="n">auc_lr</span>  <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te_f</span><span class="p">,</span> <span class="n">lr_f</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te_f</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">auc_gbt</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te_f</span><span class="p">,</span> <span class="n">gbt_f</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te_f</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">auc_elo</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te_f</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">te</span><span class="p">[</span><span class="s1">&#39;elo_diff_pre&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">400</span><span class="p">)))</span>
+
+    <span class="n">fold</span> <span class="o">=</span> <span class="n">te_start</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">wf_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span> <span class="n">n_train</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">),</span> <span class="n">n_test</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">te</span><span class="p">),</span>
+                        <span class="n">auc_lr</span><span class="o">=</span><span class="n">auc_lr</span><span class="p">,</span> <span class="n">auc_gbt</span><span class="o">=</span><span class="n">auc_gbt</span><span class="p">,</span> <span class="n">auc_elo</span><span class="o">=</span><span class="n">auc_elo</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fold</span><span class="si">:</span><span class="s1">&lt;8</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span><span class="si">:</span><span class="s1">&gt;6</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">te</span><span class="p">)</span><span class="si">:</span><span class="s1">&gt;5</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">auc_lr</span><span class="si">:</span><span class="s1">&gt;8.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">auc_gbt</span><span class="si">:</span><span class="s1">&gt;9.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">auc_elo</span><span class="si">:</span><span class="s1">&gt;9.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">wf_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">wf_rows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Mean — LR: </span><span class="si">{</span><span class="n">wf_df</span><span class="o">.</span><span class="n">auc_lr</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> | &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;GBT: </span><span class="si">{</span><span class="n">wf_df</span><span class="o">.</span><span class="n">auc_gbt</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> | &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;Elo: </span><span class="si">{</span><span class="n">wf_df</span><span class="o">.</span><span class="n">auc_elo</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">wf_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">REPORT_DIR</span> <span class="o">/</span> <span class="s1">&#39;walk_forward_cv.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved: walk_forward_cv.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Walk-forward cross-validation (expanding window):
+Fold      Train  Test   AUC LR   AUC GBT   AUC Elo
+2016       2312   112    0.837     0.827     0.834
+2017       2424    98    0.905     0.907     0.871
+2018       2522   112    0.798     0.815     0.816
+2019       2634   156    0.910     0.888     0.842
+
+Mean — LR: 0.862 | GBT: 0.860 | Elo: 0.841
+Saved: walk_forward_cv.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bootstrap test: GBT vs Elo AUC difference</span>
+<span class="n">auc_diffs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">auc_elo</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">elo_proba</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+    <span class="n">auc_gbt</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">gbt_proba</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+    <span class="n">auc_diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">auc_gbt</span> <span class="o">-</span> <span class="n">auc_elo</span><span class="p">)</span>
+
+<span class="n">ci_lo</span><span class="p">,</span> <span class="n">ci_hi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">auc_diffs</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AUC improvement: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">auc_diffs</span><span class="p">)</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;95% CI: [</span><span class="si">{</span><span class="n">ci_lo</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ci_hi</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ci_lo</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Statistically significant!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC improvement: +0.0312
+95% CI: [+0.0048, +0.0593]
+✓ Statistically significant!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BASELINE COMPARISON&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">70</span><span class="p">)</span>
+ 
+<span class="c1"># ── Verify columns exist before using them ──────────────────────────────</span>
+<span class="n">required_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;elo_diff_pre&#39;</span><span class="p">,</span> <span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span>
+<span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">required_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">test</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️  ERROR: Missing columns: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Available columns: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot continue without: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Data check passed | Test set: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows | Columns OK&quot;</span><span class="p">)</span>
+ 
+<span class="c1"># BASELINE 1: Majority Class</span>
+
+<span class="n">baseline_rate</span> <span class="o">=</span> <span class="n">y_te</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">baseline_accuracy</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">baseline_rate</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">baseline_rate</span><span class="p">)</span>
+<span class="n">baseline_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_te</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Always predict most common</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Baseline 1 — Majority class (always predict &#39;</span><span class="si">{</span><span class="p">[</span><span class="s1">&#39;Loss/Draw&#39;</span><span class="p">,</span><span class="s1">&#39;Win&#39;</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">baseline_rate</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)]</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy: </span><span class="si">{</span><span class="n">baseline_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ 
+<span class="c1"># BASELINE 2: Pure Elo Model</span>
+<span class="c1"># Elo expectancy formula: P(A wins) = 1 / (1 + 10^((Rb - Ra) / 400))</span>
+<span class="c1"># Where: elo_diff_pre = Ra - Rb (team rating - opponent rating)</span>
+ 
+<span class="n">elo_diff</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;elo_diff_pre&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y_elo_proba</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mf">10.0</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">elo_diff</span> <span class="o">/</span> <span class="mf">400.0</span><span class="p">))</span>
+ 
+<span class="n">elo_auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">y_elo_proba</span><span class="p">)</span>
+<span class="n">elo_acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">y_elo_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">elo_brier</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">y_elo_proba</span><span class="p">)</span>
+<span class="n">elo_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">y_elo_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">elo_recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">y_elo_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Baseline 2 — Pure Elo formula (no features)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AUC:       </span><span class="si">{</span><span class="n">elo_auc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy:  </span><span class="si">{</span><span class="n">elo_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Precision: </span><span class="si">{</span><span class="n">elo_precision</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Recall:    </span><span class="si">{</span><span class="n">elo_recall</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Brier:     </span><span class="si">{</span><span class="n">elo_brier</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ 
+<span class="c1"># BASELINE 3: WR Ranking Difference (Logistic Regression)</span>
+ 
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+ 
+<span class="n">wr_diff</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">wr_diff_train</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;wr_rank_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+ 
+<span class="c1"># Handle NaN: replace with median (safest approach)</span>
+<span class="n">wr_diff_train_median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">wr_diff_train</span><span class="p">)</span>
+<span class="n">wr_diff_test_median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">wr_diff</span><span class="p">)</span>
+ 
+<span class="n">wr_diff_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">wr_diff_train</span><span class="p">),</span> <span class="n">wr_diff_train_median</span><span class="p">,</span> <span class="n">wr_diff_train</span><span class="p">)</span>
+<span class="n">wr_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">wr_diff</span><span class="p">),</span> <span class="n">wr_diff_test_median</span><span class="p">,</span> <span class="n">wr_diff</span><span class="p">)</span>
+ 
+<span class="n">lr_wr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">lr_wr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wr_diff_train</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+ 
+<span class="n">wr_proba</span> <span class="o">=</span> <span class="n">lr_wr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">wr_diff</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">wr_auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">wr_proba</span><span class="p">)</span>
+<span class="n">wr_acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">wr_brier</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">wr_proba</span><span class="p">)</span>
+<span class="n">wr_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">wr_recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="p">(</span><span class="n">wr_proba</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Baseline 3 — WR ranking difference (Logistic Regression)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AUC:       </span><span class="si">{</span><span class="n">wr_auc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Accuracy:  </span><span class="si">{</span><span class="n">wr_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Precision: </span><span class="si">{</span><span class="n">wr_precision</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Recall:    </span><span class="si">{</span><span class="n">wr_recall</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Brier:     </span><span class="si">{</span><span class="n">wr_brier</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+BASELINE COMPARISON
+======================================================================
+✓ Data check passed | Test set: 492 rows | Columns OK
+
+Baseline 1 — Majority class (always predict &#39;Loss/Draw&#39;)
+  Accuracy: 0.5163
+
+Baseline 2 — Pure Elo formula (no features)
+  AUC:       0.7647
+  Accuracy:  0.6911
+  Precision: 0.6748
+  Recall:    0.6975
+  Brier:     0.1986
+
+Baseline 3 — WR ranking difference (Logistic Regression)
+  AUC:       0.7840
+  Accuracy:  0.6972
+  Precision: 0.6831
+  Recall:    0.6975
+  Brier:     0.1932
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;acc&#39;</span><span class="p">,</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">),(</span><span class="s1">&#39;auc&#39;</span><span class="p">,</span><span class="s1">&#39;ROC-AUC&#39;</span><span class="p">),(</span><span class="s1">&#39;brier&#39;</span><span class="p">,</span><span class="s1">&#39;Brier&#39;</span><span class="p">)]</span>
+<span class="n">configs</span>  <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;LR&#39;</span><span class="p">,</span>      <span class="s1">&#39;#BDA962&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;no_elo&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;LR+Elo&#39;</span><span class="p">,</span>  <span class="n">SECONDARY</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;GBT&#39;</span><span class="p">,</span>     <span class="s1">&#39;#3A8353&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;no_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;GBT+Elo&#39;</span><span class="p">,</span> <span class="n">PRIMARY</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]),</span>
+<span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">configs</span><span class="p">:</span>  <span class="c1"># ← Nur 3 Werte!</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">]</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">],</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">],</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s1">&#39;outside&#39;</span><span class="p">,</span>
+        <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">&#39;&lt;b&gt;%</span><span class="si">{fullData.name}</span><span class="s1">&lt;/b&gt;&lt;br&gt;%</span><span class="si">{x}</span><span class="s1">&lt;br&gt;%</span><span class="si">{y:.3f}</span><span class="s1">&lt;extra&gt;&lt;/extra&gt;&#39;</span>
+    <span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Score&#39;</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">PLOT_HEIGHT</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">PLOT_WIDTH</span><span class="p">,</span>
+    <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]),</span>
+    <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">xanchor</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">yanchor</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FPR_GRID</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">rng</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">bootstrap_roc</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_score</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">tprs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">))</span>
+        <span class="n">yt</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_score</span><span class="p">)[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">yt</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">fpr_b</span><span class="p">,</span> <span class="n">tpr_b</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">yt</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+        <span class="n">tprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">FPR_GRID</span><span class="p">,</span> <span class="n">fpr_b</span><span class="p">,</span> <span class="n">tpr_b</span><span class="p">))</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tprs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">curve_specs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;LR&#39;</span><span class="p">,</span>      <span class="n">SECONDARY</span><span class="p">,</span> <span class="s1">&#39;dash&#39;</span><span class="p">,</span>  <span class="n">results</span><span class="p">[</span><span class="s1">&#39;no_elo&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;GBT&#39;</span><span class="p">,</span>     <span class="n">PRIMARY</span><span class="p">,</span>   <span class="s1">&#39;dash&#39;</span><span class="p">,</span>  <span class="n">results</span><span class="p">[</span><span class="s1">&#39;no_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;LR+Elo&#39;</span><span class="p">,</span>  <span class="n">SECONDARY</span><span class="p">,</span> <span class="s1">&#39;solid&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;GBT+Elo&#39;</span><span class="p">,</span> <span class="n">PRIMARY</span><span class="p">,</span>   <span class="s1">&#39;solid&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+<span class="p">]</span>
+
+<span class="n">curves</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing bootstrap CIs (n=1000)...&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">line_style</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="n">curve_specs</span><span class="p">:</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">prob</span><span class="p">)</span>
+    <span class="n">auc_value</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">prob</span><span class="p">)</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">bootstrap_roc</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">prob</span><span class="p">)</span>
+    <span class="n">curves</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">lbl</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">line_style</span><span class="p">,</span> <span class="n">auc_value</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">lbl</span><span class="si">}</span><span class="s1">: AUC=</span><span class="si">{</span><span class="n">auc_value</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="c1"># CI bands (hinten, damit Linien oben sind)</span>
+<span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">auc_val</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="ow">in</span> <span class="n">curves</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">FPR_GRID</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">FPR_GRID</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">y</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">hi</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">lo</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;toself&#39;</span><span class="p">,</span>
+        <span class="n">fillcolor</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span>
+        <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;rgba(0,0,0,0)&#39;</span><span class="p">),</span>
+        <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;skip&#39;</span>
+    <span class="p">))</span>
+
+<span class="c1"># Mean curves</span>
+<span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">auc_val</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="ow">in</span> <span class="n">curves</span><span class="p">:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">FPR_GRID</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lbl</span><span class="si">}</span><span class="s1"> (AUC=</span><span class="si">{</span><span class="n">auc_val</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
+        <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="n">ls</span><span class="p">),</span>
+        <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">&#39;FPR: %</span><span class="si">{x:.3f}</span><span class="s1">&lt;br&gt;TPR: %</span><span class="si">{y:.3f}</span><span class="s1">&lt;extra&gt;&lt;/extra&gt;&#39;</span>
+    <span class="p">))</span>
+
+<span class="c1"># Random baseline</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Random&#39;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s1">&#39;dot&#39;</span><span class="p">),</span>
+    <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">&#39;FPR: %</span><span class="si">{x:.3f}</span><span class="s1">&lt;br&gt;TPR: %</span><span class="si">{y:.3f}</span><span class="s1">&lt;extra&gt;&lt;/extra&gt;&#39;</span>
+<span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">PLOT_HEIGHT</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">PLOT_WIDTH</span><span class="p">,</span>
+    <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+    <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+    <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">xanchor</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">yanchor</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing bootstrap CIs (n=1000)...
+  LR: AUC=0.776
+  GBT: AUC=0.783
+  LR+Elo: AUC=0.789
+  GBT+Elo: AUC=0.796
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">marker_symbol</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;LR+Elo&#39;</span><span class="p">,</span>  <span class="n">SECONDARY</span><span class="p">,</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;GBT+Elo&#39;</span><span class="p">,</span> <span class="n">PRIMARY</span><span class="p">,</span>   <span class="s1">&#39;square&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+<span class="p">]:</span>
+    <span class="n">pt</span><span class="p">,</span> <span class="n">pp</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">pp</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">pt</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="n">marker_symbol</span><span class="p">),</span>
+        <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">&#39;Predicted prob: %</span><span class="si">{x:.3f}</span><span class="s1">&lt;br&gt;Fraction positives: %</span><span class="si">{y:.3f}</span><span class="s1">&lt;extra&gt;&lt;/extra&gt;&#39;</span>
+    <span class="p">))</span>
+
+<span class="c1"># Perfect calibration</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Perfect calibration&#39;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s1">&#39;dash&#39;</span><span class="p">),</span>
+    <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">&#39;%</span><span class="si">{x:.3f}</span><span class="s1"> → %</span><span class="si">{y:.3f}</span><span class="s1">&lt;extra&gt;&lt;/extra&gt;&#39;</span>
+<span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Mean Predicted Probability&#39;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Fraction of Positives&#39;</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">PLOT_HEIGHT</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">PLOT_WIDTH</span><span class="p">,</span>
+    <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+    <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+    <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">xanchor</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">yanchor</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">expected_calibration_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ece</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_proba</span> <span class="o">&gt;=</span> <span class="n">bins</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y_proba</span> <span class="o">&lt;</span> <span class="n">bins</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">acc</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_true</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">y_proba</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">ece</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">acc</span> <span class="o">-</span> <span class="n">conf</span><span class="p">)</span> <span class="o">*</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ece</span>
+
+<span class="n">ece_val</span> <span class="o">=</span> <span class="n">expected_calibration_error</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">gbt_proba</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected Calibration Error: </span><span class="si">{</span><span class="n">ece_val</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Expected Calibration Error: 0.0808
+</pre></div>
+</div>
+</div>
+</div>
+<section id="permutation-feature-importance">
+<h2>Permutation Feature Importance<a class="headerlink" href="#permutation-feature-importance" title="Link to this heading">#</a></h2>
+<p>Beyond tree-based impurity scores, permutation importance measures predictive contribution by shuffling each feature and observing performance degradation. More model-agnostic and robust to feature correlations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">perm_result</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;with_elo&#39;</span><span class="p">][</span><span class="s1">&#39;xgb&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># best model</span>
+    <span class="n">test</span><span class="p">[</span><span class="n">FEAT_NUM</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">],</span>
+    <span class="n">y_te</span><span class="p">,</span>
+    <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span>
+<span class="p">)</span>
+
+<span class="n">perm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Feature&#39;</span><span class="p">:</span> <span class="n">FEAT_NUM</span> <span class="o">+</span> <span class="n">FEAT_CAT</span><span class="p">,</span>
+    <span class="s1">&#39;Importance_Mean&#39;</span><span class="p">:</span> <span class="n">perm_result</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">,</span>
+    <span class="s1">&#39;Importance_Std&#39;</span><span class="p">:</span> <span class="n">perm_result</span><span class="o">.</span><span class="n">importances_std</span><span class="p">,</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Importance_Mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">perm_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             Feature  Importance_Mean  Importance_Std
+14      elo_diff_pre         0.108333        0.014200
+9    experience_diff         0.073577        0.013598
+0               home         0.044512        0.014499
+8         experience         0.012195        0.005222
+4   rolling_margin_3         0.009350        0.005618
+16          opponent         0.004878        0.008775
+6   consecutive_wins         0.004268        0.001688
+11   rwc_appearances         0.003455        0.002734
+5        h2h_winrate         0.001220        0.004827
+1     rolling_form_3         0.000000        0.000000
+12    rwc_best_stage         0.000000        0.000000
+17        tournament         0.000000        0.000000
+3    rolling_form_10        -0.000407        0.003726
+2     rolling_form_5        -0.000610        0.003022
+7    days_since_prev        -0.000610        0.001301
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">perm_df</span> <span class="o">=</span> <span class="n">perm_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Importance_Mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">top_12</span> <span class="o">=</span> <span class="n">perm_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># Gradient colormap</span>
+<span class="n">gradient_cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s1">&#39;gradient&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">SECONDARY</span><span class="p">,</span> <span class="n">PRIMARY</span><span class="p">])</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">top_12</span><span class="p">[</span><span class="s1">&#39;Importance_Mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> 
+                         <span class="n">vmax</span><span class="o">=</span><span class="n">top_12</span><span class="p">[</span><span class="s1">&#39;Importance_Mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_hex</span><span class="p">(</span><span class="n">gradient_cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">val</span><span class="p">)))</span> 
+          <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">top_12</span><span class="p">[</span><span class="s1">&#39;Importance_Mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">top_12</span><span class="p">[</span><span class="s1">&#39;Importance_Mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">top_12</span><span class="p">[</span><span class="s1">&#39;Feature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span>
+    <span class="n">error_x</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+        <span class="n">array</span><span class="o">=</span><span class="n">top_12</span><span class="p">[</span><span class="s1">&#39;Importance_Std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.85</span><span class="p">),</span>
+    <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">&#39;%</span><span class="si">{y}</span><span class="s1">&lt;br&gt;Importance: %</span><span class="si">{x:.4f}</span><span class="s1">±%</span><span class="si">{error_x.array:.4f}</span><span class="s1">&lt;extra&gt;&lt;/extra&gt;&#39;</span><span class="p">,</span>
+    <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Permutation Importance&#39;</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">PLOT_HEIGHT</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">PLOT_WIDTH</span><span class="p">,</span>
+    <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">autorange</span><span class="o">=</span><span class="s1">&#39;reversed&#39;</span><span class="p">),</span>
+    <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">,</span>
+    <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">MODEL_DIR</span> <span class="o">/</span> <span class="s1">&#39;results.pkl&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✓ Saved: results.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Saved: results.pkl
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "springboks-rugby-analytics"
+        },
+        kernelOptions: {
+            name: "springboks-rugby-analytics",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'springboks-rugby-analytics'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_exploratory_analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">03 · Exploratory Data Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_model_application.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">05 · Model Application — RWC 2027 Monte Carlo</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-feature-importance">Permutation Feature Importance</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tamara Brand
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
