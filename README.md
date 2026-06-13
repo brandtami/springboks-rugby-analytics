@@ -10,18 +10,6 @@
 
 ---
 
-## Interactive Notebooks
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brandtami/springboks-rugby-analytics/main?filepath=notebooks/05_model_application.ipynb)
-
-**Run notebooks interactively in the browser** (no local setup needed) — all visualizations will display!
-
-Or view static code with [nbviewer](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/)
-
-*Tip: Open with [nbviewer](https://nbviewer.jupyter.org/) for full interactivity*
-
----
-
 ## Overview
 
 This project develops a reproducible machine learning pipeline to predict international rugby match outcomes and simulate the Rugby World Cup 2027 tournament. The analysis covers all 24 participating nations across 10 RWC tournaments (1987–2023) and over 1,700 international test matches.
@@ -168,6 +156,14 @@ Model performance on the held-out test set (2020–2024) demonstrates the value 
 
 **For detailed results tables and feature importance rankings, see the full thesis report.**
 
+## Monte Carlo Simulation & Stochasticity
+
+⚠️ **Results vary between runs**: All championship probabilities (NB05) use Monte Carlo simulation (10,000 paths). While `SEED=42` ensures reproducibility within a session, **slight variations (±0.5–1.0%) are expected across runs** due to the randomized nature of match outcomes.
+
+**Example**: South Africa's championship probability typically ranges 22.5–24.0% across simulations.
+
+This is expected behavior for stochastic models. For publication, report empirical confidence intervals from multiple runs rather than single-run point estimates.
+
 ---
 
 ## Reproducibility
@@ -204,11 +200,3 @@ World Rugby. (2024). *RWC History*. https://www.rugbyworldcup.com/2027/en/past-t
 World Rugby. (2025). *RWC 2027*. https://www.rugbyworldcup.com/2027/en/
 
 ---
-
-## Monte Carlo Simulation & Stochasticity
-
-⚠️ **Results vary between runs**: All championship probabilities (NB05) use Monte Carlo simulation (10,000 paths). While `SEED=42` ensures reproducibility within a session, **slight variations (±0.5–1.0%) are expected across runs** due to the randomized nature of match outcomes.
-
-**Example**: South Africa's championship probability typically ranges 22.5–24.0% across simulations.
-
-This is expected behavior for stochastic models. For publication, report empirical confidence intervals from multiple runs rather than single-run point estimates.
