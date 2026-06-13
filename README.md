@@ -190,3 +190,13 @@ World Rugby. (2024). *Men's Rankings*. https://www.world.rugby/rankings
 World Rugby. (2024). *RWC History*. https://www.rugbyworldcup.com/2027/en/past-tournaments/1995 
 
 World Rugby. (2025). *RWC 2027*. https://www.rugbyworldcup.com/2027/en/
+
+---
+
+## Monte Carlo Simulation & Stochasticity
+
+⚠️ **Results vary between runs**: All championship probabilities (NB05) use Monte Carlo simulation (10,000 paths). While `SEED=42` ensures reproducibility within a session, **slight variations (±0.5–1.0%) are expected across runs** due to the randomized nature of match outcomes.
+
+**Example**: South Africa's championship probability typically ranges 22.5–24.0% across simulations.
+
+This is expected behavior for stochastic models. For publication, report empirical confidence intervals from multiple runs rather than single-run point estimates.
