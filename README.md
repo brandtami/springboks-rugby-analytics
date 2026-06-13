@@ -48,18 +48,6 @@ python3 run_pipeline.py --from 02   # restart from feature engineering
 python3 run_pipeline.py --only 05   # run simulation only
 python3 run_pipeline.py --from 02 --to 04  # run NB02, 03, 04
 ```
-
----
-
-## View Online
-
-The full interactive analysis is published at:  
-👉 **https://brandtami.github.io/springboks-rugby-analytics/**
-
-- Explore EDA plots (Plotly interactive)
-- Review model training & evaluation
-- See RWC 2027 championship probabilities
-
 ---
 
 ## Data Sources

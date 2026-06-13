@@ -160,7 +160,7 @@ Over the past three decades, international rugby has become more competitive and
 
 Despite these developments, international rugby union remains relatively underexplored compared to sports such as football and basketball. \cite{Bunker2022} Many existing studies rely on limited data sources, static feature sets, or validation approaches that do not adequately account for temporal dependence in match sequences. \cite{Bergmeir2012} Furthermore, only a limited number of studies extend match-level prediction to tournament-level forecasting with explicit uncertainty quantification. \cite{Guo2017,Leitner2010}
 
-Against this backdrop, the focus of this study is South Africa, a country of particular interest given that the team is pursuing an unprecedented third consecutive Rugby World Cup title (following victories in 2019 and 2023; the next tournament is scheduled for 2027). In addition to its analytical relevance, this focus is further motivated by the author’s intention to attend the 2027 Rugby World Cup (RWC 2027) in Australia, providing a personal dimension to the investigation of the Springboks’ prospects.
+Against this backdrop, the focus of this study is South Africa, a country of particular interest given that the team is pursuing an unprecedented third consecutive Rugby World Cup title (following victories in 2019 and 2023; the next tournament is scheduled for 2027). In addition to its analytical relevance, this focus is further motivated by the author's intention to attend the 2027 Rugby World Cup (RWC 2027) in Australia, providing a personal dimension to the investigation of the Springboks' prospects.
 
 \subsection{Research Objectives}
 This work addresses these gaps by integrating multiple rugby datasets and Tier 1 match histories from the RWC archive into a unified framework, providing comprehensive coverage of tournaments. Chronological validation is applied to prevent information leakage, and prediction is extended to tournament simulation with transparent uncertainty quantification.
@@ -182,7 +182,7 @@ The analysis combines three complementary datasets that together provide informa
 
 \vspace{0.25cm}
 \begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=1.5cm, itemsep=0.5em, parsep=0.5em]
-  \item \textbf{Kaggle International Rugby Results:} \cite{Begbie2022} covers all matches involving the 10 Tier~1 nations (Argentina, Australia, England, France, Ireland, New Zealand, Scotland, South Africa, Wales, Italy) from 1995 onwards. The professional era baseline (1995) coincides with South Africa’s return to the international rugby stage following the end of apartheid-era sporting isolation \cite{WorldRugby1995}.
+  \item \textbf{Kaggle International Rugby Results:} \cite{Begbie2022} covers all matches involving the 10 Tier~1 nations (Argentina, Australia, England, France, Ireland, New Zealand, Scotland, South Africa, Wales, Italy) from 1995 onwards. The professional era baseline (1995) coincides with South Africa's return to the international rugby stage following the end of apartheid-era sporting isolation \cite{WorldRugby1995}.
   
   \item \textbf{Flashscore Rugby World Cup Archive:} \cite{Flashscore2024} comprises web-scraped results from all 10 RWC tournaments (1987–2023), covering all pool and knockout matches for all participating teams. This source is essential for constructing tournament-specific pedigree features and validating model performance across Tier~2 nations not represented in the Kaggle dataset.
   
@@ -285,7 +285,7 @@ The Elo rating differential shows clear separation by match outcome (Figure~\ref
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\linewidth]{eda_elo_distribution.pdf}
+\includegraphics[width=0.5\linewidth]{eda_elo_distribution.pdf}
 \caption{Elo rating differential distribution by match outcome.}
 \label{fig:elo-dist}
 \end{figure}
@@ -424,15 +424,15 @@ The chronological test set (2020–2024, $n=492$ matches across all teams) inclu
 \toprule
 \textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{ROC-AUC} & \textbf{Brier} \\
 \midrule
-Logistic Regression & 0.724 & 0.713 & 0.718 & 0.776 & 0.200 \\
+Logistic Regression & 0.724 & 0.713 & 0.719 & 0.776 & 0.200 \\
 Logistic Regression + Elo & 0.724 & 0.709 & 0.727 & 0.789 & 0.193 \\
 Gradient Boosting & 0.724 & 0.748 & 0.647 & 0.783 & 0.194 \\
-\textbf{Gradient Boosting + Elo} & \textbf{0.734} & \textbf{0.749} & \textbf{0.676} & \textbf{0.796} & \textbf{0.190} \\
+\textbf{Gradient Boosting + Elo} & \textbf{0.734} & \textbf{0.749} & \textbf{0.677} & \textbf{0.796} & \textbf{0.190} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-The gradient boosting classifier with Elo features achieves the best overall performance: 73.4\% accuracy, ROC-AUC of 0.796, and Brier score of 0.190. This model is selected as the primary classifier. The Brier score improvement from 0.200 (LR baseline) to 0.190 (GBT+Elo) indicates meaningful gains in probabilistic calibration.
+The gradient boosting classifier with Elo features achieves the best overall performance: 73.4\% accuracy, ROC-AUC of 0.796, and Brier score of 0.190. This model is selected as the primary classifier. The Brier score improvement from 0.200 (LR baseline) to 0.190 (GBT+Elo), demonstrating modest gains in probabilistic calibration..
 
 \subsection{Uncertainty Quantification}
 The held-out test period (2020--2024, $n=492$ matches across all teams) provides an unbiased evaluation set. For South Africa specifically (n = 73 matches within this window), performance estimates carry additional sampling uncertainty. Bootstrap resampling with replacement (1,000 replicates) is used to estimate 95\% confidence intervals around key metrics. These intervals are displayed in Table~\ref{tab:ci-metrics}.
@@ -449,16 +449,15 @@ The held-out test period (2020--2024, $n=492$ matches across all teams) provides
 \toprule
 \textbf{Metric} & \textbf{GBT+Elo Estimate} & \textbf{95\% Confidence Interval} \\
 \midrule
-Accuracy & 0.734 & [0.627, 0.848] \\
-ROC-AUC & 0.796 & [0.692, 0.891] \\
-Brier Score & 0.190 & [0.165, 0.218] \\
+Accuracy & 0.734 & [0.6951, 0.7724] \\
+ROC-AUC  & 0.796 & [0.7557, 0.8322] \\
+Brier    & 0.190 & [0.1680, 0.2119] \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-The wide confidence intervals reflect the inherent unpredictability of international rugby match outcomes. The ROC-AUC interval [0.692, 0.891] indicates that while the model reliably discriminates between winners and non-winners, substantial uncertainty remains. This is not a model limitation, but rather reflects genuine competitive volatility in international rugby.
-
-For the RWC 2027 tournament simulation, championship probability estimates similarly carry sampling uncertainty. South Africa's estimated championship probability of 23.2\% is derived from 10,000 Monte Carlo replicates and carries an approximate 95\% confidence interval of [21.8\%, 24.7\%], reflecting both sampling variability and match-level outcome randomness.
+The wide confidence intervals reflect the inherent unpredictability of international rugby match outcomes. The ROC-AUC interval [0.7557, 0.8322] indicates that while the model reliably discriminates between winners and non-winners, substantial uncertainty remains. This is not a model limitation, but rather reflects genuine competitive volatility in international rugby.
+For the RWC 2027 tournament simulation, championship probability estimates similarly carry sampling uncertainty. South Africa's estimated championship probability of 23.8\% is derived from 10,000 Monte Carlo replicates and carries an approximate 95\% confidence interval of [22.4\%, 25.3\%], reflecting both sampling variability and match-level outcome randomness.
 
 \subsection{Feature Importance}
  
@@ -468,14 +467,28 @@ As shown in Figure~\ref{fig:feature_importance}, these results align with domain
  
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{model_feature_importance.pdf}
+    \includegraphics[width=0.5\linewidth]{model_feature_importance.pdf}
     \caption[Feature importance ranking]{Permutation-based feature importance for the gradient boosting model.}
     \label{fig:feature_importance}
 \end{figure}
 \FloatBarrier
 
 \subsection{Model Performance: Discrimination and Calibration}
+
 \subsubsection{Discriminative Ability (ROC-AUC)}
+
+To assess the robustness of the selected model, Figure~\ref{fig:roc-ci} displays ROC curves for all four model configurations with 95\% bootstrap confidence intervals (1,000 replicates). The gradient boosting classifier with Elo features (AUC = 0.796, 95\% CI: [+0.0049, +0.0585]) demonstrates superior discrimination compared to the Logistic Regression baseline (AUC = 0.776, 95\% CI: [+0.0049, +0.0585]). The confidence intervals account for both sampling variability in the test set and inherent uncertainty in match outcomes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{model_roc_curves.pdf}
+\caption[ROC curves with bootstrap confidence intervals]{ROC curves for all model configurations, along with their 95\% bootstrap confidence intervals.}
+\label{fig:roc-ci}
+\end{figure}
+\FloatBarrier
+
+\subsubsection{Probabilistic Calibration}
+
 Probabilistic calibration, or the degree of agreement between predicted and observed probabilities, is essential for reliable tournament simulation. The GBT+Elo model demonstrates good calibration across the test set.
 
 \vspace{0.25cm}
@@ -505,56 +518,37 @@ is critical.
 \end{figure}
 \FloatBarrier
 
-\subsubsection{Probabilistic Calibration}
-
-To assess the robustness of the selected model, Figure~\ref{fig:roc-ci} displays ROC curves for all four model configurations with 95\% bootstrap confidence intervals (1,000 replicates). The gradient boosting classifier with Elo features (AUC = 0.796, 95\% CI: [+0.0049, +0.0585]) demonstrates superior discrimination compared to the Logistic Regression baseline (AUC = 0.776, 95\% CI: [+0.0049, +0.0585]). The confidence intervals account for both sampling variability in the test set and inherent uncertainty in match outcomes.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\linewidth]{model_roc_curves.pdf}
-\caption[ROC curves with bootstrap confidence intervals]{ROC curves for all model configurations, along with their 95\% bootstrap confidence intervals.}
-\label{fig:roc-ci}
-\end{figure}
-\FloatBarrier
-
 \subsection{2027 Rugby World Cup Probabilistic Forecast}
+
 \subsubsection{South African Tournament Progression}
 
 For the case study focusing on South Africa, the stage progression probabilities shown in Figure~\ref{fig:sa-funnel} quantify the likelihood of advancing beyond each knockout phase.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\linewidth]{rwc2027_sa_funnel.pdf}
+\includegraphics[width=0.5\linewidth]{rwc2027_sa_funnel.pdf}
 \caption[SA stage progression probabilities]{South Africa's stage progression probabilities through the RWC 2027 knockout rounds.}
 \label{fig:sa-funnel}
 \end{figure}
 \FloatBarrier
 
-The probabilities reveal a clear tournament gradient: group stage qualification is 
-near-certain (99.9\%), while quarter-final progression becomes contingent on opponent 
-draw (60.0\%). The semi-final probability drops to 35.8\%, and the championship estimate 
-of 23.2\% reflects South Africa's competitive but not overwhelming advantage against elite 
-opposition. Tournament sensitivity to different bracket compositions is further explored in Appendix Figure~\ref{fig:app-path}.
-
+The probabilities reveal a clear tournament gradient: group stage qualification is near-certain (99.6\%), while quarter-final progression becomes contingent on opponent draw (60.3\%). The semi-final probability drops to 35.9\%, followed by a final stage probability of 12.1\%. The championship estimate of 23.8\% reflects South Africa's competitive but not overwhelming advantage against elite opposition. Tournament sensitivity to different bracket compositions is further explored in Appendix Figure~\ref{fig:app-path}.
 
 \subsubsection{Championship Probabilities Across All Teams}
 
-Figure~\ref{fig:championship} illustrates how stage progression probabilities can be used to quantify the likelihood of advancing beyond each knockout phase in a case study focusing on South Africa.
+Figure~\ref{fig:championship} illustrates championship probabilities for all 24 participating teams from the Monte Carlo simulation.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\linewidth]{rwc2027_championship.pdf}
+\includegraphics[width=0.6\linewidth]{rwc2027_championship.pdf}
 \caption[RWC 2027 championship probabilities]{Championship probabilities for all 24 RWC 2027 teams from 10,000 Monte Carlo simulations.}
 \label{fig:championship}
 \end{figure}
 \FloatBarrier
 
-South Africa receives the highest estimated championship probability (23.2\%) within the simulation framework, followed by New Zealand (16.1\%) and Ireland (15.4\%). These top three nations account for 54.7\% of the simulated championship outcomes, reflecting their consistent high Elo ratings. These estimates should be interpreted as model-based probabilities rather than deterministic forecasts. They are conditional on the assumptions embedded within the ranking system, feature construction process, and tournament simulation design.
+South Africa receives the highest estimated championship probability (23.8\%) within the simulation framework, followed by New Zealand (15.6\%) and Ireland (14.8\%). These top three nations account for 54.2\% of the simulated championship outcomes, reflecting their consistent high Elo ratings. These estimates should be interpreted as model-based probabilities rather than deterministic forecasts. They are conditional on the assumptions embedded within the ranking system, feature construction process, and tournament simulation design.
 
-The middle tier includes France (10.1\%), Argentina (8.5\%), and Scotland (6.7\%), each 
-with meaningful but modest championship chances. Detailed championship probabilities for 
-all Tier~1 nations are provided in Appendix Figure~\ref{fig:app-tier1}. The remaining 18 teams 
-collectively account for 8.0\% of championship probability, with several nations having near-zero estimated chances based on current rankings.
+The middle tier includes France (10.8\%), Argentina (8.2\%), and Scotland (6.5\%), each with meaningful but modest championship chances. Detailed championship probabilities for all Tier~1 nations are provided in Appendix Figure~\ref{fig:app-tier1}. The remaining 18 teams collectively account for 8.0\% of championship probability, with several nations having near-zero estimated chances based on current rankings.
 
 \section{Discussion}
 
@@ -587,7 +581,7 @@ Sports outcomes depend on factors beyond model scope: sleep, nutrition, psycholo
 
 \subsubsection{Uncertainty as Information}
 
-The wide confidence intervals (ROC-AUC 95\% CI: [0.692, 0.891]) reflect genuine sporting volatility, not model weakness. South Africa's 23.2\% championship probability is a conditional forecast: given the current information, South Africa is favoured, but in 76.8\% of plausible tournaments, another team would be expected to succeed. These probabilities remain valid only if past outcome drivers remain stable.
+The wide confidence intervals (ROC-AUC 95\% CI: [0.756, 0.832]) reflect genuine sporting volatility, not model weakness. South Africa's 23.8\% championship probability is a conditional forecast: given the current information, South Africa is favoured, but in 76.2\% of plausible tournaments, another team would be expected to succeed. These probabilities remain valid only if past outcome drivers remain stable.
 
 \section{Conclusion}
 

@@ -11,3 +11,24 @@ reports/
 .DS_Store
 *.pkl
 *.parquet
+
+# Paper LaTeX files
+paper/*.tex
+paper/*.bib
+paper/figures/
+paper/*.aux
+paper/*.log
+paper/*.fdb_latexmk
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.synctex.gz
+paper/*.toc
+paper/*.fls
+paper/*.run.xml
+paper/*.bcf
+paper/.DS_Store
+
+# Keep only the PDF!
+!paper/Final_Project.pdf
+!paper/references.bib 
