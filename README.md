@@ -10,6 +10,17 @@
 
 ---
 
+## Interactive Notebooks
+
+View the analysis with interactive visualizations:
+- **[Exploratory Analysis](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/03_exploratory_analysis.ipynb)** — Data exploration & feature engineering
+- **[Model Training](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/04_model_training.ipynb)** — Model comparison, importance & evaluation
+- **[Model Application](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/05_model_application.ipynb)** — RWC 2027 forecast & Monte Carlo simulation
+
+*Tip: Open with [nbviewer](https://nbviewer.jupyter.org/) for full interactivity*
+
+---
+
 ## Overview
 
 This project develops a reproducible machine learning pipeline to predict international rugby match outcomes and simulate the Rugby World Cup 2027 tournament. The analysis covers all 24 participating nations across 10 RWC tournaments (1987–2023) and over 1,700 international test matches.
