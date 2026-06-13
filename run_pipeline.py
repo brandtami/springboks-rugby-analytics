@@ -93,17 +93,17 @@ def main() -> None:
 
     # select notebooks
     if args.only:
-        to_run = [(i, n, t) for i, n, t in NOTEBOOKS if i == args.only]
+        to_run = [(i, n) for i, n in NOTEBOOKS if i == args.only]
     else:
-        to_run = [(i, n, t) for i, n, t in NOTEBOOKS
+        to_run = [(i, n) for i, n in NOTEBOOKS
                   if args.start <= i <= args.end]
 
     if not to_run:
-        print(f"No notebooks matched. Available: {[i for i,_,_ in NOTEBOOKS]}")
+        print(f"No notebooks matched. Available: {[i for i,_ in NOTEBOOKS]}")
         sys.exit(1)
 
     # validate files exist
-    missing = [n for _, n, _ in to_run if not (ROOT / n).exists()]
+    missing = [n for _, n in to_run if not (ROOT / n).exists()]
     if missing:
         print("ERROR — missing notebooks:")
         for m in missing: print(f"  {ROOT / m}")

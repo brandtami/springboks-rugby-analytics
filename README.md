@@ -177,7 +177,7 @@ Static reference files in `data/sources/` are version-controlled and fully docum
 ## References
 
 Begbie, L. (2022). *International Rugby Union Results* [Dataset]. Kaggle.  
-https://doi.org/10.34740/KAGGLE/DSN/2510185
+https://www.kaggle.com/datasets/lylebegbie/international-rugby-union-results-from-18712022) | Tier 1 matches 1995–2024
 
 Cerqueira, V., Torgo, L., & Mozetič, I. (2020). Evaluating time series forecasting models: An empirical study on performance estimation methods. *Machine Learning, 109*, 1997–2028.
 
@@ -185,6 +185,6 @@ Gásquez, R., & Royuela, V. (2016). The Determinants of International Football S
 
 Hvattum, L. M., & Arntzen, H. (2010). Using ELO ratings for match result prediction in association football. *International Journal of Forecasting, 26*(3), 460–470.
 
-World Rugby. (2024). *Men's Rankings*. https://www.world.rugby/rankings/mru  
-World Rugby. (2024). *RWC History*. https://www.world.rugby/tournaments/rugbyworldcup/history  
+World Rugby. (2024). *Men's Rankings*. https://www.world.rugby/rankings
+World Rugby. (2024). *RWC History*. https://www.rugbyworldcup.com/2027/en/past-tournaments/1995 
 World Rugby. (2025). *RWC 2027*. https://www.rugbyworldcup.com/2027/en/
