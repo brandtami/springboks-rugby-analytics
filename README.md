@@ -6,7 +6,19 @@
 **Author:** Tamara Brand  
 **Programme:** CAS Applied Data Science — University of Bern  
 **Data period:** 1987–2024  
-**📖 [Full Paper PDF →](paper/Final_Project_CAS_ADS_Tamara_Brand.pdf)**
+**[Final_Project_CAS_ADS_Tamara_Brand](paper/Final_Project_CAS_ADS_Tamara_Brand.pdf)**
+
+---
+
+## Interactive Notebooks
+
+Explore the analysis with full interactivity and live visualizations:
+
+- **[Exploratory Data Analysis](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/03_exploratory_analysis.ipynb)** — Feature distributions, home advantage effects, Elo rating dynamics
+- **[Model Training & Evaluation](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/04_model_training.ipynb)** — Classifier comparison, ROC curves, feature importance, walk-forward cross-validation
+- **[RWC 2027 Simulation & Forecast](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/05_model_application.ipynb)** — Monte Carlo tournament simulation, championship probabilities, stage progression analysis
+
+*Tip: Use [nbviewer](https://nbviewer.jupyter.org/) for optimal rendering of interactive visualizations*
 
 ---
 
