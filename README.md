@@ -14,11 +14,17 @@
 
 Explore the analysis with full interactivity and live visualizations:
 
-- **[Exploratory Data Analysis](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/03_exploratory_analysis.ipynb)** — Feature distributions, home advantage effects, Elo rating dynamics
-- **[Model Training & Evaluation](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/04_model_training.ipynb)** — Classifier comparison, ROC curves, feature importance, walk-forward cross-validation
-- **[RWC 2027 Simulation & Forecast](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/05_model_application.ipynb)** — Monte Carlo tournament simulation, championship probabilities, stage progression analysis
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brandtami/springboks-rugby-analytics/main?filepath=notebooks/05_model_application.ipynb)
 
-*Tip: Use [nbviewer](https://nbviewer.jupyter.org/) for optimal rendering of interactive visualizations*
+**Click above or [open in Binder](https://mybinder.org/v2/gh/brandtami/springboks-rugby-analytics/main) to run notebooks interactively** 
+— all visualizations, code, and outputs will be fully functional (no local setup required).
+
+---
+
+**Individual notebooks:**
+- [Exploratory Data Analysis](https://mybinder.org/v2/gh/brandtami/springboks-rugby-analytics/main?filepath=notebooks/03_exploratory_analysis.ipynb)
+- [Model Training & Evaluation](https://mybinder.org/v2/gh/brandtami/springboks-rugby-analytics/main?filepath=notebooks/04_model_training.ipynb)
+- [RWC 2027 Simulation & Forecast](https://mybinder.org/v2/gh/brandtami/springboks-rugby-analytics/main?filepath=notebooks/05_model_application.ipynb)
 
 ---
 
