@@ -12,10 +12,11 @@
 
 ## Interactive Notebooks
 
-View the analysis with interactive visualizations:
-- **[Exploratory Analysis](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/03_exploratory_analysis.ipynb)** — Data exploration & feature engineering
-- **[Model Training](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/04_model_training.ipynb)** — Model comparison, importance & evaluation
-- **[Model Application](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/05_model_application.ipynb)** — RWC 2027 forecast & Monte Carlo simulation
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brandtami/springboks-rugby-analytics/main?filepath=notebooks/05_model_application.ipynb)
+
+**Run notebooks interactively in the browser** (no local setup needed) — all visualizations will display!
+
+Or view static code with [nbviewer](https://nbviewer.jupyter.org/github/brandtami/springboks-rugby-analytics/blob/main/notebooks/)
 
 *Tip: Open with [nbviewer](https://nbviewer.jupyter.org/) for full interactivity*
 
