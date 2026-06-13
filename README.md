@@ -186,5 +186,7 @@ Gásquez, R., & Royuela, V. (2016). The Determinants of International Football S
 Hvattum, L. M., & Arntzen, H. (2010). Using ELO ratings for match result prediction in association football. *International Journal of Forecasting, 26*(3), 460–470.
 
 World Rugby. (2024). *Men's Rankings*. https://www.world.rugby/rankings
+
 World Rugby. (2024). *RWC History*. https://www.rugbyworldcup.com/2027/en/past-tournaments/1995 
+
 World Rugby. (2025). *RWC 2027*. https://www.rugbyworldcup.com/2027/en/
